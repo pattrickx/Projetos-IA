@@ -1,17 +1,19 @@
 package algoritmo;
 
+import algoritmo.utils.aresta;
 import controle.Constantes;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
+import java.util.ArrayList;
 public class Poupador extends ProgramaPoupador {
 	double [][]MapHap = new double[30][30];
 	double [][]MapPos = new double[30][30];
 	int [][]MapVis = new int[5][5];
 	int [][]MapOlf = new int[3][3];
-	int []Proibido={-1,-2,1,5};
+	int []Proibido={-1,-2,1,200,210,220,230};
+	public ArrayList<Integer> DirPos = new ArrayList<>();
 	int moedas = 0;
 	int X,Y;
 
@@ -34,9 +36,9 @@ public class Poupador extends ProgramaPoupador {
 			return true;
 		return false;
 	}
-	public void Area(int x,int y,double peso){
-		for(int i = -2; i<=2; i++){
-			for(int j = -2;j<=2;j++) {
+	public void Area(int x,int y,double peso,int size){
+		for(int i = -size; i<=size; i++){
+			for(int j = -size;j<=size;j++) {
 				if (Valid(x+j,y+i) ) {
 					if (i == j && i == 0) {
 						MapHap[y + i][x + j] += peso;
@@ -45,18 +47,39 @@ public class Poupador extends ProgramaPoupador {
 					} else {
 						MapHap[y + i][x + j] += peso * 0.25;
 					}
+				}else{
+					break;
 				}
 			}
 		}
 	}
-	public void AreaNivel(int x,int y,double peso){
-		for(int i = -2; i<=2; i++){
-			for(int j = -2;j<=2;j++) {
+	public void AreaNivel(int x,int y,double peso,int size){
+		for(int i = -size; i<=size; i++){
+			for(int j = -size;j<=size;j++) {
 				if (Valid(x+j,y+i)) {
 						MapHap[y + i][x + j] = peso;
+				}else{
+					break;
 				}
 			}
 		}
+	}
+	public boolean LadraoVisible(){
+		for (int y = 0; y < MapVis.length; y++) {
+			for (int x = 0; x < MapVis.length; x++) {
+				if(MapVis[y][x]>199){
+					return true;
+				}
+			}
+		}
+		for (int y = 0; y < MapOlf.length; y++) {
+			for (int x = 0; x < MapOlf.length; x++) {
+				if(MapOlf[y][x]>3){
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	public void Happiness(){
 
@@ -64,13 +87,21 @@ public class Poupador extends ProgramaPoupador {
 			for (int x = 0; x < MapVis.length; x++){
 				if (Valid((X + x-2),(Y + y-2))){
 					if (MapVis[y][x] > 199 ) {
-						Area((X+x-2),(Y+y-2),-1000*(sensor.getNumeroDeMoedas()+1));
+						Area((X+x-2),(Y+y-2),-1000*(sensor.getNumeroDeMoedas()+1),2);
 
 					}else if (MapVis[y][x] == 4 || (MapVis[y][x] == 3 && moedas>0)){
-						Area((X+x-2),(Y+y-2),100);
+						Area((X+x-2),(Y+y-2),100,2);
 
 					}else if(MapVis[y][x] == 1 || MapVis[y][x] >100){
 						MapHap[Y + y-2][X + x-2] = -Double.POSITIVE_INFINITY;
+					}
+					else if(MapVis[y][x] == 5){
+						if(sensor.getNumeroDeMoedas()>5 && LadraoVisible()){
+							Area((X+x-2),(Y+y-2),100*sensor.getNumeroDeMoedas(),0);
+
+						}else{
+							Area((X+x-2),(Y+y-2),-500*(sensor.getNumeroDeMoedas()+1),0);
+						}
 					}
 				}
 
@@ -121,14 +152,19 @@ public class Poupador extends ProgramaPoupador {
 				if (Valid((X + x - 2), (Y + y - 2))) {
 					if(MapPos[(Y + y - 2)][(X + x - 2)]>199){
 						if(MapVis[y][x]<199){
-							AreaNivel((X + x - 2),(Y + y - 2),-100);
+							AreaNivel((X + x - 2),(Y + y - 2),-100,2);
 						}
 					}else if(MapPos[(Y + y - 2)][(X + x - 2)]==4){
 						if(MapVis[y][x]!=4){
-							AreaNivel((X + x - 2),(Y + y - 2),-100);
+							AreaNivel((X + x - 2),(Y + y - 2),-100,2);
 						}
 					}
 					MapPos[(Y + y - 2)][(X + x - 2)]=MapVis[y][x];
+				}
+
+				if(MapVis[y][x]==1){
+					MapPos[(Y + y - 2)][(X + x - 2)]=MapVis[y][x];
+					MapHap[(Y + y - 2)][(X + x - 2)] = - Double.POSITIVE_INFINITY;
 				}
 			}
 		}
@@ -196,13 +232,14 @@ public class Poupador extends ProgramaPoupador {
 		int Yb = (int)Constantes.posicaoBanco.getY();
 		MapPos[Yb][Xb]=3;
 		if(sensor.getNumeroDeMoedas()>0){
-			Area(Xb,Yb,200*sensor.getNumeroDeMoedas());
+//			AreaNivel(Xb, Yb, 0);
+			Area(Xb,Yb,1*sensor.getNumeroDeMoedas(),2);
 		}
 		else{
 			if(MapHap[Yb][Xb]>0) {
-				AreaNivel(Xb, Yb, -100);
+				AreaNivel(Xb, Yb, -10,2);
 			}else {
-				Area(Xb, Yb, -100);
+				Area(Xb, Yb, -10,2);
 			}
 		}
 //		if (sensor.getNumeroDeMoedas()>moedas){
@@ -220,25 +257,50 @@ public class Poupador extends ProgramaPoupador {
 		///Fear();
 		double Menor = - Double.POSITIVE_INFINITY;
 		int Dir = 0;
-		if (MovementIsPossible(0,1) && MapHap[Y][X+1]>Menor){
+		if (MovementIsPossible(0,1) && MapHap[Y][X+1]>=Menor){
+			DirPos.add(3);
 			Menor = MapHap[Y][X+1];
 			Dir = 3;
 		}
-		if (MovementIsPossible(0,-1) && MapHap[Y][X-1]>Menor ){
+		if (MovementIsPossible(0,-1) && MapHap[Y][X-1]>=Menor ){
+			if(MapHap[Y][X-1]==Menor){
+				DirPos.add(4);
+			}else{
+				DirPos.clear();
+				DirPos.add(4);
+			}
+
 			Menor = MapHap[Y][X-1];
 			Dir = 4;
 		}
-		if (MovementIsPossible(1,0) && MapHap[Y+1][X]>Menor){
+		if (MovementIsPossible(1,0) && MapHap[Y+1][X]>=Menor){
+			if(MapHap[Y+1][X]==Menor){
+				DirPos.add(2);
+			}else{
+				DirPos.clear();
+				DirPos.add(2);
+			}
 			Menor = MapHap[Y+1][X];
 			Dir = 2;
 		}
-		if (MovementIsPossible(-1,0) && MapHap[Y-1][X]>Menor ){
+		if (MovementIsPossible(-1,0) && MapHap[Y-1][X]>=Menor ){
+			if(MapHap[Y-1][X]==Menor){
+				DirPos.add(1);
+			}else{
+				DirPos.clear();
+				DirPos.add(1);
+			}
 			Menor = MapHap[Y-1][X];
 			Dir = 1;
 		}
-		if (Dir == 0)
+		if (Dir == 0) {
 			Dir = (int) (Math.random() * 5);
 
+		}
+		if (DirPos.size()>1){
+			int aux = (int) (Math.random() * DirPos.size());
+			Dir = DirPos.get(aux);
+		}
 //		for (int i = 0; i<array.length;i++)
 //			for (int j = 0; j<array.length;j++)
 //				array[i][j] = i;
