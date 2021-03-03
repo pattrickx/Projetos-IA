@@ -10,6 +10,7 @@ public class no {
     public int id;
     public int h;
     public int f;
+    public no pai;
 
     public ArrayList<aresta> arestas;
     public no(){

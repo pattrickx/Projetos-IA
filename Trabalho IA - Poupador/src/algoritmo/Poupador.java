@@ -368,7 +368,7 @@ public class Poupador extends ProgramaPoupador {
 		return new int[]{x, y};
 	}
 
-	public void aStar(int idi, int idf) {
+	public no aStar(int idi, int idf) {
 		Grafo gStar = new Grafo();
 		int id = 0;
 		for (int y = 0; y < MapPos.length; y++) {
@@ -405,6 +405,8 @@ public class Poupador extends ProgramaPoupador {
 //			f = peso + h
 
 			no ni = gStar.nos.get(idi);
+			ni.pai=new no();
+			ni.pai.id =-1;
 			no nf = gStar.nos.get(idf);
 			ArrayList<no> nos = new ArrayList<>();
 
@@ -414,12 +416,19 @@ public class Poupador extends ProgramaPoupador {
 				no aux = nos.get(0);
 				nos.remove(0);
 
+				if(aux.id == idf){
+					return aux;
+				}
 				for(int i=0; i < aux.arestas.size(); i++){
-					nos.add(gStar.nos.get(aux.arestas.get(i).destino));
+					no fi = gStar.nos.get(aux.arestas.get(i).destino);
+					fi.pai=aux;
+					nos.add(fi);
 
 				}
+				return aux;
 			}
 
 		}
+		return  new no();
 	}
 }

@@ -2,12 +2,12 @@ package algoritmo.utils;
 
 import java.util.ArrayList;
 
-import algoritmo.utils.grafo;
+import algoritmo.utils.Grafo;
 
 public class DAO {
     private ArrayList<no> lista = new ArrayList<>();
 
-    private grafo g[];
+    private Grafo g[];
     public DAO(int MapHap[][], int MapPos[][], int x, int y) {
 
         int Starti = y-5>=0?y-5:0;
@@ -34,7 +34,7 @@ public class DAO {
 
     }
 
-    public grafo[] getGrafo(){
+    public Grafo[] getGrafo(){
 
         return g;
     }
