@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Poupador extends ProgramaPoupador {
 	double[][] MapHap = new double[30][30];
@@ -351,6 +353,7 @@ public class Poupador extends ProgramaPoupador {
 //			for (int j = 0; j < MapHap.length; j++)
 //				Print(MapPos[i][j] + " ");
 //		}
+		no n= aStar(((Xb-4)+Yb*30),(Xb+Yb*30));
 		Print("\n");
 		return Dir;
 	}
@@ -383,52 +386,81 @@ public class Poupador extends ProgramaPoupador {
 					n.h = 0;
 					n.f = 0;
 
-					if (Valid(x + 1, y)){
-						n.arestas.add(new aresta(MapHap[y][x+1], id + 1, id, 3));
-						}
+					if (Valid(x + 1, y)) {
+						n.arestas.add(new aresta(MapHap[y][x + 1], id + 1, id, 3));
+					}
 					if (Valid(x - 1, y)) {
 						n.arestas.add(new aresta(MapHap[y][x - 1], id - 1, id, 4));
 					}
-					if (Valid(x, y + 1)){
-						n.arestas.add(new aresta(MapHap[y+1][x], id + 30, id, 2));
+					if (Valid(x, y + 1)) {
+						n.arestas.add(new aresta(MapHap[y + 1][x], id + 30, id, 2));
 					}
-					if (Valid(x, y - 1)){
-						n.arestas.add(new aresta(MapHap[y-1][x], id - 30, id, 1));
+					if (Valid(x, y - 1)) {
+						n.arestas.add(new aresta(MapHap[y - 1][x], id - 30, id, 1));
 					}
 
 					gStar.nos.add(n);
 					id++;
 				}
 			}
-
+		}
 //			h = (delta x + delta y)
 //			f = peso + h
 
-			no ni = gStar.nos.get(idi);
-			ni.pai=new no();
-			ni.pai.id =-1;
-			no nf = gStar.nos.get(idf);
-			ArrayList<no> nos = new ArrayList<>();
+		no ni = gStar.nos.get(idi);
+		ni.pai=new no();
+		ni.pai.id =-1;
+		no nf = gStar.nos.get(idf);
+		ArrayList<no> nos = new ArrayList<>();
 
-			nos.add(ni);
+		nos.add(ni);
+		no aux = new no();
+		while(!nos.isEmpty()){
+			aux = nos.get(0);
+			nos.remove(0);
 
-			while(!nos.isEmpty()){
-				no aux = nos.get(0);
-				nos.remove(0);
-
-				if(aux.id == idf){
-					return aux;
-				}
-				for(int i=0; i < aux.arestas.size(); i++){
-					no fi = gStar.nos.get(aux.arestas.get(i).destino);
-					fi.pai=aux;
-					nos.add(fi);
-
-				}
+			if(aux.id == idf){
 				return aux;
 			}
+			for(int i=0; i < aux.arestas.size(); i++){
+				no fi = gStar.nos.get(aux.arestas.get(i).destino);
+				fi.pai=aux;
+				if(fi.peso<0){
+					nos.add(fi);
+				}
+
+			}
+
+//			Print("Antes\n");
+//			for(int i=0; i < nos.size(); i++){
+//
+//				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
+//
+//			}
+//			Print("\n");
+//			Print("\n");
+			Collections.sort(nos, new Comparator<no>(){
+				public int compare(no n1, no n2){
+
+					return  Integer.valueOf((int)(n2.peso)).compareTo((int)(n1.peso));
+//						return Double.valueOf(n2.peso).compareTo(n1.peso);
+				}
+			});
+
+
+//			Print("Depois\n");
+//			for(int i=0; i < nos.size(); i++){
+//
+//				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
+//
+//			}
+//			Print("\n");
+//			Print("\n");
+
 
 		}
-		return  new no();
+		return aux;
+
+
 	}
 }
