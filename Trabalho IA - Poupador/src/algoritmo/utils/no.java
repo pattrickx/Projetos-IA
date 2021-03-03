@@ -8,8 +8,8 @@ public class no {
     public double peso;
     public int type;
     public int id;
-    public int h;
-    public int f;
+    public double h;
+    public double f;
     public no pai;
 
     public ArrayList<aresta> arestas;

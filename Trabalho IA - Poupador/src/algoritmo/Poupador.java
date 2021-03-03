@@ -256,16 +256,16 @@ public class Poupador extends ProgramaPoupador {
 //			AreaNivel(Xb, Yb, 0);
 			if (MapHap[Yb][Xb] < 0) {
 				AreaNivel(Xb, Yb, 0, 2);
-				Area(Xb, Yb, 100 * sensor.getNumeroDeMoedas(), 2);
+				Area(Xb, Yb, 10 * sensor.getNumeroDeMoedas(), 2);
 			} else {
-				Area(Xb, Yb, 100 * sensor.getNumeroDeMoedas(), 2);
+				Area(Xb, Yb, 10 * sensor.getNumeroDeMoedas(), 2);
 			}
 		} else {
 			if (MapHap[Yb][Xb] > 0) {
 				AreaNivel(Xb, Yb, 0, 2);
-				Area(Xb, Yb, -100, 2);
+				Area(Xb, Yb, -10, 2);
 			} else {
-				Area(Xb, Yb, -100, 2);
+				Area(Xb, Yb, -10, 2);
 			}
 		}
 //		if (sensor.getNumeroDeMoedas()>moedas){
@@ -341,19 +341,19 @@ public class Poupador extends ProgramaPoupador {
 
 		int[][] MapT = new int[30][30];
 		MapT = Termico.termico(MapT, Xb, Yb);
-		Print("\nTermico");
-		for (int i = 0; i < MapT.length; i++) {
-			Print("\n");
-			for (int j = 0; j < MapT.length; j++)
-				Print(MapT[i][j] + " ");
-		}
+//		Print("\nTermico");
+//		for (int i = 0; i < MapT.length; i++) {
+//			Print("\n");
+//			for (int j = 0; j < MapT.length; j++)
+//				Print(MapT[i][j] + " ");
+//		}
 //		Print("\n");
 //		for (int i = 0; i<MapPos.length;i++) {
 //			Print("\n");
 //			for (int j = 0; j < MapHap.length; j++)
 //				Print(MapPos[i][j] + " ");
 //		}
-		no n= aStar(((Xb-4)+Yb*30),(Xb+Yb*30));
+//		no n= aStar(((Xb)+Yb*30),(Xb+Yb*30));
 		Print("\n");
 		return Dir;
 	}
@@ -416,8 +416,9 @@ public class Poupador extends ProgramaPoupador {
 		nos.add(ni);
 		no aux = new no();
 		while(!nos.isEmpty()){
-			aux = nos.get(0);
-			nos.remove(0);
+			Print(nos.size()+"\n");
+			aux = nos.get(nos.size()-1);
+			nos.remove(nos.size()-1);
 
 			if(aux.id == idf){
 				return aux;
@@ -425,38 +426,32 @@ public class Poupador extends ProgramaPoupador {
 			for(int i=0; i < aux.arestas.size(); i++){
 				no fi = gStar.nos.get(aux.arestas.get(i).destino);
 				fi.pai=aux;
-				if(fi.peso<0){
-					nos.add(fi);
-				}
+				fi.h = Math.abs(fi.x - nf.x)+Math.abs(fi.y - nf.y);
+				fi.f = fi.peso + fi.h ;
+				nos.add(fi);
+
 
 			}
 
 //			Print("Antes\n");
 //			for(int i=0; i < nos.size(); i++){
-//
 //				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
-//
 //			}
 //			Print("\n");
 //			Print("\n");
 			Collections.sort(nos, new Comparator<no>(){
 				public int compare(no n1, no n2){
-
 					return  Integer.valueOf((int)(n2.peso)).compareTo((int)(n1.peso));
-//						return Double.valueOf(n2.peso).compareTo(n1.peso);
 				}
 			});
 
 
 //			Print("Depois\n");
 //			for(int i=0; i < nos.size(); i++){
-//
 //				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
-//
 //			}
 //			Print("\n");
 //			Print("\n");
-
 
 		}
 		return aux;
