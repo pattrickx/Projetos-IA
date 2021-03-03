@@ -1,5 +1,5 @@
 package algoritmo;
-
+import algoritmo.utils.Termico;
 import algoritmo.utils.aresta;
 import controle.Constantes;
 
@@ -40,13 +40,16 @@ public class Poupador extends ProgramaPoupador {
 		for(int i = -size; i<=size; i++){
 			for(int j = -size;j<=size;j++) {
 				if (Valid(x+j,y+i) ) {
-					if (i == j && i == 0) {
-						MapHap[y + i][x + j] += peso;
-					} else if ((i > -2 && j > -2) && (i < 2 && j < 2)) {
-						MapHap[y + i][x + j] += peso * 0.5;
-					} else {
-						MapHap[y + i][x + j] += peso * 0.25;
-					}
+
+					int termo= Math.abs(i)+Math.abs(j)+1;
+					MapHap[y + i][x + j]+= (int)(peso/termo);
+//					if (i == j && i == 0) {
+//						MapHap[y + i][x + j] += peso;
+//					} else if ((i > -2 && j > -2) && (i < 2 && j < 2)) {
+//						MapHap[y + i][x + j] += peso * 0.5;
+//					} else {
+//						MapHap[y + i][x + j] += peso * 0.25;
+//					}
 				}else{
 					break;
 				}
@@ -87,20 +90,20 @@ public class Poupador extends ProgramaPoupador {
 			for (int x = 0; x < MapVis.length; x++){
 				if (Valid((X + x-2),(Y + y-2))){
 					if (MapVis[y][x] > 199 ) {
-						Area((X+x-2),(Y+y-2),-1000*(sensor.getNumeroDeMoedas()+1),2);
+						Area((X+x-2),(Y+y-2),-100*(sensor.getNumeroDeMoedas()+1),2);
 
 					}else if (MapVis[y][x] == 4 || (MapVis[y][x] == 3 && moedas>0)){
-						Area((X+x-2),(Y+y-2),100,2);
+						Area((X+x-2),(Y+y-2),10,2);
 
 					}else if(MapVis[y][x] == 1 || MapVis[y][x] >100){
 						MapHap[Y + y-2][X + x-2] = -Double.POSITIVE_INFINITY;
 					}
 					else if(MapVis[y][x] == 5){
 						if(sensor.getNumeroDeMoedas()>5 && LadraoVisible()){
-							Area((X+x-2),(Y+y-2),100*sensor.getNumeroDeMoedas(),0);
+							Area((X+x-2),(Y+y-2),10*sensor.getNumeroDeMoedas(),0);
 
 						}else{
-							Area((X+x-2),(Y+y-2),-500*(sensor.getNumeroDeMoedas()+1),0);
+							Area((X+x-2),(Y+y-2),-50*(sensor.getNumeroDeMoedas()+1),0);
 						}
 					}
 				}
@@ -152,11 +155,16 @@ public class Poupador extends ProgramaPoupador {
 				if (Valid((X + x - 2), (Y + y - 2))) {
 					if(MapPos[(Y + y - 2)][(X + x - 2)]>199){
 						if(MapVis[y][x]<199){
-							AreaNivel((X + x - 2),(Y + y - 2),-100,2);
+							AreaNivel((X + x - 2),(Y + y - 2),-10,2);
+						}else{
+							Area((X + x - 2),(Y + y - 2),10,2);
 						}
 					}else if(MapPos[(Y + y - 2)][(X + x - 2)]==4){
 						if(MapVis[y][x]!=4){
-							AreaNivel((X + x - 2),(Y + y - 2),-100,2);
+							AreaNivel((X + x - 2),(Y + y - 2),-10,2);
+						}
+						else{
+							Area((X + x - 2),(Y + y - 2),10,2);
 						}
 					}
 					MapPos[(Y + y - 2)][(X + x - 2)]=MapVis[y][x];
@@ -233,13 +241,19 @@ public class Poupador extends ProgramaPoupador {
 		MapPos[Yb][Xb]=3;
 		if(sensor.getNumeroDeMoedas()>0){
 //			AreaNivel(Xb, Yb, 0);
-			Area(Xb,Yb,1*sensor.getNumeroDeMoedas(),2);
+			if(MapHap[Yb][Xb]<0) {
+				AreaNivel(Xb, Yb, 0,2);
+				Area(Xb, Yb, 100 * sensor.getNumeroDeMoedas(), 2);
+			}else {
+				Area(Xb, Yb, 100 * sensor.getNumeroDeMoedas(), 2);
+			}
 		}
 		else{
 			if(MapHap[Yb][Xb]>0) {
-				AreaNivel(Xb, Yb, -10,2);
+				AreaNivel(Xb, Yb, 0,2);
+				Area(Xb, Yb, -100,2);
 			}else {
-				Area(Xb, Yb, -10,2);
+				Area(Xb, Yb, -100,2);
 			}
 		}
 //		if (sensor.getNumeroDeMoedas()>moedas){
@@ -312,6 +326,16 @@ public class Poupador extends ProgramaPoupador {
 			for (int j = 0; j < MapHap.length; j++)
 				Print(MapHap[i][j] + " ");
 		}
+
+		int [][]MapT = new int[30][30];
+		MapT = Termico.termico(MapT,Xb,Yb);
+		Print("\nTermico");
+		for (int i = 0; i<MapT.length;i++) {
+			Print("\n");
+			for (int j = 0; j < MapT.length; j++)
+				Print(MapT[i][j] + " ");
+		}
+//		Print("\n");
 //		for (int i = 0; i<MapPos.length;i++) {
 //			Print("\n");
 //			for (int j = 0; j < MapHap.length; j++)
