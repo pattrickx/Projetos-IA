@@ -15,12 +15,32 @@ import java.util.Comparator;
 public class Poupador extends ProgramaPoupador {
 	double[][] MapHap = new double[30][30];
 	int[][] MapPos = new int[30][30];
+	int[][] ids = new int[30][30];
 	int[][] MapVis = new int[5][5];
 	int[][] MapOlf = new int[3][3];
 	int[] Proibido = {-1, -2, 1, 200, 210, 220, 230};
 	public ArrayList<Integer> DirPos = new ArrayList<>();
 	int moedas = 0;
 	int X, Y;
+//	no n = new no();
+	public Poupador(){
+		int id=0;
+		for (int i = 0; i < MapHap.length; i++) {
+			for (int j = 0; j < MapHap.length; j++){
+				ids[i][j]=id;
+				id++;
+			}
+
+		}
+		for (int i = 0; i < MapHap.length; i++) {
+			Print("\n");
+			for (int j = 0; j < MapHap.length; j++)
+				Print(ids[i][j] + " ");
+		}
+
+
+	}
+	public ArrayList<Integer> Dirs = new ArrayList<>();
 
 	public void Print(String str) {
 		System.out.print(str);
@@ -107,6 +127,7 @@ public class Poupador extends ProgramaPoupador {
 
 					} else if (MapVis[y][x] == 1 || MapVis[y][x] > 100) {
 						MapHap[Y + y - 2][X + x - 2] = -Double.POSITIVE_INFINITY;
+
 					} else if (MapVis[y][x] == 5) {
 						if (sensor.getNumeroDeMoedas() > 5 && LadraoVisible()) {
 							Area((X + x - 2), (Y + y - 2), 10 * sensor.getNumeroDeMoedas(), 0);
@@ -182,6 +203,7 @@ public class Poupador extends ProgramaPoupador {
 				if (MapVis[y][x] == 1) {
 					MapPos[(Y + y - 2)][(X + x - 2)] = MapVis[y][x];
 					MapHap[(Y + y - 2)][(X + x - 2)] = -Double.POSITIVE_INFINITY;
+
 				}
 			}
 		}
@@ -323,7 +345,7 @@ public class Poupador extends ProgramaPoupador {
 			Dir = (int) (Math.random() * 5);
 
 		}
-		if (DirPos.size() > 1) {
+		if (DirPos.size() >= 1) {
 			int aux = (int) (Math.random() * DirPos.size());
 			Dir = DirPos.get(aux);
 		}
@@ -341,20 +363,40 @@ public class Poupador extends ProgramaPoupador {
 
 		int[][] MapT = new int[30][30];
 		MapT = Termico.termico(MapT, Xb, Yb);
-//		Print("\nTermico");
-//		for (int i = 0; i < MapT.length; i++) {
-//			Print("\n");
-//			for (int j = 0; j < MapT.length; j++)
-//				Print(MapT[i][j] + " ");
-//		}
-//		Print("\n");
-//		for (int i = 0; i<MapPos.length;i++) {
-//			Print("\n");
-//			for (int j = 0; j < MapHap.length; j++)
-//				Print(MapPos[i][j] + " ");
-//		}
-//		no n= aStar(((Xb)+Yb*30),(Xb+Yb*30));
+
+		Print("\nOrigem: "+ids[Y][X]+"  Destino: "+ids[Yb][Xb]+"\n");
+		Print("Origem: "+Y+":"+X+"  Destino: "+Yb+":"+Xb+"\n");
+		if (MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb]){
+			Dirs.clear();
+			no n= aStar(ids[Y][X],ids[Yb][Xb]);
+			while (n.id>-1){
+				int[] XY= getXY(n.id);
+				if(n.x>X){
+					Dirs.add(3);
+				}
+				if(n.x<X){
+					Dirs.add(4);
+				}
+				if(n.y>Y){
+					Dirs.add(2);
+				}
+				if(n.y<Y){
+					Dirs.add(1);
+				}
+				Print(n.x+":"+n.y+"("+Dirs.get(Dirs.size() - 1)+") <- ");
+
+				n = n.pai;
+			}
+//			Dirs.remove(Dirs.size() - 1);
+		}
+
+
 		Print("\n");
+		if(!Dirs.isEmpty()) {
+			Dir = Dirs.get(Dirs.size() - 1);
+			Dirs.remove(Dirs.size() - 1);
+		}
+		Print("\nFIM    aaaaaaaa\n");
 		return Dir;
 	}
 
@@ -372,36 +414,38 @@ public class Poupador extends ProgramaPoupador {
 	}
 
 	public no aStar(int idi, int idf) {
+		Print("Star\n");
 		Grafo gStar = new Grafo();
-		int id = 0;
+		Print("Montando Grafo\n");
 		for (int y = 0; y < MapPos.length; y++) {
 			for (int x = 0; x < MapPos.length; x++) {
-				if (Valid(x, y)) {
+				if (x > -1 && x < 30 && y > -1 && y < 30) {
 					no n = new no();
 					n.x = x;
 					n.y = y;
 					n.peso = MapHap[y][x];
 					n.type = MapPos[y][x];
-					n.id = id;
+					n.id = ids[y][x];
 					n.h = 0;
 					n.f = 0;
 
-					if (Valid(x + 1, y)) {
-						n.arestas.add(new aresta(MapHap[y][x + 1], id + 1, id, 3));
+					if (x+1 > -1 && x+1 < 30 && y > -1 && y < 30 ) {
+						n.arestas.add(new aresta(MapHap[y][x + 1], ids[y][x+1], ids[y][x], 3));
 					}
-					if (Valid(x - 1, y)) {
-						n.arestas.add(new aresta(MapHap[y][x - 1], id - 1, id, 4));
+					if (x-1 > -1 && x-1 < 30 && y > -1 && y < 30 ) {
+						n.arestas.add(new aresta(MapHap[y][x - 1], ids[y][x-1], ids[y][x], 4));
 					}
-					if (Valid(x, y + 1)) {
-						n.arestas.add(new aresta(MapHap[y + 1][x], id + 30, id, 2));
+					if (x > -1 && x < 30 && y+1 > -1 && y+1 < 30 ) {
+						n.arestas.add(new aresta(MapHap[y + 1][x], ids[y + 1][x], ids[y][x], 2));
 					}
-					if (Valid(x, y - 1)) {
-						n.arestas.add(new aresta(MapHap[y - 1][x], id - 30, id, 1));
+					if (x > -1 && x < 30 && y-1 > -1 && y-1 < 30 ) {
+						n.arestas.add(new aresta(MapHap[y - 1][x], ids[y - 1][x], ids[y][x], 1));
 					}
 
 					gStar.nos.add(n);
-					id++;
+
 				}
+
 			}
 		}
 //			h = (delta x + delta y)
@@ -415,40 +459,46 @@ public class Poupador extends ProgramaPoupador {
 
 		nos.add(ni);
 		no aux = new no();
+		Print("Iniciando Busca\n");
 		while(!nos.isEmpty()){
-			Print(nos.size()+"\n");
-			aux = nos.get(nos.size()-1);
-			nos.remove(nos.size()-1);
+
+			aux = nos.get(0);
+			aux.v = true;
+			nos.remove(0);
+//			Print("Atual: "+aux.id+"\n");
+
 
 			if(aux.id == idf){
 				return aux;
 			}
-			for(int i=0; i < aux.arestas.size(); i++){
+
+			for (int i = 0; i < aux.arestas.size(); i++) {
 				no fi = gStar.nos.get(aux.arestas.get(i).destino);
-				fi.pai=aux;
-				fi.h = Math.abs(fi.x - nf.x)+Math.abs(fi.y - nf.y);
-				fi.f = fi.peso + fi.h ;
-				nos.add(fi);
-
-
+				if (fi.id != aux.pai.id && !fi.v){
+					fi.dir = aux.arestas.get(i).dir;
+					fi.pai = aux;
+					fi.h = Math.abs(fi.x - nf.x) + Math.abs(fi.y - nf.y);
+					fi.f = fi.peso - fi.h;
+					nos.add(fi);
+				}
 			}
 
 //			Print("Antes\n");
 //			for(int i=0; i < nos.size(); i++){
-//				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
+//				Print(nos.get(i).id+" "+nos.get(i).f+" * ");
 //			}
 //			Print("\n");
 //			Print("\n");
 			Collections.sort(nos, new Comparator<no>(){
 				public int compare(no n1, no n2){
-					return  Integer.valueOf((int)(n2.peso)).compareTo((int)(n1.peso));
+					return  Integer.valueOf((int)(n2.f)).compareTo((int)(n1.f));
 				}
 			});
 
 
 //			Print("Depois\n");
 //			for(int i=0; i < nos.size(); i++){
-//				Print(nos.get(i).id+" "+nos.get(i).peso+" * ");
+//				Print(nos.get(i).id+" "+nos.get(i).f+" * ");
 //			}
 //			Print("\n");
 //			Print("\n");
