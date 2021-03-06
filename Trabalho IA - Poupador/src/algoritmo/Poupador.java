@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 // 0 Parado
 // 1 Cima
 // 2 Baixo
@@ -21,7 +23,7 @@ public class Poupador extends ProgramaPoupador {
 	int[][] ids = new int[30][30];
 	int[][] MapVis = new int[5][5];
 	int[][] MapOlf = new int[3][3];
-	int[] Proibido = {-1, -2, 1, 200, 210, 220, 230};
+	int[] Proibido = {-1, -2, 1};
 	public ArrayList<Integer> DirPos = new ArrayList<>();
 	int moedas = 0;
 	int X, Y;
@@ -56,11 +58,24 @@ public class Poupador extends ProgramaPoupador {
 
 	public boolean MovementIsPossible(int x, int y) {
 		for (int i : Proibido) {
-			if (!Valid(x,y) || i == MapVis[2 + y][2 + x] || (LadraoVisible() && MapVis[2 + y][2 + x] == 4))
+			if (!Valid(X+x,Y+y) || i == MapVis[2 + y][2 + x] || (LadraoVisible() && MapVis[2 + y][2 + x] == 4))
 				return false;
 		}
 		if (MapOlf[1 + y][1 + x] > 0)
 			return false;
+		if( MapVis[2 + y][2 + x] == 5 && sensor.getNumeroDeMoedas()<5)
+			return false;
+		if(x==0) {
+			for(int i =0;i<5;i++) {
+				if (MapVis[2 + y][i] > 199 || MapVis[2 + y * 2][i] > 199)
+					return false;
+			}
+		}else{
+			for(int i =0;i<5;i++) {
+				if (MapVis[i][2 + x] > 199 || MapVis[i][2 + x * 2] > 199)
+					return false;
+			}
+		}
 
 		return true;
 	}
@@ -135,13 +150,6 @@ public class Poupador extends ProgramaPoupador {
 
 					int termo = Math.abs(i) + Math.abs(j) + 1;
 					MapHap[y + i][x + j] += (int) (peso / termo);
-//					if (i == j && i == 0) {
-//						MapHap[y + i][x + j] += peso;
-//					} else if ((i > -2 && j > -2) && (i < 2 && j < 2)) {
-//						MapHap[y + i][x + j] += peso * 0.5;
-//					} else {
-//						MapHap[y + i][x + j] += peso * 0.25;
-//					}
 				} else {
 					break;
 				}
@@ -164,14 +172,7 @@ public class Poupador extends ProgramaPoupador {
 	public void updateXY(){
 		X = Integer.valueOf((int) sensor.getPosicao().getX());
 		Y = Integer.valueOf((int) sensor.getPosicao().getY());
-//		if(DirOld==1 && Y>0)
-//			Y-=1;
-//		if(DirOld==2 && Y<29)
-//			Y+=1;
-//		if(DirOld==3 && X<29)
-//			X+=1;
-//		if(DirOld==4 && X>0)
-//			X-=1;
+
 	}
 
 	public void Happiness() {
@@ -255,14 +256,54 @@ public class Poupador extends ProgramaPoupador {
 		}
 		return "ERROR";
 	}
+	class PesoDir{
+		public int Dir;
+		public double peso;
+		public PesoDir(int Dir,double peso){
+			this.Dir = Dir;
+			this.peso = peso;
+		}
+	}
+	public int roleta(){
+		Double Soma=0.0;
+		ArrayList<PesoDir> pesosDir= new ArrayList<>();
+		if (MovementIsPossible(1,0)) {
+			PesoDir aux = new PesoDir(Direita,MapHap[Y][X+1]);
+			pesosDir.add(aux);
+			Soma+=MapHap[Y][X+1];
+		}
+		if (MovementIsPossible(-1,0)) {
+			PesoDir aux = new PesoDir(Esquerda,MapHap[Y][X-1]);
+			pesosDir.add(aux);
+			Soma+=MapHap[Y][X-1];
+		}
+		if (MovementIsPossible(0,-1)) {
+			PesoDir aux = new PesoDir(Cima,MapHap[Y-1][X]);
+			pesosDir.add(aux);
+			Soma+=MapHap[Y-1][X];
+		}
+		if (MovementIsPossible(0,1)) {
+			PesoDir aux = new PesoDir(Baixo,MapHap[Y+1][X]);
+			pesosDir.add(aux);
+			Soma+=MapHap[Y+1][X];
+		}
+		Collections.sort(pesosDir, new Comparator<PesoDir>(){
+			public int compare(PesoDir n1, PesoDir n2){
+				return  Integer.valueOf((int)(n2.peso)).compareTo((int)(n1.peso));
+			}
+		});
+		double spin_whell = 0.0;
+		for(int i = 0;i<pesosDir.size();i++){
+			spin_whell+=(double) (Math.random() * Soma);
+			if(spin_whell>=pesosDir.get(i).peso){
+				return pesosDir.get(i).Dir;
+			}
+		}
+		if(pesosDir.isEmpty())
+			return (int) (Math.random() * 5);
+		return pesosDir.get(pesosDir.size()-1).Dir;
 
-//	public int roleta(int x, int y){
-//		Double Soma;
-//
-//
-//		(int) (Math.random() * Soma);
-//
-//	}
+	}
 	@Override
 	public int acao() {
 
@@ -275,16 +316,16 @@ public class Poupador extends ProgramaPoupador {
 //			AreaNivel(Xb, Yb, 0);
 			if (MapHap[Yb][Xb] < 0) {
 				AreaNivel(Xb, Yb, 0, 2);
-				Area(Xb, Yb, 10 * sensor.getNumeroDeMoedas(), 2);
+				Area(Xb, Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
 			} else {
-				Area(Xb, Yb, 10 * sensor.getNumeroDeMoedas(), 2);
+				Area(Xb, Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
 			}
 		} else {
 			if (MapHap[Yb][Xb] > 0) {
 				AreaNivel(Xb, Yb, 0, 2);
-				Area(Xb, Yb, -10, 2);
+				Area(Xb, Yb, -1000, 2);
 			} else {
-				Area(Xb, Yb, -10, 2);
+				Area(Xb, Yb, -1000, 2);
 			}
 		}
 
@@ -301,55 +342,58 @@ public class Poupador extends ProgramaPoupador {
 //		String out = CallProcess("python3 src/algoritmo/Poupador.py");
 //		Print(out);
 		///Fear();
-		double Menor = -Double.POSITIVE_INFINITY;
-		int Dir = Parado;
-		if (MovementIsPossible(1, 0) && MapHap[Y][X + 1] >= Menor) {
-			DirPos.add(Direita);
-			Menor = MapHap[Y][X + 1];
-			Dir = Direita;
-		}
-		if (MovementIsPossible(-1, 0) && MapHap[Y][X - 1] >= Menor) {
-			if (MapHap[Y][X - 1] == Menor) {
-				DirPos.add(Esquerda);
-			} else {
-				DirPos.clear();
-				DirPos.add(Esquerda);
-			}
+//		double Menor = -Double.POSITIVE_INFINITY;
+		int Dir = roleta();
 
-			Menor = MapHap[Y][X - 1];
-			Dir = Esquerda;
-		}
-		if (MovementIsPossible(0, 1) && MapHap[Y + 1][X] >= Menor) {
-			if (MapHap[Y + 1][X] == Menor) {
-				DirPos.add(Baixo);
-			} else {
-				DirPos.clear();
-				DirPos.add(Baixo);
-			}
-			Menor = MapHap[Y + 1][X];
-			Dir = Baixo;
-		}
-		if (MovementIsPossible(0, -1) && MapHap[Y - 1][X] >= Menor) {
-			if (MapHap[Y - 1][X] == Menor) {
-				DirPos.add(Cima);
-			} else {
-				DirPos.clear();
-				DirPos.add(Cima);
-			}
-			Menor = MapHap[Y - 1][X];
-			Dir = Cima;
-		}
-		if (Dir == 0) {
-			Dir = (int) (Math.random() * 5);
-
-		}
-		if (DirPos.size() >= 1) {
-			int aux = (int) (Math.random() * DirPos.size());
-			Dir = DirPos.get(aux);
-		}
+//		if (MovementIsPossible(1, 0) && MapHap[Y][X + 1] >= Menor) {
+//			DirPos.add(Direita);
+//			Menor = MapHap[Y][X + 1];
+//			Dir = Direita;
+//		}
+//		if (MovementIsPossible(-1, 0) && MapHap[Y][X - 1] >= Menor) {
+//			if (MapHap[Y][X - 1] == Menor) {
+//				DirPos.add(Esquerda);
+//			} else {
+//				DirPos.clear();
+//				DirPos.add(Esquerda);
+//			}
+//
+//			Menor = MapHap[Y][X - 1];
+//			Dir = Esquerda;
+//		}
+//		if (MovementIsPossible(0, 1) && MapHap[Y + 1][X] >= Menor) {
+//			if (MapHap[Y + 1][X] == Menor) {
+//				DirPos.add(Baixo);
+//			} else {
+//				DirPos.clear();
+//				DirPos.add(Baixo);
+//			}
+//			Menor = MapHap[Y + 1][X];
+//			Dir = Baixo;
+//		}
+//		if (MovementIsPossible(0, -1) && MapHap[Y - 1][X] >= Menor) {
+//			if (MapHap[Y - 1][X] == Menor) {
+//				DirPos.add(Cima);
+//			} else {
+//				DirPos.clear();
+//				DirPos.add(Cima);
+//			}
+//			Menor = MapHap[Y - 1][X];
+//			Dir = Cima;
+//		}
+//		if (Dir == 0) {
+//			Dir = (int) (Math.random() * 5);
+//
+//		}
+//		if (DirPos.size() >= 1) {
+//			int aux = (int) (Math.random() * DirPos.size());
+//			Dir = DirPos.get(aux);
+//		}
 //		for (int i = 0; i<array.length;i++)
 //			for (int j = 0; j<array.length;j++)
 //				array[i][j] = i;
+
+
 		Print(Direcao(Dir) + "\n");
 
 
@@ -366,48 +410,48 @@ public class Poupador extends ProgramaPoupador {
 		Print("\n" + sensor.getPosicao());
 //		Print("\nOrigem: "+ids[Y][X]+"  Destino: "+ids[Yb][Xb]+"\n");
 		Print("\nOrigem: "+X+":"+Y+"  Destino: "+Yb+":"+Xb+"\n");
-		if (ids[Y][X]!=ids[Yb][Xb] && MapHap[Yb][Xb]>0){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
-			Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			Dirs.clear();
-			no n= Star.aStar(ids[Y][X],ids[Yb][Xb]);
-
-			int tx=n.pai.x;
-			int ty=n.pai.y;
-			while (n.id>-1){
-				int D=Parado;
-				if(n.x>tx){
-					D=Esquerda;
-				}
-				if(n.x<tx){
-					D=Direita;
-				}
-				if(n.y>ty){
-					D = Cima;
-				}
-				if(n.y<ty){
-					D = Baixo;
-				}
-				Dirs.add(D);
-				Print(n.x+":"+n.y+"("+Direcao(D)+") \n");
-				tx=n.x;
-				ty=n.y;
-				n = n.pai;
-			}
-//			if(Dirs.size()>1)
-//				Dirs.remove(Dirs.size() - 1);
-		}
-
-//		if (sensor.getNumeroDeMoedas()==0){
+//		if (ids[Y][X]!=ids[Yb][Xb] && MapHap[Yb][Xb]>0 && LadraoVisible()){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
+//			Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 //			Dirs.clear();
+//			no n= Star.aStar(ids[Y][X],ids[Yb][Xb]);
+//
+//			int tx=n.pai.x;
+//			int ty=n.pai.y;
+//			while (n.id>-1){
+//				int D=Parado;
+//				if(n.x>tx){
+//					D=Esquerda;
+//				}
+//				if(n.x<tx){
+//					D=Direita;
+//				}
+//				if(n.y>ty){
+//					D = Cima;
+//				}
+//				if(n.y<ty){
+//					D = Baixo;
+//				}
+//				Dirs.add(D);
+//				Print(n.x+":"+n.y+"("+Direcao(D)+") \n");
+//				tx=n.x;
+//				ty=n.y;
+//				n = n.pai;
+//			}
+////			if(Dirs.size()>1)
+////				Dirs.remove(Dirs.size() - 1);
 //		}
-		Print("\n Dir atual: "+Direcao(Dir)+"\nDir anterior: "+Direcao(DirOld)+"\n");
-		for(int i = 0;i<Dirs.size() ;i++){
-			Print(Direcao(Dirs.get(i))+" <- ");
-		}
-		if(!Dirs.isEmpty()) {
-			Dir = Dirs.get(Dirs.size() - 1);
-			Dirs.remove(Dirs.size() - 1);
-		}
+//
+////		if (sensor.getNumeroDeMoedas()==0){
+////			Dirs.clear();
+////		}
+//		Print("\n Dir atual: "+Direcao(Dir)+"\nDir anterior: "+Direcao(DirOld)+"\n");
+//		for(int i = 0;i<Dirs.size() ;i++){
+//			Print(Direcao(Dirs.get(i))+" <- ");
+//		}
+//		if(!Dirs.isEmpty()) {
+//			Dir = Dirs.get(Dirs.size() - 1);
+//			Dirs.remove(Dirs.size() - 1);
+//		}
 		Print("\n Dir atual: "+Direcao(Dir)+"\nDir anterior: "+Direcao(DirOld)+"\n");
 		Print("\nFIM    aaaaaaaa\n");
 
