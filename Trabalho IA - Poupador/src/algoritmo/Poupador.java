@@ -6,11 +6,13 @@ import algoritmo.utils.Astar;
 
 import controle.Constantes;
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.io.PrintWriter;
 // 0 Parado
 // 1 Cima
 // 2 Baixo
@@ -304,6 +306,18 @@ public class Poupador extends ProgramaPoupador {
 		return pesosDir.get(pesosDir.size()-1).Dir;
 
 	}
+	public String get_arg() {
+			String stado = "";
+			for (int x : sensor.getVisaoIdentificacao()) {
+				stado +=(x+",");
+			}
+			for (int x : sensor.getAmbienteOlfatoPoupador()) {
+				stado +=(x+",");
+			}
+			stado+="0,0,0,0,0";
+			return stado;
+
+	}
 	@Override
 	public int acao() {
 
@@ -312,6 +326,8 @@ public class Poupador extends ProgramaPoupador {
 		int Xb = (int) Constantes.posicaoBanco.getX()-1;
 		int Yb = (int) Constantes.posicaoBanco.getY()-1;
 		MapPos[Yb][Xb] = 3;
+
+
 		if (sensor.getNumeroDeMoedas() > 0) {
 //			AreaNivel(Xb, Yb, 0);
 			if (MapHap[Yb][Xb] < 0) {
@@ -339,7 +355,7 @@ public class Poupador extends ProgramaPoupador {
 		updateMaps();
 		Happiness();
 
-//		String out = CallProcess("python3 src/algoritmo/Poupador.py");
+//		String out = CallProcess("python3 src/algoritmo/utils/Poupador.py 1 "+get_arg());
 //		Print(out);
 		///Fear();
 //		double Menor = -Double.POSITIVE_INFINITY;
