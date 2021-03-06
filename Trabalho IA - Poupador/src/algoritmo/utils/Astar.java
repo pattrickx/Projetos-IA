@@ -1,4 +1,5 @@
 package algoritmo.utils;
+import algoritmo.utils.Grafo;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -83,7 +84,7 @@ public class Astar {
 //			Print("Atual: "+aux.id+"\n");
 
 
-            if(aux.id == idf){
+            if(aux.id == idf ||aux.type==4){
                 return aux;
             }
 
@@ -93,7 +94,11 @@ public class Astar {
                     fi.dir = aux.arestas.get(i).dir;
                     fi.pai = aux;
                     fi.h = Math.abs(fi.x - nf.x) + Math.abs(fi.y - nf.y);
-                    fi.f = fi.peso - fi.h;
+                    if(fi.peso==-Double.POSITIVE_INFINITY) {
+                        fi.f = fi.peso;
+                    }else {
+                        fi.f = fi.peso - fi.h;
+                    }
                     nos.add(fi);
                 }
             }

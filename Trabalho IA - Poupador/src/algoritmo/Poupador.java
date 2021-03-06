@@ -1,18 +1,19 @@
 package algoritmo;
-import algoritmo.utils.Grafo;
+
 import algoritmo.utils.Termico;
-import algoritmo.utils.aresta;
 import algoritmo.utils.no;
 import algoritmo.utils.Astar;
 
 import controle.Constantes;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+// 0 Parado
+// 1 Cima
+// 2 Baixo
+// 3 Direita
+// 4 Esquerda
 
 public class Poupador extends ProgramaPoupador {
 	double[][] MapHap = new double[30][30];
@@ -24,6 +25,13 @@ public class Poupador extends ProgramaPoupador {
 	public ArrayList<Integer> DirPos = new ArrayList<>();
 	int moedas = 0;
 	int X, Y;
+	int DirOld=0;
+	static int Parado = 0;
+	static int Cima = 1;
+	static int Baixo = 2;
+	static int Direita = 3;
+	static int Esquerda = 4;
+	boolean t=true;
 //	no n = new no();
 	Astar Star = new Astar(MapHap,MapPos,ids);
 	public Poupador(){
@@ -40,21 +48,83 @@ public class Poupador extends ProgramaPoupador {
 	public void Print(String str) {
 		System.out.print(str);
 	}
+	public boolean Valid(int x, int y) {
+		if (x > -1 && x < 30 && y > -1 && y < 30 && MapPos[y][x] != 1)
+			return true;
+		return false;
+	}
 
 	public boolean MovementIsPossible(int x, int y) {
 		for (int i : Proibido) {
-			if (i == MapVis[2 + x][2 + y] || (LadraoVisible() && MapVis[2 + x][2 + y] == 4))
+			if (!Valid(x,y) || i == MapVis[2 + y][2 + x] || (LadraoVisible() && MapVis[2 + y][2 + x] == 4))
 				return false;
 		}
-		if (MapOlf[1 + x][1 + y] > 0)
+		if (MapOlf[1 + y][1 + x] > 0)
 			return false;
 
 		return true;
 	}
 
-	public boolean Valid(int x, int y) {
-		if (x > -1 && x < 30 && y > -1 && y < 30 && MapPos[y][x] != 1)
-			return true;
+	public  String Direcao(int D){
+		if(D==Direita)
+			return "Direita";
+		if(D==Baixo)
+			return "Baixo";
+		if(D==Esquerda)
+			return "Esquerda";
+		if(D==Cima)
+			return "Cima";
+		return "Parado";
+	}
+	public void updateOuf() {
+		int[] temp = new int[9];
+		int aux = 0;
+		for (int x : sensor.getAmbienteOlfatoPoupador()) {
+			temp[aux] = x;
+			aux += aux + 1 == 4 ? 2 : 1;
+		}
+
+		aux = 0;
+		for (int i = 0; i < MapOlf.length; i++) {
+			for (int j = 0; j < MapOlf.length; j++) {
+				MapOlf[i][j] = temp[aux];
+				aux++;
+			}
+		}
+	}
+
+	public void updateVis() {
+		int[] temp = new int[25];
+		int aux = 0;
+		for (int x : sensor.getVisaoIdentificacao()) {
+			temp[aux] = x;
+			aux += aux + 1 == 12 ? 2 : 1;
+		}
+
+		aux = 0;
+		for (int i = 0; i < MapVis.length; i++) {
+			for (int j = 0; j < MapVis.length; j++) {
+				MapVis[i][j] = temp[aux];
+				aux++;
+			}
+		}
+	}
+
+	public boolean LadraoVisible() {
+		for (int y = 0; y < MapVis.length; y++) {
+			for (int x = 0; x < MapVis.length; x++) {
+				if (MapVis[y][x] > 199) {
+					return true;
+				}
+			}
+		}
+		for (int y = 0; y < MapOlf.length; y++) {
+			for (int x = 0; x < MapOlf.length; x++) {
+				if (MapOlf[y][x] > 3) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -91,22 +161,17 @@ public class Poupador extends ProgramaPoupador {
 		}
 	}
 
-	public boolean LadraoVisible() {
-		for (int y = 0; y < MapVis.length; y++) {
-			for (int x = 0; x < MapVis.length; x++) {
-				if (MapVis[y][x] > 199) {
-					return true;
-				}
-			}
-		}
-		for (int y = 0; y < MapOlf.length; y++) {
-			for (int x = 0; x < MapOlf.length; x++) {
-				if (MapOlf[y][x] > 3) {
-					return true;
-				}
-			}
-		}
-		return false;
+	public void updateXY(){
+		X = Integer.valueOf((int) sensor.getPosicao().getX());
+		Y = Integer.valueOf((int) sensor.getPosicao().getY());
+//		if(DirOld==1 && Y>0)
+//			Y-=1;
+//		if(DirOld==2 && Y<29)
+//			Y+=1;
+//		if(DirOld==3 && X<29)
+//			X+=1;
+//		if(DirOld==4 && X>0)
+//			X-=1;
 	}
 
 	public void Happiness() {
@@ -139,42 +204,6 @@ public class Poupador extends ProgramaPoupador {
 
 	}
 
-	//	public void Fear() {
-//
-//		for (int y = 0; y < MapVis.length; y++){
-//			for (int x = 0; x < MapVis.length; x++){
-//				if ((Y + y-2) > -1 && (Y + y-2) < 30 && (X + x-2) > -1 && (X + x-2) < 30){
-//					if (MapVis[y][x] > 199 ) {
-//						for(int i = y-2; i<3; i++){
-//							for(int j = x-2;j<3;j++) {
-//								if ((Y + i) > -1 && (Y + i) < 30 && (X + j) > -1 && (X + j) < 30)
-//									MapHap[Y + i][X + j] += Double.POSITIVE_INFINITY;
-//							}
-//						}
-//
-//					}else if (MapVis[y][x] == 4){
-//						MapHap[Y + y-2][X + x-2] = -100;
-//					}else if(MapVis[y][x] ==0){
-//						MapHap[Y + y-2][X + x-2] = -1;
-//					}
-//				}
-//
-//			}
-//		}
-//		for(int y=0;y<MapOlf.length;y++) {
-//			for (int x = 0; x < MapOlf.length; x++) {
-//				if ((Y + y-1) > -1 && (Y + y-1) < 30 && (X + x-1) > -1 && (X + x-1) < 30) {
-//					if (MapOlf[y][x] > 2) {
-//						MapHap[Y + y-1][X + x-1] += sensor.getNumeroDeMoedas();
-//					} else if (MapVis[y+1][x+1] != 4) {
-//						MapHap[Y + y-1][X + x-1] = MapHap[Y + y-1][X + x-1] >100? 100: MapHap[Y + y-1][X + x-1] ;
-//
-//					}
-//				}
-//			}
-//		}
-//
-//	}
 	public void updateMaps() {
 		for (int y = 0; y < MapVis.length; y++) {
 			for (int x = 0; x < MapVis.length; x++) {
@@ -205,40 +234,6 @@ public class Poupador extends ProgramaPoupador {
 
 	}
 
-	public void updateOuf() {
-		int[] temp = new int[9];
-		int aux = 0;
-		for (int x : sensor.getAmbienteOlfatoPoupador()) {
-			temp[aux] = x;
-			aux += aux + 1 == 4 ? 2 : 1;
-		}
-
-		aux = 0;
-		for (int i = 0; i < MapOlf.length; i++) {
-			for (int j = 0; j < MapOlf.length; j++) {
-				MapOlf[i][j] = temp[aux];
-				aux++;
-			}
-		}
-	}
-
-	public void updateVis() {
-		int[] temp = new int[25];
-		int aux = 0;
-		for (int x : sensor.getVisaoIdentificacao()) {
-			temp[aux] = x;
-			aux += aux + 1 == 12 ? 2 : 1;
-		}
-
-		aux = 0;
-		for (int i = 0; i < MapVis.length; i++) {
-			for (int j = 0; j < MapVis.length; j++) {
-				MapVis[i][j] = temp[aux];
-				aux++;
-			}
-		}
-	}
-
 	public String CallProcess(String command) {
 		try {
 
@@ -261,13 +256,20 @@ public class Poupador extends ProgramaPoupador {
 		return "ERROR";
 	}
 
+//	public int roleta(int x, int y){
+//		Double Soma;
+//
+//
+//		(int) (Math.random() * Soma);
+//
+//	}
 	@Override
 	public int acao() {
-		X = (int) sensor.getPosicao().getX();
-		Y = (int) sensor.getPosicao().getY();
+
+		updateXY();
 		MapHap[Y][X] += -1;
-		int Xb = (int) Constantes.posicaoBanco.getX();
-		int Yb = (int) Constantes.posicaoBanco.getY();
+		int Xb = (int) Constantes.posicaoBanco.getX()-1;
+		int Yb = (int) Constantes.posicaoBanco.getY()-1;
 		MapPos[Yb][Xb] = 3;
 		if (sensor.getNumeroDeMoedas() > 0) {
 //			AreaNivel(Xb, Yb, 0);
@@ -285,6 +287,7 @@ public class Poupador extends ProgramaPoupador {
 				Area(Xb, Yb, -10, 2);
 			}
 		}
+
 //		if (sensor.getNumeroDeMoedas()>moedas){
 //			moedas = sensor.getNumeroDeMoedas();
 //			Area(X,Y,-100);
@@ -299,46 +302,42 @@ public class Poupador extends ProgramaPoupador {
 //		Print(out);
 		///Fear();
 		double Menor = -Double.POSITIVE_INFINITY;
-		int Dir = 0;
-		if (MovementIsPossible(0, 1) && MapHap[Y][X + 1] >= Menor) {
-			DirPos.add(3);
+		int Dir = Parado;
+		if (MovementIsPossible(1, 0) && MapHap[Y][X + 1] >= Menor) {
+			DirPos.add(Direita);
 			Menor = MapHap[Y][X + 1];
-			MapHap[Y][X + 1]+=-10;
-			Dir = 3;
+			Dir = Direita;
 		}
-		if (MovementIsPossible(0, -1) && MapHap[Y][X - 1] >= Menor) {
+		if (MovementIsPossible(-1, 0) && MapHap[Y][X - 1] >= Menor) {
 			if (MapHap[Y][X - 1] == Menor) {
-				DirPos.add(4);
+				DirPos.add(Esquerda);
 			} else {
 				DirPos.clear();
-				DirPos.add(4);
+				DirPos.add(Esquerda);
 			}
 
 			Menor = MapHap[Y][X - 1];
-			MapHap[Y][X - 1]+=-10;
-			Dir = 4;
+			Dir = Esquerda;
 		}
-		if (MovementIsPossible(1, 0) && MapHap[Y + 1][X] >= Menor) {
+		if (MovementIsPossible(0, 1) && MapHap[Y + 1][X] >= Menor) {
 			if (MapHap[Y + 1][X] == Menor) {
-				DirPos.add(2);
+				DirPos.add(Baixo);
 			} else {
 				DirPos.clear();
-				DirPos.add(2);
+				DirPos.add(Baixo);
 			}
 			Menor = MapHap[Y + 1][X];
-			MapHap[Y+1][X]+=-10;
-			Dir = 2;
+			Dir = Baixo;
 		}
-		if (MovementIsPossible(-1, 0) && MapHap[Y - 1][X] >= Menor) {
+		if (MovementIsPossible(0, -1) && MapHap[Y - 1][X] >= Menor) {
 			if (MapHap[Y - 1][X] == Menor) {
-				DirPos.add(1);
+				DirPos.add(Cima);
 			} else {
 				DirPos.clear();
-				DirPos.add(1);
+				DirPos.add(Cima);
 			}
 			Menor = MapHap[Y - 1][X];
-			MapHap[Y - 1][X]+=-10;
-			Dir = 1;
+			Dir = Cima;
 		}
 		if (Dir == 0) {
 			Dir = (int) (Math.random() * 5);
@@ -351,8 +350,8 @@ public class Poupador extends ProgramaPoupador {
 //		for (int i = 0; i<array.length;i++)
 //			for (int j = 0; j<array.length;j++)
 //				array[i][j] = i;
-		Print(Dir + "\n");
-		Print("" + sensor.getPosicao());
+		Print(Direcao(Dir) + "\n");
+
 
 		for (int i = 0; i < MapHap.length; i++) {
 			Print("\n");
@@ -364,46 +363,54 @@ public class Poupador extends ProgramaPoupador {
 		MapT = Termico.termico(MapT, Xb, Yb);
 
 		// Busca A*
-		Print("\nOrigem: "+ids[Y][X]+"  Destino: "+ids[Yb][Xb]+"\n");
-		Print("Origem: "+Y+":"+X+"  Destino: "+Yb+":"+Xb+"\n");
-		if (MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
+		Print("\n" + sensor.getPosicao());
+//		Print("\nOrigem: "+ids[Y][X]+"  Destino: "+ids[Yb][Xb]+"\n");
+		Print("\nOrigem: "+X+":"+Y+"  Destino: "+Yb+":"+Xb+"\n");
+		if (ids[Y][X]!=ids[Yb][Xb] && MapHap[Yb][Xb]>0){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
+			Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			Dirs.clear();
 			no n= Star.aStar(ids[Y][X],ids[Yb][Xb]);
-			while (n.id>-1){
-				int[] XY= Star.getXY(n.id);
-				if(n.x>X){
-					Dirs.add(3);
-				}
-				if(n.x<X){
-					Dirs.add(4);
-				}
-				if(n.y>Y){
-					Dirs.add(2);
-				}
-				if(n.y<Y){
-					Dirs.add(1);
-				}
-				Print(n.x+":"+n.y+"("+Dirs.get(Dirs.size() - 1)+") <- ");
 
+			int tx=n.pai.x;
+			int ty=n.pai.y;
+			while (n.id>-1){
+				int D=Parado;
+				if(n.x>tx){
+					D=Esquerda;
+				}
+				if(n.x<tx){
+					D=Direita;
+				}
+				if(n.y>ty){
+					D = Cima;
+				}
+				if(n.y<ty){
+					D = Baixo;
+				}
+				Dirs.add(D);
+				Print(n.x+":"+n.y+"("+Direcao(D)+") \n");
+				tx=n.x;
+				ty=n.y;
 				n = n.pai;
 			}
-//			Dirs.remove(Dirs.size() - 1);
+//			if(Dirs.size()>1)
+//				Dirs.remove(Dirs.size() - 1);
 		}
 
-
-
-		if (sensor.getNumeroDeMoedas()==0){
-			Dirs.clear();
+//		if (sensor.getNumeroDeMoedas()==0){
+//			Dirs.clear();
+//		}
+		Print("\n Dir atual: "+Direcao(Dir)+"\nDir anterior: "+Direcao(DirOld)+"\n");
+		for(int i = 0;i<Dirs.size() ;i++){
+			Print(Direcao(Dirs.get(i))+" <- ");
 		}
 		if(!Dirs.isEmpty()) {
 			Dir = Dirs.get(Dirs.size() - 1);
 			Dirs.remove(Dirs.size() - 1);
 		}
-		Print("\n");
-		for(int i = 0;i<Dirs.size() ;i++){
-			Print(Dirs.get(i)+" <- ");
-		}
-		Print("FIM    aaaaaaaa\n");
+		Print("\n Dir atual: "+Direcao(Dir)+"\nDir anterior: "+Direcao(DirOld)+"\n");
+		Print("\nFIM    aaaaaaaa\n");
+
 		return Dir;
 	}
 

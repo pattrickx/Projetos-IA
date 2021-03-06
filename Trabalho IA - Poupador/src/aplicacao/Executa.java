@@ -7,7 +7,7 @@ public class Executa {
 
 	public static void main(String[] args) {
 		FramePrincipal jogo = new FramePrincipal();
-		Constantes.tempoInicialJogo=10;
+		Constantes.tempoInicialJogo=10000;
 		jogo.iniciarJogo();
 	}
 }
