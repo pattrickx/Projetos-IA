@@ -13,7 +13,7 @@ class Memoria:
         # print(self.Memoria)
         self.Memoria.drop_duplicates(inplace=True)
         # print(self.Memoria)
-        self.Memoria.to_csv("Memorias.csv",index=False)
+        self.Memoria.to_csv("src/algoritmo/utils/Memorias.csv",index=False)
 
 
 if __name__ == "__main__":
@@ -24,8 +24,8 @@ if __name__ == "__main__":
              "v11","v12","v13","v14","v15","v16","v17","v18","v19","v20",
              "v21","v22","v23","o0","o1","o2","o3","o4","o5","o6","o7",
              "parado","cima","baixo","direita","esquerda"]
-    if os.path.isfile("Memorias.csv"):
-        memoria= pd.read_csv("Memorias.csv")
+    if os.path.isfile("src/algoritmo/utils/Memorias.csv"):
+        memoria= pd.read_csv("src/algoritmo/utils/Memorias.csv")
     else:
         memoria=pd.DataFrame(columns=columns)
 

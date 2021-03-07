@@ -4,15 +4,12 @@ import algoritmo.utils.Grafo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import static algoritmo.utils.MapsAndConsts.*;
 public class Astar {
-    double[][] MapHap = new double[30][30];
-    int[][] MapPos = new int[30][30];
-    int[][] ids = new int[30][30];
-    public Astar(double[][] MapHap,int[][] MapPos,int[][] ids){
-        this.MapHap = MapHap;
-        this.MapPos = MapPos;
-        this.ids = ids;
+
+
+
+    public Astar(){
 
     }
     public void Print(String str) {
@@ -29,10 +26,10 @@ public class Astar {
         return new int[]{x, y};
     }
 
-    public no aStar(int idi, int idf) {
-        Print("Star\n");
+    public static no aStar(int idi, int idf) {
+        utils.Print("Star\n");
         Grafo gStar = new Grafo();
-        Print("Montando Grafo\n");
+        utils.Print("Montando Grafo\n");
         for (int y = 0; y < MapPos.length; y++) {
             for (int x = 0; x < MapPos.length; x++) {
                 if (x > -1 && x < 30 && y > -1 && y < 30) {
@@ -75,7 +72,7 @@ public class Astar {
 
         nos.add(ni);
         no aux = new no();
-        Print("Iniciando Busca\n");
+        utils.Print("Iniciando Busca\n");
         while(!nos.isEmpty()){
 
             aux = nos.get(0);
@@ -127,6 +124,53 @@ public class Astar {
         return aux;
 
 
+    }
+
+    public static int get_dir(){
+        if (ids[Y][X]!=ids[Yb][Xb] && MapHap[Yb][Xb]>0 && utils.LadraoVisible()){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
+			utils.Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+			Dirs.clear();
+			no n= aStar(ids[Y][X],ids[Yb][Xb]);
+
+			int tx=n.pai.x;
+			int ty=n.pai.y;
+			while (n.id>-1){
+				int D=Parado;
+				if(n.x>tx){
+					D=Esquerda;
+				}
+				if(n.x<tx){
+					D=Direita;
+				}
+				if(n.y>ty){
+					D = Cima;
+				}
+				if(n.y<ty){
+					D = Baixo;
+				}
+				Dirs.add(D);
+				utils.Print(n.x+":"+n.y+"("+utils.Direcao(D)+") \n");
+				tx=n.x;
+				ty=n.y;
+				n = n.pai;
+			}
+//			if(Dirs.size()>1)
+//				Dirs.remove(Dirs.size() - 1);
+		}
+
+//		if (sensor.getNumeroDeMoedas()==0){
+//			Dirs.clear();
+//		}
+        int Dir=-1;
+		for(int i = 0;i<Dirs.size() ;i++){
+			utils.Print(utils.Direcao(Dirs.get(i))+" <- ");
+		}
+		if(!Dirs.isEmpty()) {
+			Dir = Dirs.get(Dirs.size() - 1);
+			Dirs.remove(Dirs.size() - 1);
+		}
+        utils.Print("\n Dir atual: "+utils.Direcao(Dir)+"\n");
+		return Dir;
     }
 }
 
