@@ -3,43 +3,45 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import static algoritmo.utils.MapsAndConsts.*;
-
 public class Roleta{
-
-    public Roleta(){
+    MapsAndConsts MapsConsts;
+    utils U;
+    public Roleta(MapsAndConsts MapsConsts){
+        U = new utils(MapsConsts);
+        this.MapsConsts = MapsConsts;
 
     }
     static class PesoDir{
         public int Dir;
         public double peso;
+
         public PesoDir(int Dir,double peso){
             this.Dir = Dir;
             this.peso = peso;
         }
     }
-    public static int get_dir(){
+    public int get_dir(){
         Double Soma=0.0;
         ArrayList<PesoDir> pesosDir= new ArrayList<>();
-        if (utils.MovementIsPossible(1,0)) {
-            PesoDir aux = new PesoDir(Direita,MapHap[Y][X+1]);
+        if (U.MovementIsPossible(1,0)) {
+            PesoDir aux = new PesoDir(MapsConsts.Direita,MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X+1]);
             pesosDir.add(aux);
-            Soma+=MapHap[Y][X+1];
+            Soma+=MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X+1];
         }
-        if (utils.MovementIsPossible(-1,0)) {
-            PesoDir aux = new PesoDir(Esquerda,MapHap[Y][X-1]);
+        if (U.MovementIsPossible(-1,0)) {
+            PesoDir aux = new PesoDir(MapsConsts.Esquerda,MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X-1]);
             pesosDir.add(aux);
-            Soma+=MapHap[Y][X-1];
+            Soma+=MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X-1];
         }
-        if (utils.MovementIsPossible(0,-1)) {
-            PesoDir aux = new PesoDir(Cima,MapHap[Y-1][X]);
+        if (U.MovementIsPossible(0,-1)) {
+            PesoDir aux = new PesoDir(MapsConsts.Cima,MapsConsts.MapHap[MapsConsts.Y-1][MapsConsts.X]);
             pesosDir.add(aux);
-            Soma+=MapHap[Y-1][X];
+            Soma+=MapsConsts.MapHap[MapsConsts.Y-1][MapsConsts.X];
         }
-        if (utils.MovementIsPossible(0,1)) {
-            PesoDir aux = new PesoDir(Baixo,MapHap[Y+1][X]);
+        if (U.MovementIsPossible(0,1)) {
+            PesoDir aux = new PesoDir(MapsConsts.Baixo,MapsConsts.MapHap[MapsConsts.Y+1][MapsConsts.X]);
             pesosDir.add(aux);
-            Soma+=MapHap[Y+1][X];
+            Soma+=MapsConsts.MapHap[MapsConsts.Y+1][MapsConsts.X];
         }
         Collections.sort(pesosDir, new Comparator<PesoDir>(){
             public int compare(PesoDir n1, PesoDir n2){

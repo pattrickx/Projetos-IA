@@ -3,35 +3,36 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import static algoritmo.utils.MapsAndConsts.*;
 
 public class  utils{
+    public MapsAndConsts MapsConsts =  new MapsAndConsts();
 
-    public utils(){
+    public utils(MapsAndConsts MapsConsts){
+        this.MapsConsts=MapsConsts;
 
     }
 
-    public static void Print(String str) {
+    public  void Print(String str) {
         System.out.print(str);
     }
 
-    public static boolean Valid(int x, int y) {
-        if (x > -1 && x < 30 && y > -1 && y < 30 && MapPos[y][x] != 1)
+    public  boolean Valid(int x, int y) {
+        if (x > -1 && x < 30 && y > -1 && y < 30 && MapsConsts.MapPos[y][x] != 1)
             return true;
         return false;
     }
 
-    public static boolean LadraoVisible() {
-        for (int y = 0; y < MapVis.length; y++) {
-            for (int x = 0; x < MapVis.length; x++) {
-                if (MapVis[y][x] > 199) {
+    public  boolean LadraoVisible() {
+        for (int y = 0; y < MapsConsts.MapVis.length; y++) {
+            for (int x = 0; x < MapsConsts.MapVis.length; x++) {
+                if (MapsConsts.MapVis[y][x] > 199) {
                     return true;
                 }
             }
         }
-        for (int y = 0; y < MapOlf.length; y++) {
-            for (int x = 0; x < MapOlf.length; x++) {
-                if (MapOlf[y][x] > 3) {
+        for (int y = 0; y < MapsConsts.MapOlf.length; y++) {
+            for (int x = 0; x < MapsConsts.MapOlf.length; x++) {
+                if (MapsConsts.MapOlf[y][x] > 3) {
                     return true;
                 }
             }
@@ -39,23 +40,23 @@ public class  utils{
         return false;
     }
 
-    public static boolean MovementIsPossible(int x, int y) {
-        for (int i : Proibido) {
-            if (!Valid(X+x,Y+y) || i == MapVis[2 + y][2 + x] || (LadraoVisible() && MapVis[2 + y][2 + x] == 4))
+    public  boolean MovementIsPossible(int x, int y) {
+        for (int i : MapsConsts.Proibido) {
+            if (!Valid(MapsConsts.X+x,MapsConsts.Y+y) || i == MapsConsts.MapVis[2 + y][2 + x] || (LadraoVisible() && MapsConsts.MapVis[2 + y][2 + x] == 4))
                 return false;
         }
-        if (MapOlf[1 + y][1 + x] > 0)
+        if (MapsConsts.MapOlf[1 + y][1 + x] > 0)
             return false;
-        if( MapVis[2 + y][2 + x] == 5 && NumeroDeMoedas<5)
+        if( MapsConsts.MapVis[2 + y][2 + x] == 5 && MapsConsts.NumeroDeMoedas<5)
             return false;
         if(x==0) {
             for(int i =0;i<5;i++) {
-                if (MapVis[2 + y][i] > 199 || MapVis[2 + y * 2][i] > 199)
+                if (MapsConsts.MapVis[2 + y][i] > 199 || MapsConsts.MapVis[2 + y * 2][i] > 199)
                     return false;
             }
         }else{
             for(int i =0;i<5;i++) {
-                if (MapVis[i][2 + x] > 199 || MapVis[i][2 + x * 2] > 199)
+                if (MapsConsts.MapVis[i][2 + x] > 199 || MapsConsts.MapVis[i][2 + x * 2] > 199)
                     return false;
             }
         }
@@ -63,25 +64,25 @@ public class  utils{
         return true;
     }
 
-    public static String Direcao(int D){
-        if(D==Direita)
+    public  String Direcao(int D){
+        if(D==MapsConsts.Direita)
             return "Direita";
-        if(D==Baixo)
+        if(D==MapsConsts.Baixo)
             return "Baixo";
-        if(D==Esquerda)
+        if(D==MapsConsts.Esquerda)
             return "Esquerda";
-        if(D==Cima)
+        if(D==MapsConsts.Cima)
             return "Cima";
         return "Parado";
     }
 
-    public static void Area(int x, int y, double peso, int size) {
+    public  void Area(int x, int y, double peso, int size) {
         for (int i = -size; i <= size; i++) {
             for (int j = -size; j <= size; j++) {
                 if (Valid(x + j, y + i)) {
 
                     int termo = Math.abs(i) + Math.abs(j) + 1;
-                    MapHap[y + i][x + j] += (int) (peso / termo);
+                    MapsConsts.MapHap[y + i][x + j] += (int) (peso / termo);
                 } else {
                     break;
                 }
@@ -89,11 +90,11 @@ public class  utils{
         }
     }
 
-    public static void AreaNivel(int x, int y, double peso, int size) {
+    public  void AreaNivel(int x, int y, double peso, int size) {
         for (int i = -size; i <= size; i++) {
             for (int j = -size; j <= size; j++) {
                 if (Valid(x + j, y + i)) {
-                    MapHap[y + i][x + j] = peso;
+                    MapsConsts.MapHap[y + i][x + j] = peso;
                 } else {
                     break;
                 }
@@ -101,28 +102,26 @@ public class  utils{
         }
     }
 
+    public  void Happiness() {
 
+        for (int y = 0; y < MapsConsts.MapVis.length; y++) {
+            for (int x = 0; x < MapsConsts.MapVis.length; x++) {
+                if (Valid((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2))) {
+                    if (MapsConsts.MapVis[y][x] > 199) {
+                        Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), -100 * (MapsConsts.NumeroDeMoedas + 1), 2);
 
-    public static void Happiness() {
+                    } else if (MapsConsts.MapVis[y][x] == 4 || (MapsConsts.MapVis[y][x] == 3 && MapsConsts.NumeroDeMoedas > 0)) {
+                        Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), 10, 2);
 
-        for (int y = 0; y < MapVis.length; y++) {
-            for (int x = 0; x < MapVis.length; x++) {
-                if (Valid((X + x - 2), (Y + y - 2))) {
-                    if (MapVis[y][x] > 199) {
-                        Area((X + x - 2), (Y + y - 2), -100 * (NumeroDeMoedas + 1), 2);
+                    } else if (MapsConsts.MapVis[y][x] == 1 || MapsConsts.MapVis[y][x] > 100) {
+                        MapsConsts.MapHap[MapsConsts.Y + y - 2][MapsConsts.X + x - 2] = -Double.POSITIVE_INFINITY;
 
-                    } else if (MapVis[y][x] == 4 || (MapVis[y][x] == 3 && NumeroDeMoedas > 0)) {
-                        Area((X + x - 2), (Y + y - 2), 10, 2);
-
-                    } else if (MapVis[y][x] == 1 || MapVis[y][x] > 100) {
-                        MapHap[Y + y - 2][X + x - 2] = -Double.POSITIVE_INFINITY;
-
-                    } else if (MapVis[y][x] == 5) {
-                        if (NumeroDeMoedas > 5 && LadraoVisible()) {
-                            Area((X + x - 2), (Y + y - 2), 10 * NumeroDeMoedas, 0);
+                    } else if (MapsConsts.MapVis[y][x] == 5) {
+                        if (MapsConsts.NumeroDeMoedas > 5 && LadraoVisible()) {
+                            Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), 10 * MapsConsts.NumeroDeMoedas, 0);
 
                         } else {
-                            Area((X + x - 2), (Y + y - 2), -50 * (NumeroDeMoedas + 1), 0);
+                            Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), -50 * (MapsConsts.NumeroDeMoedas + 1), 0);
                         }
                     }
                 }
@@ -133,29 +132,29 @@ public class  utils{
 
     }
 
-    public static void updateMaps() {
-        for (int y = 0; y < MapVis.length; y++) {
-            for (int x = 0; x < MapVis.length; x++) {
-                if (Valid((X + x - 2), (Y + y - 2))) {
-                    if (MapPos[(Y + y - 2)][(X + x - 2)] > 199) {
-                        if (MapVis[y][x] < 199) {
-                            AreaNivel((X + x - 2), (Y + y - 2), -10, 2);
+    public  void updateMaps() {
+        for (int y = 0; y < MapsConsts.MapVis.length; y++) {
+            for (int x = 0; x < MapsConsts.MapVis.length; x++) {
+                if (Valid((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2))) {
+                    if (MapsConsts.MapPos[(MapsConsts.Y + y - 2)][(MapsConsts.X + x - 2)] > 199) {
+                        if (MapsConsts.MapVis[y][x] < 199) {
+                            AreaNivel((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), -10, 2);
                         } else {
-                            Area((X + x - 2), (Y + y - 2), 10, 2);
+                            Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), 10, 2);
                         }
-                    } else if (MapPos[(Y + y - 2)][(X + x - 2)] == 4) {
-                        if (MapVis[y][x] != 4) {
-                            AreaNivel((X + x - 2), (Y + y - 2), -10, 2);
+                    } else if (MapsConsts.MapPos[(MapsConsts.Y + y - 2)][(MapsConsts.X + x - 2)] == 4) {
+                        if (MapsConsts.MapVis[y][x] != 4) {
+                            AreaNivel((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), -10, 2);
                         } else {
-                            Area((X + x - 2), (Y + y - 2), 10, 2);
+                            Area((MapsConsts.X + x - 2), (MapsConsts.Y + y - 2), 10, 2);
                         }
                     }
-                    MapPos[(Y + y - 2)][(X + x - 2)] = MapVis[y][x];
+                    MapsConsts.MapPos[(MapsConsts.Y + y - 2)][(MapsConsts.X + x - 2)] = MapsConsts.MapVis[y][x];
                 }
 
-                if (MapVis[y][x] == 1) {
-                    MapPos[(Y + y - 2)][(X + x - 2)] = MapVis[y][x];
-                    MapHap[(Y + y - 2)][(X + x - 2)] = -Double.POSITIVE_INFINITY;
+                if (MapsConsts.MapVis[y][x] == 1) {
+                    MapsConsts.MapPos[(MapsConsts.Y + y - 2)][(MapsConsts.X + x - 2)] = MapsConsts.MapVis[y][x];
+                    MapsConsts.MapHap[(MapsConsts.Y + y - 2)][(MapsConsts.X + x - 2)] = -Double.POSITIVE_INFINITY;
 
                 }
             }

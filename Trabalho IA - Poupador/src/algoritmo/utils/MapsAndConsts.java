@@ -3,21 +3,36 @@ package algoritmo.utils;
 import java.util.ArrayList;
 
 public class MapsAndConsts {
-    public static int Parado = 0;
-    public static int Cima = 1;
-    public static int Baixo = 2;
-    public static int Direita = 3;
-    public static int Esquerda = 4;
-    public static double[][] MapHap = new double[30][30];
-    public static int[][] MapPos = new int[30][30];
-    public static int[][] ids = new int[30][30];
-    public static int[][] MapVis = new int[5][5];
-    public static int[][] MapOlf = new int[3][3];
-    public static int[] Proibido = {-1, -2, 1};
-    public static int NumeroDeMoedas= 0;
-    public static int X;
-    public static int Y;
-    public static int Xb;
-    public static int Yb;
-    public static ArrayList<Integer> Dirs= new ArrayList<>();
+    public int Parado = 0;
+    public int Cima = 1;
+    public int Baixo = 2;
+    public int Direita = 3;
+    public int Esquerda = 4;
+    public int[] Proibido = {-1, -2, 1};
+    public double[][] MapHap;
+    public int[][] MapPos;
+    public int[][] MapVis;
+    public int[][] MapOlf;
+    public int[][] ids;
+    public int NumeroDeMoedas;
+    public int X;
+    public int Y;
+    public int Xb;
+    public int Yb;
+    public ArrayList<Integer> Dirs;
+    public MapsAndConsts(){
+        System.out.println(Math.random()+" MAps e constantes");
+        MapHap = new double[30][30];
+        MapPos = new int[30][30];
+        MapVis = new int[5][5];
+        MapOlf = new int[3][3];
+        ids = new int[30][30];
+        Dirs= new ArrayList<>();
+        NumeroDeMoedas= 0;
+        X = 0;
+        Y = 0;
+        Xb = 0;
+        Yb = 0;
+
+    }
 }

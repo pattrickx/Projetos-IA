@@ -1,10 +1,7 @@
 package algoritmo;
 
 import algoritmo.utils.*;
-
-import static algoritmo.utils.MapsAndConsts.*;
 import controle.Constantes;
-import java.util.ArrayList;
 
 // 0 Parado
 // 1 Cima
@@ -14,13 +11,17 @@ import java.util.ArrayList;
 
 public class Poupador extends ProgramaPoupador {
 
-	Astar Star = new Astar();
 
+	MapsAndConsts MapsConsts;
+	utils Utils ;
 	public Poupador(){
+		MapsConsts= new MapsAndConsts();
+		Utils = new utils(MapsConsts);
+		Utils.Print(Math.random()+"Construtor Poupador\n");
 		int id=0;
-		for (int i = 0; i < MapHap.length; i++) {
-			for (int j = 0; j < MapHap.length; j++){
-				ids[i][j]=id;
+		for (int i = 0; i < MapsConsts.MapHap.length; i++) {
+			for (int j = 0; j < MapsConsts.MapHap.length; j++){
+				MapsConsts.ids[i][j]=id;
 				id++;
 			}
 		}
@@ -35,9 +36,9 @@ public class Poupador extends ProgramaPoupador {
 		}
 
 		aux = 0;
-		for (int i = 0; i < MapOlf.length; i++) {
-			for (int j = 0; j < MapOlf.length; j++) {
-				MapOlf[i][j] = temp[aux];
+		for (int i = 0; i < MapsConsts.MapOlf.length; i++) {
+			for (int j = 0; j < MapsConsts.MapOlf.length; j++) {
+				MapsConsts.MapOlf[i][j] = temp[aux];
 				aux++;
 			}
 		}
@@ -52,9 +53,9 @@ public class Poupador extends ProgramaPoupador {
 		}
 
 		aux = 0;
-		for (int i = 0; i < MapVis.length; i++) {
-			for (int j = 0; j < MapVis.length; j++) {
-				MapVis[i][j] = temp[aux];
+		for (int i = 0; i < MapsConsts.MapVis.length; i++) {
+			for (int j = 0; j < MapsConsts.MapVis.length; j++) {
+				MapsConsts.MapVis[i][j] = temp[aux];
 				aux++;
 			}
 		}
@@ -74,31 +75,31 @@ public class Poupador extends ProgramaPoupador {
 	}
 
 	public void UpdateSensores(){
-		NumeroDeMoedas = sensor.getNumeroDeMoedas();
-		X = Integer.valueOf((int) sensor.getPosicao().getX());
-		Y = Integer.valueOf((int) sensor.getPosicao().getY());
+		MapsConsts.NumeroDeMoedas = sensor.getNumeroDeMoedas();
+		MapsConsts.X = Integer.valueOf((int) sensor.getPosicao().getX());
+		MapsConsts.Y = Integer.valueOf((int) sensor.getPosicao().getY());
 		updateOuf();
 		updateVis();
-		MapHap[Y][X] += -1;
-		Xb = (int) Constantes.posicaoBanco.getX()-1;
-		Yb = (int) Constantes.posicaoBanco.getY()-1;
-		MapPos[Yb][Xb] = 3;
+		MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X] += -1;
+		MapsConsts.Xb = (int) Constantes.posicaoBanco.getX()-1;
+		MapsConsts.Yb = (int) Constantes.posicaoBanco.getY()-1;
+		MapsConsts.MapPos[MapsConsts.Yb][MapsConsts.Xb] = 3;
 	}
 	public void UpdadeBank(){
 		if (sensor.getNumeroDeMoedas() > 0) {
-//			AreaNivel(Xb, Yb, 0);
-			if (MapHap[Yb][Xb] < 0) {
-				utils.AreaNivel(Xb, Yb, 0, 2);
-				utils.Area(Xb, Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
+//			AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0);
+			if (MapsConsts.MapHap[MapsConsts.Yb][MapsConsts.Xb] < 0) {
+				Utils.AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0, 2);
+				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
 			} else {
-				utils.Area(Xb, Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
+				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
 			}
 		} else {
-			if (MapHap[Yb][Xb] > 0) {
-				utils.AreaNivel(Xb, Yb, 0, 2);
-				utils.Area(Xb, Yb, -1000, 2);
+			if (MapsConsts.MapHap[MapsConsts.Yb][MapsConsts.Xb] > 0) {
+				Utils.AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0, 2);
+				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, -1000, 2);
 			} else {
-				utils.Area(Xb, Yb, -1000, 2);
+				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, -1000, 2);
 			}
 		}
 	}
@@ -107,33 +108,41 @@ public class Poupador extends ProgramaPoupador {
 	public int acao() {
 		UpdateSensores();
 		UpdadeBank();
-		utils.updateMaps();
-		utils.Happiness();
+		Grafo G = new Grafo(MapsConsts);
+		Termico T = new Termico(MapsConsts);
+		Astar Star = new Astar(MapsConsts,G);
+		BestDir B = new BestDir(MapsConsts);
+		Roleta R = new Roleta(MapsConsts);
+		Utils.updateMaps();
+		Utils.Happiness();
+		G.MontarGrafo();
+		T.ter(G);
 		int Dir;
 
 		// Salvando estado
-//		String out = CallProcess("python3 src/algoritmo/utils/Poupador.py 1 "+get_arg());
+//		String out = CallProcess("python3 src/algoritmo/Utils/Poupador.py 1 "+get_arg());
 //		Print(out);
 
 		// Roleta
-		int Dir_Roleta = Roleta.get_dir();
+		int Dir_Roleta = R.get_dir();
 
 		// Maior Felicidade
-		int Dir_BestDir = BestDir.BestDir();
+		int Dir_BestDir = B.BestDir();
 
 		// Print Mapa Hap
-		for (int i = 0; i < MapHap.length; i++) {
-			utils.Print("\n");
-			for (int j = 0; j < MapHap.length; j++)
-				utils.Print(MapHap[i][j] + " ");
+		for (int i = 0; i < MapsConsts.MapHap.length; i++) {
+			Utils.Print("\n");
+			for (int j = 0; j < MapsConsts.MapHap.length; j++)
+				Utils.Print(MapsConsts.MapHap[i][j] + " ");
 		}
 
 		// Algoritmo termico
 		int[][] MapT = new int[30][30];
-		MapT = Termico.termico(MapT, Xb, Yb);
+		MapT = T.termico(MapT, MapsConsts.Xb, MapsConsts.Yb);
 
 		// Busca A*
-		int Dir_Busca = Astar.get_dir();
+		G.MontarGrafo();
+		int Dir_Busca = Star.get_dir();
 
 		// Escolhendo resultado
 		if (Dir_Busca>=0){
@@ -144,7 +153,7 @@ public class Poupador extends ProgramaPoupador {
 		}
 
 
-		utils.Print("\nFIM    aaaaaaaa\n");
+		Utils.Print("\nFIM    aaaaaaaa\n");
 		return Dir;
 	}
 

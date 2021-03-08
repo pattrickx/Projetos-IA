@@ -4,13 +4,17 @@ import algoritmo.utils.Grafo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import static algoritmo.utils.MapsAndConsts.*;
+
 public class Astar {
 
 
-
-    public Astar(){
-
+    public  MapsAndConsts MapsConsts =  new MapsAndConsts();
+    public  Grafo gStar;
+    utils U ;
+    public Astar(MapsAndConsts MapsConsts,Grafo gStar){
+        this.MapsConsts=MapsConsts;
+        this.gStar = gStar;
+        U = new utils(MapsConsts);
     }
     public void Print(String str) {
         System.out.print(str);
@@ -26,41 +30,10 @@ public class Astar {
         return new int[]{x, y};
     }
 
-    public static no aStar(int idi, int idf) {
-        utils.Print("Star\n");
-        Grafo gStar = new Grafo();
-        utils.Print("Montando Grafo\n");
-        for (int y = 0; y < MapPos.length; y++) {
-            for (int x = 0; x < MapPos.length; x++) {
-                if (x > -1 && x < 30 && y > -1 && y < 30) {
-                    no n = new no();
-                    n.x = x;
-                    n.y = y;
-                    n.peso = MapHap[y][x];
-                    n.type = MapPos[y][x];
-                    n.id = ids[y][x];
-                    n.h = 0;
-                    n.f = 0;
+    public  no aStar(int idi, int idf) {
+        U.Print("Star\n");
 
-                    if (x+1 > -1 && x+1 < 30 && y > -1 && y < 30 ) {
-                        n.arestas.add(new aresta(MapHap[y][x + 1], ids[y][x+1], ids[y][x], 3));
-                    }
-                    if (x-1 > -1 && x-1 < 30 && y > -1 && y < 30 ) {
-                        n.arestas.add(new aresta(MapHap[y][x - 1], ids[y][x-1], ids[y][x], 4));
-                    }
-                    if (x > -1 && x < 30 && y+1 > -1 && y+1 < 30 ) {
-                        n.arestas.add(new aresta(MapHap[y + 1][x], ids[y + 1][x], ids[y][x], 2));
-                    }
-                    if (x > -1 && x < 30 && y-1 > -1 && y-1 < 30 ) {
-                        n.arestas.add(new aresta(MapHap[y - 1][x], ids[y - 1][x], ids[y][x], 1));
-                    }
 
-                    gStar.nos.add(n);
-
-                }
-
-            }
-        }
 //			h = (delta x + delta y)
 //			f = peso + h
 
@@ -72,7 +45,7 @@ public class Astar {
 
         nos.add(ni);
         no aux = new no();
-        utils.Print("Iniciando Busca\n");
+        U.Print("Iniciando Busca\n");
         while(!nos.isEmpty()){
 
             aux = nos.get(0);
@@ -126,30 +99,30 @@ public class Astar {
 
     }
 
-    public static int get_dir(){
-        if (ids[Y][X]!=ids[Yb][Xb] && MapHap[Yb][Xb]>0 && utils.LadraoVisible()){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
-			utils.Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			Dirs.clear();
-			no n= aStar(ids[Y][X],ids[Yb][Xb]);
+    public  int get_dir(){
+        if (MapsConsts.ids[MapsConsts.Y][MapsConsts.X]!=MapsConsts.ids[MapsConsts.Yb][MapsConsts.Xb] && MapsConsts.MapHap[MapsConsts.Yb][MapsConsts.Xb]>0 && U.LadraoVisible()){//(MapHap[Yb][Xb]>0 && ids[Y][X]!=ids[Yb][Xb] && LadraoVisible()){
+			U.Print("BUSCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            MapsConsts.Dirs.clear();
+			no n= aStar(MapsConsts.ids[MapsConsts.Y][MapsConsts.X],MapsConsts.ids[MapsConsts.Yb][MapsConsts.Xb]);
 
 			int tx=n.pai.x;
 			int ty=n.pai.y;
 			while (n.id>-1){
-				int D=Parado;
+				int D=MapsConsts.Parado;
 				if(n.x>tx){
-					D=Esquerda;
+					D=MapsConsts.Esquerda;
 				}
 				if(n.x<tx){
-					D=Direita;
+					D=MapsConsts.Direita;
 				}
 				if(n.y>ty){
-					D = Cima;
+					D = MapsConsts.Cima;
 				}
 				if(n.y<ty){
-					D = Baixo;
+					D = MapsConsts.Baixo;
 				}
-				Dirs.add(D);
-				utils.Print(n.x+":"+n.y+"("+utils.Direcao(D)+") \n");
+                MapsConsts.Dirs.add(D);
+				U.Print(n.x+":"+n.y+"("+U.Direcao(D)+") \n");
 				tx=n.x;
 				ty=n.y;
 				n = n.pai;
@@ -162,14 +135,14 @@ public class Astar {
 //			Dirs.clear();
 //		}
         int Dir=-1;
-		for(int i = 0;i<Dirs.size() ;i++){
-			utils.Print(utils.Direcao(Dirs.get(i))+" <- ");
+		for(int i = 0;i<MapsConsts.Dirs.size() ;i++){
+			U.Print(U.Direcao(MapsConsts.Dirs.get(i))+" <- ");
 		}
-		if(!Dirs.isEmpty()) {
-			Dir = Dirs.get(Dirs.size() - 1);
-			Dirs.remove(Dirs.size() - 1);
+		if(!MapsConsts.Dirs.isEmpty()) {
+			Dir = MapsConsts.Dirs.get(MapsConsts.Dirs.size() - 1);
+            MapsConsts.Dirs.remove(MapsConsts.Dirs.size() - 1);
 		}
-        utils.Print("\n Dir atual: "+utils.Direcao(Dir)+"\n");
+        U.Print("\n Dir atual: "+U.Direcao(Dir)+"\n");
 		return Dir;
     }
 }

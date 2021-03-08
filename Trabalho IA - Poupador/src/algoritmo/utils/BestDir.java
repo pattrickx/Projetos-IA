@@ -2,49 +2,52 @@ package algoritmo.utils;
 
 import java.util.ArrayList;
 
-import static algoritmo.utils.MapsAndConsts.*;
-import static algoritmo.utils.MapsAndConsts.Cima;
-
 public class BestDir{
-    public static int BestDir(){
+    public  MapsAndConsts MapsConsts =  new MapsAndConsts();
+    utils U;
+    public BestDir(MapsAndConsts MapsConsts) {
+        this.MapsConsts = MapsConsts;
+        U = new utils(MapsConsts);
+    }
+    public int BestDir(){
         int Dir=0;
         double Menor = -Double.POSITIVE_INFINITY;
         ArrayList<Integer> DirPos= new ArrayList<>();
-        if (utils.MovementIsPossible(1, 0) && MapHap[Y][X + 1] >= Menor) {
-            DirPos.add(Direita);
-            Menor = MapHap[Y][X + 1];
-            Dir = Direita;
+        if (U.MovementIsPossible(1, 0) && MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X + 1] >= Menor) {
+            DirPos.add(MapsConsts.Direita);
+            Menor = MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X + 1];
+            Dir = MapsConsts.Direita;
         }
-        if (utils.MovementIsPossible(-1, 0) && MapHap[Y][X - 1] >= Menor) {
-            if (MapHap[Y][X - 1] == Menor) {
-                DirPos.add(Esquerda);
+        if (U.MovementIsPossible(-1, 0) && MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X - 1] >= Menor) {
+            if (MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X - 1] == Menor) {
+                DirPos.add(MapsConsts.Esquerda);
             } else {
                 DirPos.clear();
-                DirPos.add(Esquerda);
+                DirPos.add(MapsConsts.Esquerda);
             }
 
-            Menor = MapHap[Y][X - 1];
-            Dir = Esquerda;
+            Menor = MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X - 1];
+            Dir = MapsConsts.Esquerda;
         }
-        if (utils.MovementIsPossible(0, 1) && MapHap[Y + 1][X] >= Menor) {
-            if (MapHap[Y + 1][X] == Menor) {
-                DirPos.add(Baixo);
+        if (U.MovementIsPossible(0, 1) && MapsConsts.MapHap[MapsConsts.Y + 1][MapsConsts.X] >= Menor) {
+            if (MapsConsts.MapHap[MapsConsts.Y + 1][MapsConsts.X] == Menor) {
+                DirPos.add(MapsConsts.Baixo);
             } else {
                 DirPos.clear();
-                DirPos.add(Baixo);
+                DirPos.add(MapsConsts.Baixo);
             }
-            Menor = MapHap[Y + 1][X];
-            Dir = Baixo;
+            Menor = MapsConsts.MapHap[MapsConsts.Y + 1][MapsConsts.X];
+            Dir = MapsConsts.Baixo;
         }
-        if (utils.MovementIsPossible(0, -1) && MapHap[Y - 1][X] >= Menor) {
-            if (MapHap[Y - 1][X] == Menor) {
-                DirPos.add(Cima);
+        if (U.MovementIsPossible(0, -1) && MapsConsts.MapHap[MapsConsts.Y - 1][MapsConsts.X] >= Menor) {
+            if (MapsConsts.MapHap[MapsConsts.Y - 1][MapsConsts.X] == Menor) {
+                DirPos.add(MapsConsts.Cima);
             } else {
                 DirPos.clear();
-                DirPos.add(Cima);
+                DirPos.add(MapsConsts.Cima);
             }
-            Menor = MapHap[Y - 1][X];
-            Dir = Cima;
+            Menor = MapsConsts.MapHap[MapsConsts.Y - 1][MapsConsts.X];
+            Dir = MapsConsts.Cima;
         }
         if (Dir == 0) {
             Dir = (int) (Math.random() * 5);
