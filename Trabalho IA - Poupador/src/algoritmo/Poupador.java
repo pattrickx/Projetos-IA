@@ -1,7 +1,9 @@
 package algoritmo;
 
-import algoritmo.utils.*;
-import controle.Constantes;
+
+import algoritmo.utils.CVM;
+import algoritmo.utils.Objeto;
+import algoritmo.utils.Roleta;
 
 // 0 Parado
 // 1 Cima
@@ -10,151 +12,160 @@ import controle.Constantes;
 // 4 Esquerda
 
 public class Poupador extends ProgramaPoupador {
+	CVM cvm;
+	Roleta roleta;
 
-
-	MapsAndConsts MapsConsts;
-	utils Utils ;
 	public Poupador(){
-		MapsConsts= new MapsAndConsts();
-		Utils = new utils(MapsConsts);
-		Utils.Print(Math.random()+"Construtor Poupador\n");
-		int id=0;
-		for (int i = 0; i < MapsConsts.MapHap.length; i++) {
-			for (int j = 0; j < MapsConsts.MapHap.length; j++){
-				MapsConsts.ids[i][j]=id;
-				id++;
-			}
-		}
+		cvm = new CVM();
+		roleta = new Roleta(cvm);
 	}
 
-	public void updateOuf() {
-		int[] temp = new int[9];
+	public void UpdateVis(){
+		int[] Vis = sensor.getVisaoIdentificacao();
 		int aux = 0;
-		for (int x : sensor.getAmbienteOlfatoPoupador()) {
-			temp[aux] = x;
-			aux += aux + 1 == 4 ? 2 : 1;
-		}
-
-		aux = 0;
-		for (int i = 0; i < MapsConsts.MapOlf.length; i++) {
-			for (int j = 0; j < MapsConsts.MapOlf.length; j++) {
-				MapsConsts.MapOlf[i][j] = temp[aux];
-				aux++;
+		for(int i = 0;i<cvm.MapVis.length;i++) {
+			for (int j = 0; j < cvm.MapVis.length; j++) {
+				if(!(i==j && i==2)){
+					cvm.MapVis[i][j]= Vis[aux];
+					aux++;
+				}
 			}
 		}
-	}
 
-	public void updateVis() {
-		int[] temp = new int[25];
+	}
+	public void UpdateOlf(){
+		int[] Olf = sensor.getAmbienteOlfatoLadrao();
 		int aux = 0;
-		for (int x : sensor.getVisaoIdentificacao()) {
-			temp[aux] = x;
-			aux += aux + 1 == 12 ? 2 : 1;
-		}
-
-		aux = 0;
-		for (int i = 0; i < MapsConsts.MapVis.length; i++) {
-			for (int j = 0; j < MapsConsts.MapVis.length; j++) {
-				MapsConsts.MapVis[i][j] = temp[aux];
-				aux++;
+		for(int i = 0;i<cvm.MapOlf.length;i++) {
+			for (int j = 0; j < cvm.MapOlf.length; j++) {
+				if(!(i==j && i==1)){
+					cvm.MapOlf[i][j]= Olf[aux];
+					aux++;
+				}
 			}
 		}
 	}
-
-	public String get_arg() {
-		String stado = "";
-		for (int x : sensor.getVisaoIdentificacao()) {
-			stado +=(x+",");
+	public int Pesos(int tipo){
+		switch (tipo){
+			case 4: // moeda
+				return 100;
+			case 1: // parede
+				return -100000;
+			case 5: // pastilha
+				return sensor.getNumeroDeMoedas()>4? 100* cvm.NumeroDeMoedas:-100;
+			case 3: // banco
+				return sensor.getNumeroDeMoedas()>0? 100* cvm.NumeroDeMoedas:-100;
+			default: // Ladrão
+				return -1000* (sensor.getNumeroDeMoedas()+1);
 		}
-		for (int x : sensor.getAmbienteOlfatoPoupador()) {
-			stado +=(x+",");
+	}
+	public boolean Valido(int x, int y, int tipo){
+		if(x<0 || y<0 || x>29 || y>29)
+			return false;
+		for(int invalido:cvm.Nvalido){
+			if(tipo==invalido)
+				return false;
 		}
-		stado+="0,0,0,0,0";
-		return stado;
-
+		return true;
 	}
-
-	public void UpdateSensores(){
-		MapsConsts.NumeroDeMoedas = sensor.getNumeroDeMoedas();
-		MapsConsts.X = Integer.valueOf((int) sensor.getPosicao().getX());
-		MapsConsts.Y = Integer.valueOf((int) sensor.getPosicao().getY());
-		updateOuf();
-		updateVis();
-		MapsConsts.MapHap[MapsConsts.Y][MapsConsts.X] += -1;
-		MapsConsts.Xb = (int) Constantes.posicaoBanco.getX()-1;
-		MapsConsts.Yb = (int) Constantes.posicaoBanco.getY()-1;
-		MapsConsts.MapPos[MapsConsts.Yb][MapsConsts.Xb] = 3;
+	public boolean PosValida(int x, int y){
+		if(x<0 || y<0 || x>29 || y>29)
+			return false;
+		return true;
 	}
-	public void UpdadeBank(){
-		if (sensor.getNumeroDeMoedas() > 0) {
-//			AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0);
-			if (MapsConsts.MapHap[MapsConsts.Yb][MapsConsts.Xb] < 0) {
-				Utils.AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0, 2);
-				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
-			} else {
-				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, 1000 * sensor.getNumeroDeMoedas(), 2);
+	public void UpdateObj(){
+
+		for(int i = 0;i<cvm.MapVis.length;i++) {
+			for (int j = 0; j < cvm.MapVis.length; j++) {
+				int x= (j-2) + cvm.X;
+				int y= (i-2) + cvm.Y;
+				if(Valido(x,y,cvm.MapVis[i][j]) && cvm.MapObj[y][x]==null) {
+					cvm.MapObj[y][x] = new Objeto(cvm.MapVis[i][j],Pesos(cvm.MapVis[i][j]));
+				}
+				else if(cvm.MapVis[i][j]==0){
+					cvm.MapObj[y][x] = null;
+				}
 			}
-		} else {
-			if (MapsConsts.MapHap[MapsConsts.Yb][MapsConsts.Xb] > 0) {
-				Utils.AreaNivel(MapsConsts.Xb, MapsConsts.Yb, 0, 2);
-				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, -1000, 2);
-			} else {
-				Utils.Area(MapsConsts.Xb, MapsConsts.Yb, -1000, 2);
-			}
 		}
+
+
 	}
 
+	public void AreaPeso(int x,int y, int tamanho,double peso){
+		for(int i =-tamanho;i<=tamanho;i++){
+			for(int j =-tamanho;j<=tamanho;j++){
+				if (PosValida(x+i,y+j)) {
+					if (cvm.MapObj[x + i][y + j] == null ||  cvm.MapObj[x + i][y + j].tipo != 1) {
+						int distancia = Math.abs(i) + Math.abs(j) + 1;
+						cvm.MapFeli[x + i][y + j] += peso / distancia;
+					}
+				}
+
+			}
+		}
+
+	}
+	public void UpdateFeli(){
+		cvm.MapFeli = new double[30][30];
+		for(int i = 0;i<cvm.MapFeli.length;i++) {
+			for (int j = 0; j < cvm.MapFeli.length; j++) {
+				cvm.MapFeli[i][j]+=cvm.MapPos[i][j];
+				if(cvm.MapObj[i][j]!=null) {
+					if (cvm.MapObj[i][j].tipo == 1) {
+						cvm.MapFeli[i][j] = Double.NEGATIVE_INFINITY;
+					}else{
+						AreaPeso(i, j, 2, cvm.MapObj[i][j].peso);
+					}
+				}
+			}
+		}
+
+	}
+
+	public void PrintFelicidadeTipo(){
+		System.out.println("");
+		for(int i = 0;i<cvm.MapObj.length;i++) {
+			System.out.println("");
+			for (int j = 0; j < cvm.MapObj.length; j++) {
+				if(cvm.MapObj[i][j]!=null)
+					System.out.print("("+cvm.MapObj[i][j].tipo+":"+String.format("%.2f", cvm.MapFeli[i][j])+") ");
+				else if(j==cvm.X && i==cvm.Y)
+					System.out.print("(X:"+String.format("%.2f", cvm.MapFeli[i][j])+") ");
+				else
+					System.out.print("(0:"+String.format("%.2f", cvm.MapFeli[i][j])+") ");
+			}
+		}
+		System.out.println("");
+		System.out.println("###### FIM #####");
+
+	}
+	public  String Direcao(int D){
+		if(D==cvm.Direita)
+			return "Direita";
+		if(D==cvm.Baixo)
+			return "Baixo";
+		if(D==cvm.Esquerda)
+			return "Esquerda";
+		if(D==cvm.Cima)
+			return "Cima";
+		return "Parado";
+	}
 	@Override
 	public int acao() {
-		UpdateSensores();
-		UpdadeBank();
-		Grafo G = new Grafo(MapsConsts);
-		Termico T = new Termico(MapsConsts);
-		Astar Star = new Astar(MapsConsts,G);
-		BestDir B = new BestDir(MapsConsts);
-		Roleta R = new Roleta(MapsConsts);
-		Utils.updateMaps();
-		Utils.Happiness();
-		G.MontarGrafo();
-		T.ter(G);
-		int Dir;
+		cvm.X = Integer.valueOf((int) sensor.getPosicao().getX());
+		cvm.Y = Integer.valueOf((int) sensor.getPosicao().getY());
+		cvm.MapPos[cvm.Y][cvm.X]+=-1;
+		cvm.NumeroDeMoedas = sensor.getNumeroDeMoedas();
+		UpdateVis();
+		UpdateOlf();
+		UpdateObj();
+		UpdateFeli();
 
-		// Salvando estado
-//		String out = CallProcess("python3 src/algoritmo/Utils/Poupador.py 1 "+get_arg());
-//		Print(out);
+		PrintFelicidadeTipo();
 
-		// Roleta
-		int Dir_Roleta = R.get_dir();
-
-		// Maior Felicidade
-		int Dir_BestDir = B.BestDir();
-
-		// Print Mapa Hap
-		for (int i = 0; i < MapsConsts.MapHap.length; i++) {
-			Utils.Print("\n");
-			for (int j = 0; j < MapsConsts.MapHap.length; j++)
-				Utils.Print(MapsConsts.MapHap[i][j] + " ");
-		}
-
-		// Algoritmo termico
-		int[][] MapT = new int[30][30];
-		MapT = T.termico(MapT, MapsConsts.Xb, MapsConsts.Yb);
-
-		// Busca A*
-		G.MontarGrafo();
-		int Dir_Busca = Star.get_dir();
-
-		// Escolhendo resultado
-		if (Dir_Busca>=0){
-			Dir = Dir_Busca;
-		}else{
-			Dir = Dir_Roleta;
-//			Dir = Dir_BestDir;
-		}
-
-
-		Utils.Print("\nFIM    aaaaaaaa\n");
-		return Dir;
+		int DirRoleta = roleta.Roleta();
+		System.out.println(Direcao(DirRoleta));
+		return DirRoleta;//(int) (Math.random() * 5);
 	}
 
 }
