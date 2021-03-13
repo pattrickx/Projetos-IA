@@ -1,9 +1,7 @@
 package algoritmo;
 
 
-import algoritmo.utils.CVM;
-import algoritmo.utils.Objeto;
-import algoritmo.utils.Roleta;
+import algoritmo.utils.*;
 
 // 0 Parado
 // 1 Cima
@@ -14,10 +12,13 @@ import algoritmo.utils.Roleta;
 public class Poupador extends ProgramaPoupador {
 	CVM cvm;
 	Roleta roleta;
-
+	Grafo grafo;
+	Termico termico;
 	public Poupador(){
 		cvm = new CVM();
 		roleta = new Roleta(cvm);
+		grafo = new Grafo(cvm);
+		termico = new Termico(cvm);
 	}
 
 	public void UpdateVis(){
@@ -45,6 +46,7 @@ public class Poupador extends ProgramaPoupador {
 			}
 		}
 	}
+
 	public int Pesos(int tipo){
 		switch (tipo){
 			case 4: // moeda
@@ -73,6 +75,7 @@ public class Poupador extends ProgramaPoupador {
 			return false;
 		return true;
 	}
+
 	public void UpdateObj(){
 
 		for(int i = 0;i<cvm.MapVis.length;i++) {
@@ -105,6 +108,17 @@ public class Poupador extends ProgramaPoupador {
 		}
 
 	}
+	public void AreaPesoTermico(int x,int y,double peso){
+		grafo.MontarGrafo();
+		int [][] ter = termico.termico(grafo,x,y);
+		for(int i = 0;i<cvm.MapFeli.length;i++) {
+			for (int j = 0; j < cvm.MapFeli.length; j++) {
+				if(ter[i][j]>0)
+					cvm.MapFeli[i][j]+=peso/ter[i][j];
+			}
+		}
+
+	}
 	public void UpdateFeli(){
 		cvm.MapFeli = new double[30][30];
 		for(int i = 0;i<cvm.MapFeli.length;i++) {
@@ -114,7 +128,8 @@ public class Poupador extends ProgramaPoupador {
 					if (cvm.MapObj[i][j].tipo == 1) {
 						cvm.MapFeli[i][j] = Double.NEGATIVE_INFINITY;
 					}else{
-						AreaPeso(i, j, 2, cvm.MapObj[i][j].peso);
+//						AreaPeso(i, j, 2, cvm.MapObj[i][j].peso);
+						AreaPesoTermico(i,j,cvm.MapObj[i][j].peso);
 					}
 				}
 			}
@@ -156,15 +171,20 @@ public class Poupador extends ProgramaPoupador {
 		cvm.Y = Integer.valueOf((int) sensor.getPosicao().getY());
 		cvm.MapPos[cvm.Y][cvm.X]+=-1;
 		cvm.NumeroDeMoedas = sensor.getNumeroDeMoedas();
+
 		UpdateVis();
 		UpdateOlf();
 		UpdateObj();
 		UpdateFeli();
 
-		PrintFelicidadeTipo();
+//		PrintFelicidadeTipo();
+		// Termico
+//		grafo.MontarGrafo();
+//		termico.termico(grafo,8,8);
+
 
 		int DirRoleta = roleta.Roleta();
-		System.out.println(Direcao(DirRoleta));
+//		System.out.println(Direcao(DirRoleta));
 		return DirRoleta;//(int) (Math.random() * 5);
 	}
 
