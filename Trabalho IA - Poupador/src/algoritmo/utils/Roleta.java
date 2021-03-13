@@ -82,7 +82,7 @@ public class Roleta {
         for(PesoDir i:pesosDir){
             i.peso+=Math.abs(menor);
             i.peso+=(pesosDir.get(0).peso/2);
-            System.out.println("Dir "+Direcao(i.Dir)+" Peso: "+i.peso);
+            //System.out.println("Dir "+Direcao(i.Dir)+" Peso: "+i.peso);
             Soma+= i.peso;
         }
 
