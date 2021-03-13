@@ -92,7 +92,7 @@ public class Poupador extends ProgramaPoupador {
 				}
 			}
 		}
-		cvm.MapObj[cvm.Xb][cvm.Yb] = new Objeto(cvm.MapVis[cvm.Xb][cvm.Yb],Pesos(3));
+		cvm.MapObj[cvm.Xb][cvm.Yb] = new Objeto(3,Pesos(3));
 
 	}
 
@@ -180,7 +180,7 @@ public class Poupador extends ProgramaPoupador {
 		UpdateObj();
 		UpdateFeli();
 
-//		PrintFelicidadeTipo();
+		PrintFelicidadeTipo();
 		// Termico
 //		grafo.MontarGrafo();
 //		termico.termico(grafo,8,8);
