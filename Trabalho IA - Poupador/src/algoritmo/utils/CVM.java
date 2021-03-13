@@ -9,6 +9,8 @@ public class CVM{
     public int[] Nvalido = {-1,-2,0};
     public int X;
     public int Y;
+    public int Xb;
+    public int Yb;
     public int Parado = 0;
     public int Cima = 1;
     public int Baixo = 2;

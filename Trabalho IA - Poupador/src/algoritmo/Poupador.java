@@ -2,6 +2,7 @@ package algoritmo;
 
 
 import algoritmo.utils.*;
+import controle.Constantes;
 
 // 0 Parado
 // 1 Cima
@@ -82,6 +83,7 @@ public class Poupador extends ProgramaPoupador {
 			for (int j = 0; j < cvm.MapVis.length; j++) {
 				int x= (j-2) + cvm.X;
 				int y= (i-2) + cvm.Y;
+
 				if(Valido(x,y,cvm.MapVis[i][j]) && cvm.MapObj[y][x]==null) {
 					cvm.MapObj[y][x] = new Objeto(cvm.MapVis[i][j],Pesos(cvm.MapVis[i][j]));
 				}
@@ -90,7 +92,7 @@ public class Poupador extends ProgramaPoupador {
 				}
 			}
 		}
-
+		cvm.MapObj[cvm.Xb][cvm.Yb] = new Objeto(cvm.MapVis[cvm.Xb][cvm.Yb],Pesos(3));
 
 	}
 
@@ -171,7 +173,8 @@ public class Poupador extends ProgramaPoupador {
 		cvm.Y = Integer.valueOf((int) sensor.getPosicao().getY());
 		cvm.MapPos[cvm.Y][cvm.X]+=-1;
 		cvm.NumeroDeMoedas = sensor.getNumeroDeMoedas();
-
+		cvm.Xb = (int) Constantes.posicaoBanco.getX()-1;
+		cvm.Yb = (int) Constantes.posicaoBanco.getY()-1;
 		UpdateVis();
 		UpdateOlf();
 		UpdateObj();
