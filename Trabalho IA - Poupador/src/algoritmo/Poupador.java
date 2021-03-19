@@ -15,11 +15,13 @@ public class Poupador extends ProgramaPoupador {
 	Roleta roleta;
 	Grafo grafo;
 	Termico termico;
+	Aestrela aestrela;
 	public Poupador(){
 		cvm = new CVM();
 		roleta = new Roleta(cvm);
 		grafo = new Grafo(cvm);
 		termico = new Termico(cvm);
+		aestrela = new Aestrela(cvm);
 	}
 
 	public void UpdateVis(){
@@ -55,11 +57,11 @@ public class Poupador extends ProgramaPoupador {
 			case 1: // parede
 				return -100000;
 			case 5: // pastilha
-				return sensor.getNumeroDeMoedas()>4? 100* cvm.NumeroDeMoedas:-100;
+				return cvm.NumeroDeMoedas>4? 100* cvm.NumeroDeMoedas:-100;
 			case 3: // banco
-				return sensor.getNumeroDeMoedas()>0? 100* cvm.NumeroDeMoedas:-100;
+				return cvm.NumeroDeMoedas>0? 100* cvm.NumeroDeMoedas:-100;
 			default: // Ladrão
-				return -1000* (sensor.getNumeroDeMoedas()+1);
+				return -1000* (cvm.NumeroDeMoedas+1);
 		}
 	}
 	public boolean Valido(int x, int y, int tipo){
@@ -84,7 +86,7 @@ public class Poupador extends ProgramaPoupador {
 				int x= (j-2) + cvm.X;
 				int y= (i-2) + cvm.Y;
 
-				if(Valido(x,y,cvm.MapVis[i][j]) && cvm.MapObj[y][x]==null) {
+				if(Valido(x,y,cvm.MapVis[i][j])) {
 					cvm.MapObj[y][x] = new Objeto(cvm.MapVis[i][j],Pesos(cvm.MapVis[i][j]));
 				}
 				else if(cvm.MapVis[i][j]==0){
@@ -129,13 +131,15 @@ public class Poupador extends ProgramaPoupador {
 				if(cvm.MapObj[i][j]!=null) {
 					if (cvm.MapObj[i][j].tipo == 1) {
 						cvm.MapFeli[i][j] = Double.NEGATIVE_INFINITY;
-					}else{
-//						AreaPeso(i, j, 2, cvm.MapObj[i][j].peso);
-						AreaPesoTermico(i,j,cvm.MapObj[i][j].peso);
+					}else if(cvm.MapObj[i][j].tipo !=3){
+						AreaPeso(i, j, 2, cvm.MapObj[i][j].peso);
+//
 					}
 				}
 			}
 		}
+		AreaPeso(8,8,2,cvm.MapObj[8][8].peso);
+//		AreaPesoTermico(8,8,cvm.MapObj[8][8].peso);
 
 	}
 
@@ -185,9 +189,20 @@ public class Poupador extends ProgramaPoupador {
 //		grafo.MontarGrafo();
 //		termico.termico(grafo,8,8);
 
+		// A*
+		no n = new no();
+		int Direstrela=-1;
+		if(cvm.MapFeli[8][8]>0  || cvm.NumeroDeMoedas>0) {
+			grafo.MontarGrafo();
+			n = aestrela.busca(grafo, cvm.Y * 30 + cvm.X, 8 * 30 + 8);
+			Direstrela = aestrela.get_dir(n);
+		}
 
 		int DirRoleta = roleta.Roleta();
 //		System.out.println(Direcao(DirRoleta));
+		if(Direstrela>-1){
+			return Direstrela;
+		}
 		return DirRoleta;//(int) (Math.random() * 5);
 	}
 

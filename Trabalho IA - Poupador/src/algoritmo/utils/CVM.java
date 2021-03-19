@@ -1,5 +1,7 @@
 package algoritmo.utils;
 
+import java.util.ArrayList;
+
 public class CVM{
     public Objeto[][] MapObj = new Objeto[30][30];
     public int[][] MapPos = new int[30][30];
@@ -17,4 +19,5 @@ public class CVM{
     public int Direita = 3;
     public int Esquerda = 4;
     public int NumeroDeMoedas=0;
+    public ArrayList<Integer> Dirs = new ArrayList<>();
 }
