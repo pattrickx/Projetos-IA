@@ -1,4 +1,6 @@
 from random import randint
+import matplotlib.pyplot as plt
+from copy import deepcopy as copy
 # estado = [[1,1,1,1,1,1,1,1],
 #             [0,0,0,0,0,0,0,0],
 #             [0,0,0,0,0,0,0,0],
@@ -65,19 +67,164 @@ def FuncaoObjetivo(estado):
                 FO+=Atacando(i,j,estado)
     return FO
 
+def SucessoresIndividual(x,y,estado):
+    new_estados = []
+    # Positivo x
+    for i in range(x+1,len(estado)):
+        if estado[i][y]==0:
+            aux =  copy(estado)
+            aux[x][y]=0
+            aux[i][y]=1
+            new_estados.append(aux)
+        else:
+            break
+            
+    # Negativo x
+    for i in range(x-1,-1,-1):
+        if estado[i][y]==0:
+            aux =  copy(estado)
+            aux[x][y]=0
+            aux[i][y]=1
+            new_estados.append(aux)
+        else:
+            break
+    
+
+    # Positivo y
+    for i in range(y+1,len(estado)):
+        if estado[x][i]==0:
+            aux =  copy(estado)
+            aux[x][y]=0
+            aux[x][i]=1
+            new_estados.append(aux)
+        else:
+            break
+    # Negativo y
+    for i in range(y-1,-1,-1):
+        if estado[x][i]==0:
+            aux =  copy(estado)
+            aux[x][y]=0
+            aux[x][i]=1
+            new_estados.append(aux)
+        else:
+            break
+    
+    # print("Principal")
+    # Diagonal Principal baixo
+    i=1
+    while x+i<len(estado) and y+i<len(estado):
+        # print(f"{[x+i]} : {[y+i]}")
+        if estado[x+i][y+i]==0:
+            aux = copy(estado)
+            aux[x][y]=0
+            aux[x+i][y+i]=1
+            new_estados.append(aux)
+        else:
+            break
+        i+=1
+    # Diagonal Principal cima
+    i=1
+    while x-i>=0 and y-i>=0:
+        # print(f"{[x+i]} : {[y+i]}")
+        if estado[x-i][y-i]==0:
+            aux = copy(estado)
+            aux[x][y]=0
+            aux[x-i][y-i]=1
+            new_estados.append(aux)
+        else:
+            break
+        i+=1
+
+    # Diagonal Secundaria baixo
+    i=1
+    while x+i<len(estado) and y-i>=0:
+
+        if estado[x+i][y-i]==0:
+            aux = copy(estado)
+            aux[x][y]=0
+            aux[x+i][y-i]=1
+            new_estados.append(aux)
+        else:
+            break
+        i+=1
+    # Diagonal Secundaria cima
+    i=1
+    while x-i>=0 and y+i<len(estado):
+
+        if estado[x-i][y+i]==0:
+            aux = copy(estado)
+            aux[x][y]=0
+            aux[x-i][y+i]=1
+            new_estados.append(aux)
+        else:
+            break
+        i+=1
+    return new_estados
 def FuncoesSucessoras(estado):
     Sucessores = []
-
+    for i in range(len(estado)):
+        for j in range(len(estado)):
+            if estado[i][j]==1:
+                Sucessores+=SucessoresIndividual(i,j,estado)
     return Sucessores
 
 def PrintEstado(estado):
     for i in estado:
         print(i)
 
-def BuscaLocal(estado):
+def BuscaLocal(n):
+    list_mins =[]
 
-    ...
+    estado = GeradorDeEstado(n)
+    # print("Estado inicial")
+    # PrintEstado(estado)
+    FO = FuncaoObjetivo(estado)
+    Fmin = FO
+    list_mins.append(Fmin)
+    sucessores = FuncoesSucessoras(estado)
+    run = True
+    Melhor_Estado = estado
+    while run:
+        id_melhor = -1 
+        for i,d in enumerate(sucessores):
+            aux = FuncaoObjetivo(d)
+            # list_mins.append(aux)
+            if aux<FO:
+                FO=aux
+                id_melhor=i
 
-estado = GeradorDeEstado()
-print(FuncaoObjetivo(estado))
-PrintEstado(estado)
+        if FO>=Fmin:
+            run = False
+        else:
+            Fmin=FO
+            list_mins.append(Fmin)
+            Melhor_Estado = sucessores[id_melhor]
+            sucessores = FuncoesSucessoras(Melhor_Estado)
+            
+    return Fmin,list_mins
+        
+def BuscaEstocastica(n):
+    run = True
+    list_mins = []
+    FO = n*n
+    # while run:
+    for i in range(100):
+        print(i)
+        MIN,LM = BuscaLocal(n)
+        list_mins+=LM
+        # if FO>=MIN:
+        #     run = False
+    return list_mins
+
+y = BuscaEstocastica(8)
+# x = [i+1 for i in range(len(y))] 
+
+y.sort(reverse=True)
+print(len(y))
+print(y)
+plt.plot(y)
+plt.show()
+# print(FuncaoObjetivo(estado))
+# PrintEstado(estado)
+
+
