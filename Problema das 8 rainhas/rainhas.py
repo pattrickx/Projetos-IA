@@ -185,7 +185,8 @@ def BuscaLocal(n):
     run = True
     Melhor_Estado = estado
     while run:
-        id_melhor = -1 
+        id_melhor = -1  
+        FO = float('inf')
         for i,d in enumerate(sucessores):
             aux = FuncaoObjetivo(d)
             # list_mins.append(aux)
@@ -194,35 +195,41 @@ def BuscaLocal(n):
                 id_melhor=i
 
         if FO>=Fmin:
+            list_mins.append(FO)
             run = False
         else:
             Fmin=FO
             list_mins.append(Fmin)
             Melhor_Estado = sucessores[id_melhor]
             sucessores = FuncoesSucessoras(Melhor_Estado)
-            
+        
     return Fmin,list_mins
         
-def BuscaEstocastica(n):
+def BuscaEstocastica(n=8,t=100):
     run = True
     list_mins = []
     FO = n*n
     # while run:
-    for i in range(100):
+    for i in range(t):
         print(i)
         MIN,LM = BuscaLocal(n)
         list_mins+=LM
-        # if FO>=MIN:
-        #     run = False
+        
     return list_mins
 
-y = BuscaEstocastica(8)
-# x = [i+1 for i in range(len(y))] 
+y = BuscaEstocastica(8,20)
+x = [i for i in range(len(y))] 
 
-y.sort(reverse=True)
+# y.sort(reverse=True)
 print(len(y))
 print(y)
+plt.subplot(1,2,1)
 plt.plot(y)
+plt.scatter(x,y,c='red')
+plt.subplot(1,2,2)
+y.sort(reverse=True)
+plt.plot(y)
+plt.scatter(x,y,c='red')
 plt.show()
 # print(FuncaoObjetivo(estado))
 # PrintEstado(estado)
