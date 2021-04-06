@@ -222,7 +222,7 @@ def BuscaEstocastica(n=8,t=100):
         Melhores_Estados+=ME
     return list_mins,Melhores_Estados
 
-y,Melhores_Estados = BuscaEstocastica(8,100)
+y,Melhores_Estados = BuscaEstocastica(20,10)
 x = [i for i in range(len(y))] 
 
 for i in range(len(y)):
