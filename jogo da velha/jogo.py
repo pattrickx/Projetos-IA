@@ -1,16 +1,13 @@
 import pygame
 
-pygame.font.init()
-
-
-
 tabuleiro = [[0,0,0],
             [0,0,0],
             [0,0,0]]
-
+jogadas=[]
+jogadas.append(tabuleiro.copy())
 def desenhar_X(janela,x,y,t):
-    pygame.draw.line(janela,(255,0,0),(x*t+20,y*t+20),((x+1)*t-20,(y+1)*t-20),8)
-    pygame.draw.line(janela,(255,0,0),(x*t+20,(y+1)*t-20),((x+1)*t-20,(y)*t+20),8)
+    pygame.draw.line(janela,(0,0,255),(x*t+20,y*t+20),((x+1)*t-20,(y+1)*t-20),8)
+    pygame.draw.line(janela,(0,0,255),(x*t+20,(y+1)*t-20),((x+1)*t-20,(y)*t+20),8)
 
 def desenhar_tabuleiro(janela,tabuleiro):
     w = 600
@@ -24,7 +21,7 @@ def desenhar_tabuleiro(janela,tabuleiro):
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro)):
             if tabuleiro[i][j] == -1:
-                pygame.draw.circle(janela, (0,0,255), ((i+1)*tamanho-raio, (j+1)*tamanho-raio),raio-20, 8)
+                pygame.draw.circle(janela, (255,0,0), ((i+1)*tamanho-raio, (j+1)*tamanho-raio),raio-20, 8)
             if tabuleiro[i][j] == 1:
                 desenhar_X(janela,i,j,tamanho)
 
@@ -94,6 +91,7 @@ def main(jogador=1):
                 # print(i,j)
                 # print(tabuleiro[i][j])
                 # print(jogada)
+                jogadas.append(tabuleiro.copy())
                 g = ganhador(tabuleiro)
                 if g!=0:
                     print(f"ganhador: {g}")
