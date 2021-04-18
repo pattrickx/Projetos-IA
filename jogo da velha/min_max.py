@@ -1,41 +1,42 @@
 from copy import deepcopy as copy
+import numpy as np
 class no:
     def __init__(self,estado,tipo,pai):
         self.estado = estado
         self.tipo = tipo
         self.peso=None
-        self.filhos=[]
-        self.Efolha = self.Folha()
+        self.filhos=None
+        self.Efolha = self.Folha(self.estado)
         self.pai=pai
-    def Folha(self):
-        for i in range(len(self.estado)):
+    def Folha(self,t):
+        for i in range(len(t)):
             s=0
-            for j in range(len(self.estado)):
-                s+= self.estado[i][j]
+            for j in range(len(t)):
+                s+= t[i][j]
             if s==3:
                 return 1
             if s==-3:
                 return -1
-        for i in range(len(self.estado)):
+        for i in range(len(t)):
             s=0
-            for j in range(len(self.estado)):
-                s+= self.estado[j][i]
+            for j in range(len(t)):
+                s+= t[j][i]
             if s==3:
                 return 1
             if s==-3:
                 return -1
 
         s=0
-        for i in range(len(self.estado)):
-            s+= self.estado[i][i]
+        for i in range(len(t)):
+            s+= t[i][i]
         if s==3:
             return 1
         if s==-3:
             return -1
 
         s=0
-        for i in range(len(self.estado)):
-            s+= self.estado[i][(len(self.estado)-1)-i]
+        for i in range(len(t)):
+            s+= t[i][(len(t)-1)-i]
         if s==3:
             return 1
         if s==-3:
@@ -50,36 +51,97 @@ class no:
 class min_max:
     def __init__(self): 
         self.arvore=[]
-    
+        self.raiz=[]
+    def poda_alpha_beta(self,pilha,aux):
+        if aux.pai == None:
+            return 0
+        avo = aux.pai.pai
+        if avo!= None and avo.peso:
+            if avo.tipo==1 and (avo.peso >= aux.pai.peso):
+                for x in aux.pai.filhos:
+                    if x in pilha: pilha.remove(x)
+            elif avo.tipo == -1 and (avo.peso <= aux.pai.peso):
+                for x in aux.pai.filhos:
+                    if x in pilha: pilha.remove(x)
+    def minimax(self,aux):
+        if aux.pai == None:
+            return 0
+        if aux.pai.peso == None:
+            aux.pai.peso = aux.peso
+        else:
+            if aux.pai.tipo == 1 and aux.pai.peso<= aux.peso:
+                aux.pai.peso = aux.peso
+            elif aux.pai.tipo == -1 and aux.pai.peso>= aux.peso:
+                aux.pai.peso = aux.peso
+        
+    def criar_ramo(self,raiz):
+        pilha=[]
+        pilha.append(raiz)
+        while pilha:
+            aux = pilha[-1]
+            if aux.Efolha!= None:
+                aux.peso = aux.Efolha
+                self.minimax(aux)
+                self.poda_alpha_beta(pilha,aux)
+                if aux in pilha: pilha.remove(aux)
+            elif aux.peso!= None:
+                self.minimax(aux)
+                self.poda_alpha_beta(pilha,aux)
+                if aux in pilha: pilha.remove(aux)
+            else:
+                pilha+=self.sucessores(aux)
     def criar_arvore(self,estado,tipo):
-        self.arvore.append(no(estado,tipo,-1))
-
+        print("Criando Arvore")
+        self.arvore.append(no(estado,tipo,None))
+        self.raiz = self.arvore[0]
         pilha = []
         pilha.append(self.arvore[0])
         
         while pilha:
-            aux = pilha.pop(-1)
-
+            aux = pilha[-1]
             if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                if aux.pai.peso == None:
-                    aux.pai.peso = aux.peso
-                else:
-                    if aux.pai.tipo == 1 and (aux.pai.peso< aux.peso):
-                        aux.pai.peso = aux.peso
-                    elif aux.pai.peso> aux.peso:
-                        aux.pai.peso = aux.peso
-            else :
+                self.minimax(aux)
+                self.poda_alpha_beta(pilha,aux)
+                if aux in pilha: pilha.remove(aux)
+            elif aux.peso!= None:
+                self.minimax(aux)
+                self.poda_alpha_beta(pilha,aux)
+                if aux in pilha: pilha.remove(aux)
+            else:
                 pilha+=self.sucessores(aux)
         # print(self.arvore[0].peso)
         self.print_arvore(self.arvore[0])
-    def buscar_estado(self):
-        ...
-    
+        print("Arvore Criada")
+    def igual(self,A,B):
+        s=0
+        for i in range(len(A)):
+            for j in range(len(A[0])):
+                if A[i][j]!=B[i][j]:
+                    return False
+        return True
+    def buscar_estado(self,tabuleiro):
+        print("buscando estado")
+        score=(-1,[])
+        
+        if self.igual(tabuleiro,self.raiz.estado) == False:
+            for i in self.raiz.filhos:
+                if self.igual(tabuleiro,i.estado):
+                    self.raiz = i
+                    break
+        if self.raiz.filhos == None:
+            self.criar_ramo(self.raiz)
+        for jogada in self.raiz.filhos:
+            if jogada.peso != None and jogada.peso>=score[0]:
+                score=(jogada.peso,jogada)
+        self.raiz = score[1]
+        print(score)
+        return copy(self.raiz.estado)
+
     def sucessores(self,N):
         Sucessores = []
         estado = N.estado
-        proximo = 1 if (0 == N.tipo or N.tipo == -1)  else -1
+        proximo = 1 if N.tipo == -1  else -1
 
         for i in range(len(estado)):
             for j in range(len(estado)):
@@ -97,15 +159,18 @@ class min_max:
         n=0
         while lista:
             n+=len(lista)
-            for i in range(len(lista[0].estado)):
-                
-                for j in lista:
-                    text += f"{j.peso}:"
+            for j in range(4):
+                for i in lista:
+                    if j<3:
+                        text += f"{i.estado[j]}:"
+                    else:
+                        text += f"{i.peso}:"
                 text+="\n"
-                # print(text)
+            text+="\n"
             l=[]
             for x in lista:
-                l += x.filhos 
+                if x.filhos != None:
+                    l += x.filhos 
             lista=l
 
         print(n)

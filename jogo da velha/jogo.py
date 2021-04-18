@@ -1,6 +1,7 @@
 import pygame
 pygame.font.init()  
 from min_max import min_max
+from copy import deepcopy as copy
 tabuleiro = [[0,0,0],
             [0,0,0],
             [0,0,0]]
@@ -21,9 +22,9 @@ def desenhar_tabuleiro(janela,tabuleiro):
     raio = int(tamanho/2)
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro)):
-            if tabuleiro[i][j] == -1:
-                pygame.draw.circle(janela, (255,0,0), ((i+1)*tamanho-raio, (j+1)*tamanho-raio),raio-20, 8)
             if tabuleiro[i][j] == 1:
+                pygame.draw.circle(janela, (255,0,0), ((i+1)*tamanho-raio, (j+1)*tamanho-raio),raio-20, 8)
+            if tabuleiro[i][j] == -1:
                 desenhar_X(janela,i,j,tamanho)
 
 def desenhar_jogo(janela,tabuleiro):
@@ -95,7 +96,7 @@ def desenhar_fim(janela,ganhador):
 
 def desenhar_arvore():
     ...
-def main():
+def main(tabuleiro):
     janela = pygame.display.set_mode((600,600))
 
     jogador = 0
@@ -110,14 +111,17 @@ def main():
                 i = p[0]
                 j = p[1]
                 if 89<i<291 and 249<j<451:
-                    jogador = -1
-                if 309<i<511 and 249<j<451:
                     jogador = 1
+                if 309<i<511 and 249<j<451:
+                    jogador = -1
                     
     jogada=0
     g=0
-    min_max().criar_arvore(tabuleiro,jogador)
+    IA = min_max()
+    if jogador == 1:
+        IA.criar_arvore(copy(tabuleiro),-1)
     while jogada<9 and g==0:
+        
         desenhar_jogo(janela,tabuleiro)
         pygame.display.update()
         for evento in pygame.event.get():
@@ -130,24 +134,28 @@ def main():
                 
                 if tabuleiro[i][j]==0:
                     jogada+=1
-                    if jogador == 1:
-                        tabuleiro[i][j]=1
-                        jogador=-1
-                    else:
+                    if jogador == -1:
                         tabuleiro[i][j]=-1
                         jogador=1
-                # print(i,j)
-                # print(tabuleiro[i][j])
-                # print(jogada)
-                jogadas.append(tabuleiro.copy())
-                g = ganhador(tabuleiro)
-                if g!=0:
-                    print(f"ganhador: {g}")
-                if g==0 and jogada ==9:
-                    print("Empate")
+                        if jogada==1:
+                            IA.criar_arvore(copy(tabuleiro),-1)
+                        g = ganhador(tabuleiro)
+        if jogador == 1 and g == 0 and jogada <9:
+            jogada+=1
+            tabuleiro = IA.buscar_estado(copy(tabuleiro))
+            jogador=-1
+        # print(i,j)
+        # print(tabuleiro[i][j])
+        # print(jogada)
+        jogadas.append(tabuleiro.copy())
+        g = ganhador(tabuleiro)
+        if g!=0:
+            print(f"ganhador: {g}")
+        if g==0 and jogada ==9:
+            print("Empate")
     ga = "Ninguem"
     if g==1:
-        ga = "Você"
+        ga = "IA"
     if g==-1:
         ga = "Você"
     escolha = False
@@ -165,4 +173,5 @@ def main():
                 if 149<i<451 and 249<j<451:
                     escolha = True
 
-main()
+main(tabuleiro)
+# print(ganhador(tabuleiro))
