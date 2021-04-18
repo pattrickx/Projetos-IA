@@ -1,6 +1,6 @@
 import pygame
 pygame.font.init()  
-
+from min_max import min_max
 tabuleiro = [[0,0,0],
             [0,0,0],
             [0,0,0]]
@@ -116,6 +116,7 @@ def main():
                     
     jogada=0
     g=0
+    min_max().criar_arvore(tabuleiro,jogador)
     while jogada<9 and g==0:
         desenhar_jogo(janela,tabuleiro)
         pygame.display.update()

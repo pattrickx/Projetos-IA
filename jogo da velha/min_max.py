@@ -3,7 +3,7 @@ class no:
     def __init__(self,estado,tipo,pai):
         self.estado = estado
         self.tipo = tipo
-        self.peso=2
+        self.peso=None
         self.filhos=[]
         self.Efolha = self.Folha()
         self.pai=pai
@@ -44,11 +44,11 @@ class no:
         for i in self.estado:
             for j in i:
                 if j==0:
-                    return 2
+                    return None
         return 0
 
 class min_max:
-    def __init__(self):
+    def __init__(self): 
         self.arvore=[]
     
     def criar_arvore(self,estado,tipo):
@@ -60,25 +60,26 @@ class min_max:
         while pilha:
             aux = pilha.pop(-1)
 
-            if aux.Efolha!=2:
+            if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                if aux.pai.peso ==2:
+                if aux.pai.peso == None:
                     aux.pai.peso = aux.peso
                 else:
-                    if aux.pai.tipo == 1 and (aux.pai.peso<= aux.peso):
+                    if aux.pai.tipo == 1 and (aux.pai.peso< aux.peso):
                         aux.pai.peso = aux.peso
-                    elif aux.pai.peso>= aux.peso:
+                    elif aux.pai.peso> aux.peso:
                         aux.pai.peso = aux.peso
             else :
                 pilha+=self.sucessores(aux)
-        ...
+        # print(self.arvore[0].peso)
+        self.print_arvore(self.arvore[0])
     def buscar_estado(self):
         ...
     
     def sucessores(self,N):
         Sucessores = []
         estado = N.estado
-        proximo = 1 if 0 == N.tipo == -1  else -1
+        proximo = 1 if (0 == N.tipo or N.tipo == -1)  else -1
 
         for i in range(len(estado)):
             for j in range(len(estado)):
@@ -86,7 +87,32 @@ class min_max:
                     aux = copy(estado)
                     aux[i][j]=proximo
                     Sucessores.append(no(aux,proximo,N))
+        N.filhos=Sucessores
         return Sucessores
+    def print_arvore(self,Raiz):
+        lista= []
+        lista.append(Raiz)
+        file = open("t.txt", 'w')
+        text =""
+        n=0
+        while lista:
+            n+=len(lista)
+            for i in range(len(lista[0].estado)):
+                
+                for j in lista:
+                    text += f"{j.peso}:"
+                text+="\n"
+                # print(text)
+            l=[]
+            for x in lista:
+                l += x.filhos 
+            lista=l
+
+        print(n)
+        file.write(text)
+        file.close()
+
+
 
 
 
