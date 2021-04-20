@@ -22,9 +22,9 @@ def desenhar_tabuleiro(janela,tabuleiro):
     raio = int(tamanho/2)
     for i in range(len(tabuleiro)):
         for j in range(len(tabuleiro)):
-            if tabuleiro[i][j] == 1:
+            if tabuleiro[j][i] == 1:
                 pygame.draw.circle(janela, (255,0,0), ((i+1)*tamanho-raio, (j+1)*tamanho-raio),raio-20, 8)
-            if tabuleiro[i][j] == -1:
+            if tabuleiro[j][i] == -1:
                 desenhar_X(janela,i,j,tamanho)
 
 def desenhar_jogo(janela,tabuleiro):
@@ -119,7 +119,7 @@ def main(tabuleiro):
     g=0
     IA = min_max()
     if jogador == 1:
-        IA.criar_arvore(copy(tabuleiro),-1)
+        IA.criar_arvore(copy(tabuleiro),1)
     while jogada<9 and g==0:
         
         desenhar_jogo(janela,tabuleiro)
@@ -129,8 +129,8 @@ def main(tabuleiro):
                 return 
             if evento.type== pygame.MOUSEBUTTONUP and jogada<9 and g==0:
                 p = pygame.mouse.get_pos()
-                i = int(p[0]/200)
-                j = int(p[1]/200)
+                j = int(p[0]/200)
+                i = int(p[1]/200)
                 
                 if tabuleiro[i][j]==0:
                     jogada+=1
@@ -138,7 +138,7 @@ def main(tabuleiro):
                         tabuleiro[i][j]=-1
                         jogador=1
                         if jogada==1:
-                            IA.criar_arvore(copy(tabuleiro),-1)
+                            IA.criar_arvore(copy(tabuleiro),1)
                         g = ganhador(tabuleiro)
         if jogador == 1 and g == 0 and jogada <9:
             jogada+=1

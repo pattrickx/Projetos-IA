@@ -11,43 +11,41 @@ class no:
         self.Efolha = self.Folha(self.estado)
         self.pai=pai
     def Folha(self,t):
-        for i in range(len(t)):
-            s=0
-            for j in range(len(t)):
-                s+= t[i][j]
+        #linhas
+        for i in range(3):
+            s=t[i][0]+t[i][1]+t[i][2]
             if s==3:
                 return 1
             if s==-3:
                 return -1
-        for i in range(len(t)):
-            s=0
-            for j in range(len(t)):
-                s+= t[j][i]
+        #colunas
+        for i in range(3):
+            s=t[0][i]+t[1][i]+t[2][i]
             if s==3:
                 return 1
             if s==-3:
                 return -1
 
-        s=0
-        for i in range(len(t)):
-            s+= t[i][i]
+        #diagonal principal
+        s = t[0][0]+t[1][1]+t[2][2]
         if s==3:
             return 1
         if s==-3:
             return -1
 
-        s=0
-        for i in range(len(t)):
-            s+= t[i][(len(t)-1)-i]
+        #diagonal secundaria
+        s = t[0][2]+t[1][1]+t[2][0]
         if s==3:
             return 1
         if s==-3:
             return -1
-
+        
+        # não folha
         for i in self.estado:
             for j in i:
                 if j==0:
                     return None
+        # Velha
         return 0
 
 class min_max:
@@ -59,10 +57,10 @@ class min_max:
             return 0
         avo = aux.pai.pai
         if avo!= None and avo.peso:
-            if avo.tipo==1 and (avo.peso <= aux.pai.peso):
+            if avo.tipo==1 and (avo.peso > aux.pai.peso):
                 for x in aux.pai.filhos:
                     if x in pilha: pilha.remove(x)
-            elif avo.tipo == -1 and (avo.peso >= aux.pai.peso):
+            elif avo.tipo == -1 and (avo.peso < aux.pai.peso):
                 for x in aux.pai.filhos:
                     if x in pilha: pilha.remove(x)
     def minimax(self,aux):
@@ -70,21 +68,21 @@ class min_max:
             return 0
         if aux.pai.peso == None:
             aux.pai.peso = aux.peso
-            aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
+            # aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
         else:
             if aux.pai.tipo == 1:
-                if aux.pai.peso>aux.peso:
+                if aux.pai.peso < aux.peso:
                     aux.pai.peso = aux.peso
-                    aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-                elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
-                    aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
+                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
+                # elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
+                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
 
             elif aux.pai.tipo == -1:
-                if aux.pai.peso<aux.peso:
+                if aux.pai.peso > aux.peso:
                     aux.pai.peso = aux.peso
-                    aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-                elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
-                    aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
+                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
+                # elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
+                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
         
     def criar_ramo(self,raiz):
         pilha=[]
@@ -93,7 +91,7 @@ class min_max:
             aux = pilha[-1]
             if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                aux.dist_folha = 0
+                # aux.dist_folha = 0
                 self.minimax(aux)
                 self.poda_alpha_beta(pilha,aux)
                 if aux in pilha: pilha.remove(aux)
@@ -114,7 +112,7 @@ class min_max:
             aux = pilha[-1]
             if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                aux.dist_folha = 0
+                # aux.dist_folha = 0
                 self.minimax(aux)
                 self.poda_alpha_beta(pilha,aux)
                 if aux in pilha: pilha.remove(aux)
@@ -125,7 +123,7 @@ class min_max:
             else:
                 pilha+=self.sucessores(aux)
         # print(self.arvore[0].peso)
-        self.print_arvore(self.arvore[0])
+        # self.print_arvore(self.arvore[0])
         print("Arvore Criada")
     def igual(self,A,B):
         s=0
@@ -136,7 +134,6 @@ class min_max:
         return True
     def buscar_estado(self,tabuleiro):
         print("buscando estado")
-        score=(-1,[])
         
         if self.igual(tabuleiro,self.raiz.estado) == False:
             for i in self.raiz.filhos:
@@ -150,33 +147,32 @@ class min_max:
         for i in self.raiz.filhos:
             if i.peso!=None:
                 s.append(i)
-        s = sorted(s, key = lambda x:(-x.peso,x.dist_folha))
+        s = sorted(s, key = lambda x:x.peso, reverse=True)
         # for jogada in self.raiz.filhos:
         #     if jogada.peso != None and jogada.peso>=score[0]:
         #         score=(jogada.peso,jogada)
         # self.raiz = score[1]
-        for i in s:
-            print(i.peso,i.dist_folha,i.tipo)
-            for j in i.estado:
-                print(j)
-            print("")
+        # for i in s:
+        #     print(i.peso,i.tipo)
+        #     for j in i.estado:
+        #         print(j)
+        #     print("")
 
 
-        self.raiz = copy(s[0])
-        print(self.raiz.peso)
+        self.raiz = s[0]
 
         return copy(self.raiz.estado)
 
     def sucessores(self,N):
         Sucessores = []
         estado = N.estado
-        proximo = 1 if N.tipo == -1  else -1
+        proximo = -1 if N.tipo == 1  else 1
 
         for i in range(len(estado)):
             for j in range(len(estado)):
                 if estado[i][j]==0:
                     aux = copy(estado)
-                    aux[i][j]=proximo
+                    aux[i][j]= copy(N.tipo)
                     Sucessores.append(no(aux,proximo,N,N.profundidade+1))
         N.filhos=Sucessores
         return Sucessores
