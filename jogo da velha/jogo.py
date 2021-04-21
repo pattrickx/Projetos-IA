@@ -96,24 +96,53 @@ def desenhar_fim(janela,ganhador):
     texto = fonte.render("Árvore",1,(255,255,255))
     janela.blit(texto,(212,315))
 
-def desenhar_arvore(janela,tabuleiro,x,y):
+def desenhar_arvore(janela,arvore,x,y):
     janela.fill((255,255,255))
-    w=100
-    h=100
-    tamanho = 100/3
-    for i in range(1,3):
-        pygame.draw.line(janela,(0,0,0),(x,i*tamanho+y),(w+x,i*tamanho+y),3) #horizontal
-        pygame.draw.line(janela,(0,0,0),(i*tamanho+x,y),(i*tamanho+x,h+y),3)
-
-    raio = int(tamanho/2)
-    for i in range(len(tabuleiro)):
-        for j in range(len(tabuleiro)):
-            if tabuleiro[j][i] == 1:
-                pygame.draw.circle(janela, (255,0,0), (((i+1)*tamanho-raio)+x, ((j+1)*tamanho-raio)+y),int(raio*0.8), 2)
-            if tabuleiro[j][i] == -1:
-                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*j),(x+tamanho*(i+1),y+tamanho*(j+1)),2)
-                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*(j+1)),(x+tamanho*(i+1),y+tamanho*j),2)
+    w=75
+    h=75
+    espaco=10
+    tamanho = w/3
+    X = int(x)
+    Y = int(y)
+    # print(len(arvore))
     
+    for id_no,n in enumerate(arvore):
+        tabuleiros = []
+        tabuleiros.append(n.estado)
+        if n.filhos != None:
+            for f in n.filhos: 
+                tabuleiros.append(f.estado)
+        for d,tabuleiro in enumerate(tabuleiros): 
+            if d>0:
+                x=(X-int((len(tabuleiros))*(w+espaco)/2))+(w+espaco)*d
+                y=Y+(w+espaco)
+            else:
+                pygame.draw.rect(janela,(0,255,0),(x,y,w,h),3)
+            for i in range(1,3):
+                pygame.draw.line(janela,(0,0,0),(x,i*tamanho+y),(w+x,i*tamanho+y),3) #horizontal
+                pygame.draw.line(janela,(0,0,0),(i*tamanho+x,y),(i*tamanho+x,h+y),3)
+
+            raio = int(tamanho/2)
+            for i in range(len(tabuleiro)):
+                for j in range(len(tabuleiro)):
+                    if tabuleiro[j][i] == 1:
+                        pygame.draw.circle(janela, (255,0,0), (((i+1)*tamanho-raio)+x, ((j+1)*tamanho-raio)+y),int(raio*0.8), 2)
+                    if tabuleiro[j][i] == -1:
+                            pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*j),(x+tamanho*(i+1),y+tamanho*(j+1)),2)
+                            pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*(j+1)),(x+tamanho*(i+1),y+tamanho*j),2)
+        Y+=(w+espaco)
+        if n.filhos != None:
+            for d,f in enumerate(n.filhos): 
+                igual=True
+                for i in range(len(f.estado)):
+                    if not f.estado[i]==arvore[id_no+1].estado[i]:
+                        igual=False
+                        break
+                if igual:
+                    X=(X-int((len(n.filhos)+1)*(w+espaco)/2))+(w+10)*(d+1)
+                    x=int(X)
+                    break
+        
 def main(tabuleiro):
     janela = pygame.display.set_mode((600,600))
 
@@ -176,6 +205,7 @@ def main(tabuleiro):
         ga = "IA"
     if g==-1:
         ga = "Você"
+    IA.buscar_estado(copy(tabuleiro))
     escolha = False
     while not escolha:
 
@@ -190,13 +220,13 @@ def main(tabuleiro):
                 j = p[1]
                 if 149<i<451 and 249<j<451:
                     escolha = True
-    x=200
+    x=600
     y=0
     escolha= True
     cm = False
     p0=[]
     p=[]
-    
+    DISPLAYSURF = pygame.display.set_mode((1200, 600), pygame.RESIZABLE)
     while escolha:
         
         pygame.display.update()
@@ -226,9 +256,9 @@ def main(tabuleiro):
 
         if cm:
             p = pygame.mouse.get_pos()
-            desenhar_arvore(janela,tabuleiro,x-(p0[0]-p[0]),y-(p0[1]-p[1]))
+            desenhar_arvore(janela,IA.arvore,x-(p0[0]-p[0]),y-(p0[1]-p[1]))
         else:
-            desenhar_arvore(janela,tabuleiro,x,y)
+            desenhar_arvore(janela,IA.arvore,x,y)
             
             
         # time.sleep(0.01)

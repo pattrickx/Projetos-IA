@@ -103,8 +103,8 @@ class min_max:
                 pilha+=self.sucessores(aux)
     def criar_arvore(self,estado,tipo):
         print("Criando Arvore")
-        self.arvore.append(no(estado,tipo,None,0))
-        self.raiz = copy(self.arvore[0])
+        self.raiz =no(estado,tipo,None,0)
+        self.arvore.append(copy(self.raiz))
         pilha = []
         pilha.append(self.arvore[0])
         
@@ -133,13 +133,26 @@ class min_max:
                     return False
         return True
     def buscar_estado(self,tabuleiro):
+        if self.raiz.Efolha!=None:
+            return -1
         print("buscando estado")
-        
-        if (np.array(tabuleiro)==(self.raiz.estado)).all() == False:
+        igual=True
+        for i in range(len(tabuleiro)):
+            if not tabuleiro[i]==self.raiz.estado[i]:
+                igual=False
+                break
+        if not igual:
             for i in self.raiz.filhos:
-                if (np.array(tabuleiro)==np.array(i.estado)).all():
+                igual=True
+                for j in range(len(tabuleiro)):
+                    if not tabuleiro[j]==i.estado[j]:
+                        igual=False
+                        break
+                if igual:
                     self.raiz = i
                     self.arvore.append(copy(self.raiz))
+                    if self.raiz.Efolha!=None:
+                        return -1
                     break
         if self.raiz.filhos == None:
             print("criando ramo")
@@ -148,7 +161,7 @@ class min_max:
         for i in self.raiz.filhos:
             if i.peso!=None:
                 s.append(i)
-        s = sorted(s, key = lambda x:x.peso, reverse=True)
+        s = sorted(s, key = lambda x:-x.peso)
         # for jogada in self.raiz.filhos:
         #     if jogada.peso != None and jogada.peso>=score[0]:
         #         score=(jogada.peso,jogada)
