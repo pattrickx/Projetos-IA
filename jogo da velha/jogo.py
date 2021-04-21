@@ -2,7 +2,6 @@ import pygame
 pygame.font.init()  
 from min_max import min_max
 from copy import deepcopy as copy
-from pygame_functions import *
 import time
 tabuleiro = [[0,0,0],
             [0,0,0],
