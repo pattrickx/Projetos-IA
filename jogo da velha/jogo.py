@@ -4,9 +4,9 @@ from min_max import min_max
 from copy import deepcopy as copy
 from pygame_functions import *
 import time
-tabuleiro = [[1,0,0],
-            [0,-1,0],
-            [0,0,1]]
+tabuleiro = [[0,0,0],
+            [0,0,0],
+            [0,0,0]]
 jogadas=[]
 jogadas.append(tabuleiro.copy())
 def desenhar_X(janela,x,y,t):
@@ -111,85 +111,85 @@ def desenhar_arvore(janela,tabuleiro,x,y):
             if tabuleiro[j][i] == 1:
                 pygame.draw.circle(janela, (255,0,0), (((i+1)*tamanho-raio)+x, ((j+1)*tamanho-raio)+y),int(raio*0.8), 2)
             if tabuleiro[j][i] == -1:
-                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*j),(x+tamanho*(i+1),y+tamanho*(i+1)),2)
-                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*(i+1)),(x+tamanho*(i+1),y+tamanho*j),2)
+                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*j),(x+tamanho*(i+1),y+tamanho*(j+1)),2)
+                    pygame.draw.line(janela,(0,0,255),(x+tamanho*i,y+tamanho*(j+1)),(x+tamanho*(i+1),y+tamanho*j),2)
     
 def main(tabuleiro):
     janela = pygame.display.set_mode((600,600))
 
-    # jogador = 0
-    # while jogador==0:
-    #     desenhar_menu(janela)
-    #     pygame.display.update()
-    #     for evento in pygame.event.get():
-    #         if evento.type == pygame.QUIT:
-    #             return 
-    #         if evento.type== pygame.MOUSEBUTTONUP:
-    #             p = pygame.mouse.get_pos()
-    #             i = p[0]
-    #             j = p[1]
-    #             if 89<i<291 and 249<j<451:
-    #                 jogador = 1
-    #             if 309<i<511 and 249<j<451:
-    #                 jogador = -1
+    jogador = 0
+    while jogador==0:
+        desenhar_menu(janela)
+        pygame.display.update()
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                return 
+            if evento.type== pygame.MOUSEBUTTONUP:
+                p = pygame.mouse.get_pos()
+                i = p[0]
+                j = p[1]
+                if 89<i<291 and 249<j<451:
+                    jogador = 1
+                if 309<i<511 and 249<j<451:
+                    jogador = -1
                     
-    # jogada=0
-    # g=0
-    # IA = min_max()
-    # if jogador == 1:
-    #     IA.criar_arvore(copy(tabuleiro),1)
-    # while jogada<9 and g==0:
+    jogada=0
+    g=0
+    IA = min_max()
+    if jogador == 1:
+        IA.criar_arvore(copy(tabuleiro),1)
+    while jogada<9 and g==0:
         
-    #     desenhar_jogo(janela,tabuleiro)
-    #     pygame.display.update()
-    #     for evento in pygame.event.get():
-    #         if evento.type == pygame.QUIT:
-    #             return 
-    #         if evento.type== pygame.MOUSEBUTTONUP and jogada<9 and g==0:
-    #             p = pygame.mouse.get_pos()
-    #             j = int(p[0]/200)
-    #             i = int(p[1]/200)
+        desenhar_jogo(janela,tabuleiro)
+        pygame.display.update()
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                return 
+            if evento.type== pygame.MOUSEBUTTONUP and jogada<9 and g==0:
+                p = pygame.mouse.get_pos()
+                j = int(p[0]/200)
+                i = int(p[1]/200)
                 
-    #             if tabuleiro[i][j]==0:
-    #                 jogada+=1
-    #                 if jogador == -1:
-    #                     tabuleiro[i][j]=-1
-    #                     jogador=1
-    #                     if jogada==1:
-    #                         IA.criar_arvore(copy(tabuleiro),1)
-    #                     g = ganhador(tabuleiro)
-    #     if jogador == 1 and g == 0 and jogada <9:
-    #         jogada+=1
-    #         tabuleiro = IA.buscar_estado(copy(tabuleiro))
-    #         jogador=-1
-    #     # print(i,j)
-    #     # print(tabuleiro[i][j])
-    #     # print(jogada)
-    #     jogadas.append(tabuleiro.copy())
-    #     g = ganhador(tabuleiro)
-    #     if g!=0:
-    #         print(f"ganhador: {g}")
-    #     if g==0 and jogada ==9:
-    #         print("Empate")
-    # ga = "Ninguem"
-    # if g==1:
-    #     ga = "IA"
-    # if g==-1:
-    #     ga = "Você"
-    # escolha = False
-    # while not escolha:
+                if tabuleiro[i][j]==0:
+                    jogada+=1
+                    if jogador == -1:
+                        tabuleiro[i][j]=-1
+                        jogador=1
+                        if jogada==1:
+                            IA.criar_arvore(copy(tabuleiro),1)
+                        g = ganhador(tabuleiro)
+        if jogador == 1 and g == 0 and jogada <9:
+            jogada+=1
+            tabuleiro = IA.buscar_estado(copy(tabuleiro))
+            jogador=-1
+        # print(i,j)
+        # print(tabuleiro[i][j])
+        # print(jogada)
+        jogadas.append(tabuleiro.copy())
+        g = ganhador(tabuleiro)
+        if g!=0:
+            print(f"ganhador: {g}")
+        if g==0 and jogada ==9:
+            print("Empate")
+    ga = "Ninguem"
+    if g==1:
+        ga = "IA"
+    if g==-1:
+        ga = "Você"
+    escolha = False
+    while not escolha:
 
-    #     desenhar_fim(janela,ga)
-    #     pygame.display.update()
-    #     for evento in pygame.event.get():
-    #         if evento.type == pygame.QUIT:
-    #             return 
-    #         if evento.type== pygame.MOUSEBUTTONUP:
-    #             p = pygame.mouse.get_pos()
-    #             i = p[0]
-    #             j = p[1]
-    #             if 149<i<451 and 249<j<451:
-    #                 escolha = True
+        desenhar_fim(janela,ga)
+        pygame.display.update()
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
+                return 
+            if evento.type== pygame.MOUSEBUTTONUP:
+                p = pygame.mouse.get_pos()
+                i = p[0]
+                j = p[1]
+                if 149<i<451 and 249<j<451:
+                    escolha = True
     x=200
     y=0
     escolha= True
