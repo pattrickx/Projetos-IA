@@ -104,7 +104,7 @@ class min_max:
     def criar_arvore(self,estado,tipo):
         print("Criando Arvore")
         self.arvore.append(no(estado,tipo,None,0))
-        self.raiz = self.arvore[0]
+        self.raiz = copy(self.arvore[0])
         pilha = []
         pilha.append(self.arvore[0])
         
@@ -123,7 +123,7 @@ class min_max:
             else:
                 pilha+=self.sucessores(aux)
         # print(self.arvore[0].peso)
-        # self.print_arvore(self.arvore[0])
+        self.save_arvore(self.arvore[0])
         print("Arvore Criada")
     def igual(self,A,B):
         s=0
@@ -135,10 +135,11 @@ class min_max:
     def buscar_estado(self,tabuleiro):
         print("buscando estado")
         
-        if self.igual(tabuleiro,self.raiz.estado) == False:
+        if (np.array(tabuleiro)==(self.raiz.estado)).all() == False:
             for i in self.raiz.filhos:
-                if self.igual(tabuleiro,i.estado):
+                if (np.array(tabuleiro)==np.array(i.estado)).all():
                     self.raiz = i
+                    self.arvore.append(copy(self.raiz))
                     break
         if self.raiz.filhos == None:
             print("criando ramo")
@@ -160,7 +161,7 @@ class min_max:
 
 
         self.raiz = s[0]
-
+        self.arvore.append(copy(self.raiz))
         return copy(self.raiz.estado)
 
     def sucessores(self,N):
@@ -176,7 +177,7 @@ class min_max:
                     Sucessores.append(no(aux,proximo,N,N.profundidade+1))
         N.filhos=Sucessores
         return Sucessores
-    def print_arvore(self,Raiz):
+    def save_arvore(self,Raiz):
         lista= []
         lista.append(Raiz)
         file = open("t.txt", 'w')
