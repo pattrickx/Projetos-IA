@@ -234,9 +234,11 @@ def main(tabuleiro):
                 cm = True
             if evento.type == pygame.MOUSEBUTTONUP:
                 cm = False
-                x = x-(p0[0]-p[0])
-                y = y-(p0[1]-p[1])
-                
+                try:
+                    x = x-(p0[0]-p[0])
+                    y = y-(p0[1]-p[1])
+                except Exception as e:
+                    pass
         if cm:
             p = pygame.mouse.get_pos()
             desenhar_arvore(janela,IA.arvore,x-(p0[0]-p[0]),y-(p0[1]-p[1]))

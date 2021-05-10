@@ -123,7 +123,7 @@ class min_max:
             else:
                 pilha+=self.sucessores(aux)
 
-        self.save_arvore(self.arvore[0])
+        # self.save_arvore(self.arvore[0])
         print("Arvore Criada")
     def igual(self,A:list,B:list)->bool:
         s=0
