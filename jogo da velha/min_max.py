@@ -1,7 +1,15 @@
 from copy import deepcopy as copy
 import numpy as np
 class no:
-    def __init__(self,estado,tipo,pai,profundidade):
+    def __init__(self,estado:list,tipo:int,pai:object or int,profundidade:int ):
+        """[summary]
+
+        Args:
+            estado (list): [description]
+            tipo (int): [description]
+            pai (no or int): [description]
+            profundidade (int): [description]
+        """
         self.profundidade = profundidade 
         self.dist_folha=None
         self.estado = estado
@@ -10,7 +18,7 @@ class no:
         self.filhos=None
         self.Efolha = self.Folha(self.estado)
         self.pai=pai
-    def Folha(self,t):
+    def Folha(self,t:list)->int or None:
         #linhas
         for i in range(3):
             s=t[i][0]+t[i][1]+t[i][2]
@@ -63,35 +71,27 @@ class min_max:
             elif avo.tipo == -1 and (avo.peso < aux.pai.peso):
                 for x in aux.pai.filhos:
                     if x in pilha: pilha.remove(x)
-    def minimax(self,aux):
+    def minimax(self,aux:no):
         if aux.pai == None:
             return 0
         if aux.pai.peso == None:
             aux.pai.peso = aux.peso
-            # aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
         else:
             if aux.pai.tipo == 1:
                 if aux.pai.peso < aux.peso:
                     aux.pai.peso = aux.peso
-                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-                # elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
-                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-
             elif aux.pai.tipo == -1:
                 if aux.pai.peso > aux.peso:
                     aux.pai.peso = aux.peso
-                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-                # elif aux.pai.peso==aux.peso and aux.pai.dist_folha>(aux.dist_folha+aux.profundidade)-aux.pai.profundidade:
-                #     aux.pai.dist_folha=(aux.dist_folha+aux.profundidade)-aux.pai.profundidade
-        
-    def criar_ramo(self,raiz):
+
+    def criar_ramo(self,raiz:no):
         pilha=[]
         pilha.append(raiz)
         while pilha:
             aux = pilha[-1]
             if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                # aux.dist_folha = 0
+
                 self.minimax(aux)
                 self.poda_alpha_beta(pilha,aux)
                 if aux in pilha: pilha.remove(aux)
@@ -101,10 +101,10 @@ class min_max:
                 if aux in pilha: pilha.remove(aux)
             else:
                 pilha+=self.sucessores(aux)
-    def criar_arvore(self,estado,tipo):
+    def criar_arvore(self,estado:list,tipo:int):
         print("Criando Arvore")
         self.raiz =no(estado,tipo,None,0)
-        self.arvore.append(copy(self.raiz))
+        self.arvore.append(self.raiz)
         pilha = []
         pilha.append(self.arvore[0])
         
@@ -112,7 +112,7 @@ class min_max:
             aux = pilha[-1]
             if aux.Efolha!= None:
                 aux.peso = aux.Efolha
-                # aux.dist_folha = 0
+
                 self.minimax(aux)
                 self.poda_alpha_beta(pilha,aux)
                 if aux in pilha: pilha.remove(aux)
@@ -122,17 +122,17 @@ class min_max:
                 if aux in pilha: pilha.remove(aux)
             else:
                 pilha+=self.sucessores(aux)
-        # print(self.arvore[0].peso)
+
         self.save_arvore(self.arvore[0])
         print("Arvore Criada")
-    def igual(self,A,B):
+    def igual(self,A:list,B:list)->bool:
         s=0
         for i in range(len(A)):
             for j in range(len(A[0])):
                 if A[i][j]!=B[i][j]:
                     return False
         return True
-    def buscar_estado(self,tabuleiro):
+    def buscar_estado(self,tabuleiro:list)-> list or int:
         if self.raiz.Efolha!=None:
             return -1
         print("buscando estado")
@@ -150,7 +150,7 @@ class min_max:
                         break
                 if igual:
                     self.raiz = i
-                    self.arvore.append(copy(self.raiz))
+                    self.arvore.append(self.raiz)
                     if self.raiz.Efolha!=None:
                         return -1
                     break
@@ -162,22 +162,12 @@ class min_max:
             if i.peso!=None:
                 s.append(i)
         s = sorted(s, key = lambda x:-x.peso)
-        # for jogada in self.raiz.filhos:
-        #     if jogada.peso != None and jogada.peso>=score[0]:
-        #         score=(jogada.peso,jogada)
-        # self.raiz = score[1]
-        # for i in s:
-        #     print(i.peso,i.tipo)
-        #     for j in i.estado:
-        #         print(j)
-        #     print("")
-
 
         self.raiz = s[0]
-        self.arvore.append(copy(self.raiz))
-        return copy(self.raiz.estado)
+        self.arvore.append(self.raiz)
+        return np.copy(self.raiz.estado).tolist()
 
-    def sucessores(self,N):
+    def sucessores(self,N:no)->list:
         Sucessores = []
         estado = N.estado
         proximo = -1 if N.tipo == 1  else 1
@@ -185,12 +175,12 @@ class min_max:
         for i in range(len(estado)):
             for j in range(len(estado)):
                 if estado[i][j]==0:
-                    aux = copy(estado)
-                    aux[i][j]= copy(N.tipo)
+                    aux = np.copy(estado).tolist()
+                    aux[i][j]= int(N.tipo)
                     Sucessores.append(no(aux,proximo,N,N.profundidade+1))
         N.filhos=Sucessores
         return Sucessores
-    def save_arvore(self,Raiz):
+    def save_arvore(self,Raiz:no):
         lista= []
         lista.append(Raiz)
         file = open("t.txt", 'w')

@@ -103,7 +103,6 @@ def desenhar_arvore(janela,arvore,x,y):
     tamanho = w/3
     X = int(x)
     Y = int(y)
-    # print(len(arvore))
     
     for id_no,n in enumerate(arvore):
         tabuleiros = []
@@ -165,7 +164,7 @@ def main(tabuleiro):
     g=0
     IA = min_max()
     if jogador == 1:
-        IA.criar_arvore(copy(tabuleiro),1)
+        IA.criar_arvore(tabuleiro.copy(),1)
     while jogada<9 and g==0:
         
         desenhar_jogo(janela,tabuleiro)
@@ -184,16 +183,13 @@ def main(tabuleiro):
                         tabuleiro[i][j]=-1
                         jogador=1
                         if jogada==1:
-                            IA.criar_arvore(copy(tabuleiro),1)
+                            IA.criar_arvore(tabuleiro.copy(),1)
                         g = ganhador(tabuleiro)
         if jogador == 1 and g == 0 and jogada <9:
             jogada+=1
-            tabuleiro = IA.buscar_estado(copy(tabuleiro))
+            tabuleiro = IA.buscar_estado(tabuleiro.copy())
             jogador=-1
-        # print(i,j)
-        # print(tabuleiro[i][j])
-        # print(jogada)
-        jogadas.append(tabuleiro.copy())
+
         g = ganhador(tabuleiro)
         if g!=0:
             print(f"ganhador: {g}")
@@ -204,7 +200,7 @@ def main(tabuleiro):
         ga = "IA"
     if g==-1:
         ga = "Você"
-    IA.buscar_estado(copy(tabuleiro))
+    IA.buscar_estado(tabuleiro.copy())
     escolha = False
     while not escolha:
 
@@ -241,29 +237,11 @@ def main(tabuleiro):
                 x = x-(p0[0]-p[0])
                 y = y-(p0[1]-p[1])
                 
-        # if keyPressed("right"):
-        #     x+=5                      # The player is moving right, so we scroll the background left
-
-        # elif keyPressed("down"):
-        #     y+=5
-
-        # elif keyPressed("left"):
-        #     x-=5
-
-        # elif keyPressed("up"):
-        #     y-=5
-
         if cm:
             p = pygame.mouse.get_pos()
             desenhar_arvore(janela,IA.arvore,x-(p0[0]-p[0]),y-(p0[1]-p[1]))
         else:
             desenhar_arvore(janela,IA.arvore,x,y)
-            
-            
-        # time.sleep(0.01)
-
-
 
 
 main(tabuleiro)
-# print(ganhador(tabuleiro))
