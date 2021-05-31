@@ -1,0 +1,416 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6">
+    <Prefix name="" IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Assistente_social"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pessoa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#foiMedicadoPor"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Caio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Ortopedista"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepcionista"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Bisturi"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Profissional_da_limpeza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Estetoscópio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cirurgião_geral"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Objetos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cardiologista"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#utiliza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tesouras"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Paulo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Aparelho_de_pressão"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#trabalha"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Daniele"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Fórceps"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#medicou"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Funcionário"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#anestesiou"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Consultório"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Enfermaria"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#foiAnestesiado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Enfermeiro"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Local"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#trabalhaEm"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Martelo_de_Buck"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pediatra"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Equipamentos_de_limpeza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Oxímetro"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#atendeu"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UTI"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#nome"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepção"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rafael"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Vassoura"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Anestesista"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#foiAtendido"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Acompanhante"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sala_cirúrgica"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Apartamento"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Computador"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Médico"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Injeções"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Paciente"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Funcionário"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Pessoa"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#trabalhaEm"/>
+                <Class IRI="#Local"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#Objetos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Acompanhante"/>
+        <Class IRI="#Pessoa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Anestesista"/>
+        <Class IRI="#Médico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Aparelho_de_pressão"/>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Apartamento"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Assistente_social"/>
+        <Class IRI="#Funcionário"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bisturi"/>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cardiologista"/>
+        <Class IRI="#Médico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cardiologista"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#trabalhaEm"/>
+                <Class IRI="#Consultório"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#Instrumentos_de_avaliação"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cirurgião_geral"/>
+        <Class IRI="#Médico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cirurgião_geral"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#trabalhaEm"/>
+                <Class IRI="#Sala_cirúrgica"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#Instrumentos_cirúgicos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Computador"/>
+        <Class IRI="#Objetos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Consultório"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Enfermaria"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Enfermeiro"/>
+        <Class IRI="#Funcionário"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Equipamentos_de_limpeza"/>
+        <Class IRI="#Objetos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Estetoscópio"/>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Funcionário"/>
+        <Class IRI="#Pessoa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Fórceps"/>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Injeções"/>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+        <Class IRI="#Objetos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+        <Class IRI="#Objetos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Martelo_de_Buck"/>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Médico"/>
+        <Class IRI="#Funcionário"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Ortopedista"/>
+        <Class IRI="#Médico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Ortopedista"/>
+        <ObjectIntersectionOf>
+            <ObjectIntersectionOf>
+                <Class IRI="#Instrumentos_de_avaliação"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#utiliza"/>
+                    <Class IRI="#Instrumentos_cirúgicos"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
+            <ObjectUnionOf>
+                <Class IRI="#Sala_cirúrgica"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#trabalhaEm"/>
+                    <Class IRI="#Consultório"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Oxímetro"/>
+        <Class IRI="#Instrumentos_de_avaliação"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Paciente"/>
+        <Class IRI="#Pessoa"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Pediatra"/>
+        <Class IRI="#Médico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Profissional_da_limpeza"/>
+        <Class IRI="#Funcionário"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Recepcionista"/>
+        <Class IRI="#Funcionário"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Recepção"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sala_cirúrgica"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tesouras"/>
+        <Class IRI="#Instrumentos_cirúgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UTI"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Vassoura"/>
+        <Class IRI="#Equipamentos_de_limpeza"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#Pediatra"/>
+        <NamedIndividual IRI="#Caio"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#medicou"/>
+        <NamedIndividual IRI="#Caio"/>
+        <NamedIndividual IRI="#Rafael"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#foiAnestesiado"/>
+        <NamedIndividual IRI="#Paulo"/>
+        <NamedIndividual IRI="#Daniele"/>
+    </ObjectPropertyAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#utiliza"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#anestesiou"/>
+        <ObjectProperty IRI="#foiAnestesiado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#atendeu"/>
+        <ObjectProperty IRI="#foiAtendido"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#foiMedicadoPor"/>
+        <ObjectProperty IRI="#medicou"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#trabalha"/>
+        <ObjectProperty IRI="#trabalhaEm"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#anestesiou"/>
+        <Class IRI="#Anestesista"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#foiAnestesiado"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#foiMedicadoPor"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#nome"/>
+        <Class IRI="#Pessoa"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+        <Class IRI="#Pessoa"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#atendeu"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#medicou"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
