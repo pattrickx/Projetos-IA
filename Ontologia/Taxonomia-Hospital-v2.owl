@@ -1,0 +1,933 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/mariaeduarda/ontologies/2021/5/untitled-ontology-14"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/5/untitled-ontology-14">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <DataProperty IRI="#nome"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Local"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Acompanhante"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cirurgiao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Computador"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Sala27"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EquipamentosLimpeza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Funcionario"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nSerie"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cargo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InstrumentosCirurgicos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AlaMedica"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Seguranca"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProfissionalLimpeza"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eLimpo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Ortopedista"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#atende"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#limpa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#acompanha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pessoa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Consultorio"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sexo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepcao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UTI"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EquipamentosMedicos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Anestesista"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InstrumentosAvaliacao"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eUtilizado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ocupa"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#marca"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Objetos"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#receita"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eMedicado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SalaCirurgica"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#protege"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eOcupado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eOperado"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#andar"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#coren"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Medico"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eAnestesiado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#anestesia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eAcompanhado"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Jorge"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Paciente"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#recebeReceita"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#medica"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#numero"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#idade"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepcionista"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Enfermeiro"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eRecebido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eAtendido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eProtegido"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#crm"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#utiliza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ClinicoGeral"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Acompanhante"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Pessoa"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#acompanha"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eRecebido"/>
+                <Class IRI="#Recepcionista"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Anestesista"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Medico"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#anestesia"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#SalaCirurgica"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#InstrumentosCirurgicos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Cirurgiao"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Medico"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#SalaCirurgica"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#InstrumentosCirurgicos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#ClinicoGeral"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Medico"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#atende"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#Consultorio"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#InstrumentosAvaliacao"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Computador"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Objetos"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eUtilizado"/>
+                <Class IRI="#Recepcionista"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Enfermeiro"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Funcionario"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#atende"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#medica"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#AlaMedica"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#InstrumentosAvaliacao"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#EquipamentosLimpeza"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Objetos"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eUtilizado"/>
+                <Class IRI="#ProfissionalLimpeza"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#EquipamentosMedicos"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Objetos"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eUtilizado"/>
+                <Class IRI="#Medico"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Funcionario"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Pessoa"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#Local"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#Objetos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Local"/>
+        <ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eLimpo"/>
+                <Class IRI="#ProfissionalLimpeza"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eOcupado"/>
+                <Class IRI="#Funcionario"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Medico"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Funcionario"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#medica"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#receita"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#atende"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#AlaMedica"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#EquipamentosMedicos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Ortopedista"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Medico"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#atende"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+            <ObjectComplementOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#anestesia"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+            </ObjectComplementOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <ObjectUnionOf>
+                    <Class IRI="#Consultorio"/>
+                    <Class IRI="#SalaCirurgica"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#EquipamentosMedicos"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Paciente"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Pessoa"/>
+            <ObjectUnionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#eAtendido"/>
+                    <ObjectUnionOf>
+                        <Class IRI="#Enfermeiro"/>
+                        <Class IRI="#Medico"/>
+                    </ObjectUnionOf>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#eMedicado"/>
+                    <ObjectUnionOf>
+                        <Class IRI="#Enfermeiro"/>
+                        <Class IRI="#Medico"/>
+                    </ObjectUnionOf>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#eOperado"/>
+                    <Class IRI="#Medico"/>
+                </ObjectSomeValuesFrom>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#recebeReceita"/>
+                    <Class IRI="#Medico"/>
+                </ObjectSomeValuesFrom>
+            </ObjectUnionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eRecebido"/>
+                <Class IRI="#Recepcionista"/>
+            </ObjectSomeValuesFrom>
+            <ObjectMinCardinality cardinality="0">
+                <ObjectProperty IRI="#eAcompanhado"/>
+                <Class IRI="#Acompanhante"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#ProfissionalLimpeza"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Funcionario"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#limpa"/>
+                <Class IRI="#Local"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#EquipamentosLimpeza"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Recepcao"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Local"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eOcupado"/>
+                <Class IRI="#Recepcionista"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eProtegido"/>
+                <Class IRI="#Seguranca"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Recepcionista"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Funcionario"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+                <Class IRI="#Paciente"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <Class IRI="#Recepcao"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#Computador"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Seguranca"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Funcionario"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#protege"/>
+                <Class IRI="#Recepcao"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#AlaMedica"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Consultorio"/>
+        <Class IRI="#AlaMedica"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InstrumentosAvaliacao"/>
+        <Class IRI="#EquipamentosMedicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InstrumentosCirurgicos"/>
+        <Class IRI="#EquipamentosMedicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Ortopedista"/>
+        <Class IRI="#Medico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Recepcao"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SalaCirurgica"/>
+        <Class IRI="#AlaMedica"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UTI"/>
+        <Class IRI="#AlaMedica"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#ClinicoGeral"/>
+        <NamedIndividual IRI="#Jorge"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Consultorio"/>
+        <NamedIndividual IRI="#Sala27"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#ocupa"/>
+        <NamedIndividual IRI="#Jorge"/>
+        <NamedIndividual IRI="#Sala27"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eOcupado"/>
+        <NamedIndividual IRI="#Sala27"/>
+        <NamedIndividual IRI="#Jorge"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#crm"/>
+        <NamedIndividual IRI="#Jorge"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">1234-5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Jorge"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">32</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nome"/>
+        <NamedIndividual IRI="#Jorge"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Jorge</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Jorge"/>
+        <Literal xml:lang="pt" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#andar"/>
+        <NamedIndividual IRI="#Sala27"/>
+        <Literal xml:lang="pt" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numero"/>
+        <NamedIndividual IRI="#Sala27"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">27</Literal>
+    </DataPropertyAssertion>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+        <ObjectProperty IRI="#eOperado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <ObjectProperty IRI="#eRecebido"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#acompanha"/>
+        <ObjectProperty IRI="#eAcompanhado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#anestesia"/>
+        <ObjectProperty IRI="#eAnestesiado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#atende"/>
+        <ObjectProperty IRI="#eAtendido"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eLimpo"/>
+        <ObjectProperty IRI="#limpa"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eMedicado"/>
+        <ObjectProperty IRI="#medica"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eOcupado"/>
+        <ObjectProperty IRI="#ocupa"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eProtegido"/>
+        <ObjectProperty IRI="#protege"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#eUtilizado"/>
+        <ObjectProperty IRI="#utiliza"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#recebeReceita"/>
+        <ObjectProperty IRI="#receita"/>
+    </InverseObjectProperties>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#acompanha"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#anestesia"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#atende"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eAcompanhado"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eAnestesiado"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eAtendido"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eLimpo"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eMedicado"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eOperado"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eProtegido"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eRecebido"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eUtilizado"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#limpa"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#medica"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#protege"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#recebeReceita"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#receita"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#utiliza"/>
+    </AsymmetricObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+        <Class IRI="#Cirurgiao"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <Class IRI="#Recepcionista"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#acompanha"/>
+        <Class IRI="#Acompanhante"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#anestesia"/>
+        <Class IRI="#Anestesista"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#atende"/>
+        <Class IRI="#Medico"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eAcompanhado"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eAnestesiado"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eAtendido"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eLimpo"/>
+        <Class IRI="#Local"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eMedicado"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eOcupado"/>
+        <Class IRI="#Local"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eOperado"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eProtegido"/>
+        <Class IRI="#Recepcao"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eRecebido"/>
+        <ObjectUnionOf>
+            <Class IRI="#Acompanhante"/>
+            <Class IRI="#Paciente"/>
+        </ObjectUnionOf>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eUtilizado"/>
+        <Class IRI="#Objetos"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#limpa"/>
+        <Class IRI="#ProfissionalLimpeza"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#medica"/>
+        <ObjectUnionOf>
+            <Class IRI="#Enfermeiro"/>
+            <Class IRI="#Medico"/>
+        </ObjectUnionOf>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ocupa"/>
+        <Class IRI="#Funcionario"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#protege"/>
+        <Class IRI="#Seguranca"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#recebeReceita"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#receita"/>
+        <Class IRI="#Medico"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#utiliza"/>
+        <Class IRI="#Funcionario"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <ObjectUnionOf>
+            <Class IRI="#Acompanhante"/>
+            <Class IRI="#Paciente"/>
+        </ObjectUnionOf>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#acompanha"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#anestesia"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#atende"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eAcompanhado"/>
+        <Class IRI="#Acompanhante"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eAnestesiado"/>
+        <Class IRI="#Anestesista"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eAtendido"/>
+        <Class IRI="#Medico"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eLimpo"/>
+        <Class IRI="#ProfissionalLimpeza"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eMedicado"/>
+        <ObjectUnionOf>
+            <Class IRI="#Enfermeiro"/>
+            <Class IRI="#Medico"/>
+        </ObjectUnionOf>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eOcupado"/>
+        <Class IRI="#Funcionario"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eOperado"/>
+        <Class IRI="#Cirurgiao"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eProtegido"/>
+        <Class IRI="#Seguranca"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eRecebido"/>
+        <Class IRI="#Recepcionista"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eUtilizado"/>
+        <Class IRI="#Funcionario"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#limpa"/>
+        <Class IRI="#Local"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#medica"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ocupa"/>
+        <Class IRI="#Local"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#protege"/>
+        <Class IRI="#Recepcao"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#recebeReceita"/>
+        <Class IRI="#Medico"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#receita"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#utiliza"/>
+        <Class IRI="#Objetos"/>
+    </ObjectPropertyRange>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#andar"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#coren"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#crm"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#idade"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#marca"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#nSerie"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#nome"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#numero"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#sexo"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#andar"/>
+        <Class IRI="#Local"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#coren"/>
+        <Class IRI="#Enfermeiro"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#crm"/>
+        <Class IRI="#Medico"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#idade"/>
+        <Class IRI="#Pessoa"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#marca"/>
+        <Class IRI="#Objetos"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#nSerie"/>
+        <Class IRI="#Objetos"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#nome"/>
+        <Class IRI="#Pessoa"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#numero"/>
+        <Class IRI="#Local"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#sexo"/>
+        <Class IRI="#Pessoa"/>
+    </DataPropertyDomain>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+
