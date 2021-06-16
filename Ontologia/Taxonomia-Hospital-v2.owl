@@ -6,28 +6,23 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/5/untitled-ontology-14">
+    <Prefix name="" IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/5/untitled-ontology-14"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Declaration>
-        <DataProperty IRI="#nome"/>
+        <ObjectProperty IRI="#eInternado"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Local"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Acompanhante"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Cirurgiao"/>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Computador"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#Sala27"/>
     </Declaration>
     <Declaration>
         <Class IRI="#EquipamentosLimpeza"/>
@@ -36,58 +31,64 @@
         <Class IRI="#Funcionario"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#nSerie"/>
+        <Class IRI="#Avental"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Francisco"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#cargo"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InstrumentosCirurgicos"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AlaMedica"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Seguranca"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#SalaCirurgica-7"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Ana"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ProfissionalLimpeza"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#eLimpo"/>
+        <Class IRI="#Ortopedista"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Ortopedista"/>
+        <Class IRI="#Esfregao"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#atende"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#limpa"/>
+        <Class IRI="#Alcool"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#acompanha"/>
+        <Class IRI="#Luva"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Pessoa"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Rafael"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Enfermaria-2"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Consultorio"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#sexo"/>
+        <Class IRI="#Vassoura"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Recepcao"/>
+        <NamedIndividual IRI="#Maria"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#UTI"/>
+        <Class IRI="#Afastadores"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EquipamentosMedicos"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Anestesista"/>
+        <Class IRI="#Enfermaria"/>
     </Declaration>
     <Declaration>
         <Class IRI="#InstrumentosAvaliacao"/>
@@ -96,31 +97,28 @@
         <ObjectProperty IRI="#eUtilizado"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#ocupa"/>
+        <NamedIndividual IRI="#Sala-42"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#marca"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Objetos"/>
+        <Class IRI="#ProPe"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#receita"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#eMedicado"/>
+        <Class IRI="#Mascara"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SalaCirurgica"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#Caio"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#protege"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#eOcupado"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#eOperado"/>
+        <NamedIndividual IRI="#UTI-3"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#andar"/>
@@ -129,13 +127,163 @@
         <DataProperty IRI="#coren"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Medico"/>
+        <NamedIndividual IRI="#Paula"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Sala-27"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#eAnestesiado"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Desinfetante"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#anestesia"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Claudio"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Touca"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#medica"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tesoura"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AparelhoPressao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepcionista"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#aloja"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eRecebido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eAtendido"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#utiliza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Banheiro"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ProdutosLimpeza"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SalaEspera"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nome"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Acompanhante"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Cirurgiao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pediatra"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EPI"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#nSerie"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Rodo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Elevador"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InstrumentosCirurgicos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AlaMedica"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eLimpo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Estacionamento"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#limpa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#acompanha"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Bisturi"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Alicate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Recepcao"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sexo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Injecao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UTI"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AlaRecuperacao"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EquipamentosMedicos"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Anestesista"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Oximetro"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Samuel"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ocupa"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Detergente"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#marca"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Objetos"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eMedicado"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eOcupado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Pinca"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#eOperado"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Medico"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#eAcompanhado"/>
@@ -150,7 +298,10 @@
         <ObjectProperty IRI="#recebeReceita"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#medica"/>
+        <Class IRI="#Apartamento"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#FaceShield"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#numero"/>
@@ -159,16 +310,13 @@
         <DataProperty IRI="#idade"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Recepcionista"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Matheus"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Enfermeiro"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#eRecebido"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#eAtendido"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#eProtegido"/>
@@ -177,16 +325,22 @@
         <DataProperty IRI="#crm"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#utiliza"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#ClinicoGeral"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
+        <Class IRI="#Estetoscopio"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <NamedIndividual IRI="#RecepcaoPrincipal"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Termometro"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Luan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Heitor"/>
     </Declaration>
     <EquivalentClasses>
         <Class IRI="#Acompanhante"/>
@@ -203,6 +357,37 @@
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
+        <Class IRI="#AlaMedica"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Local"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eLimpo"/>
+                <Class IRI="#ProfissionalLimpeza"/>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eOcupado"/>
+                <ObjectUnionOf>
+                    <Class IRI="#Enfermeiro"/>
+                    <Class IRI="#Medico"/>
+                    <Class IRI="#ProfissionalLimpeza"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#AlaRecuperacao"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Local"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eOcupado"/>
+                <ObjectUnionOf>
+                    <Class IRI="#Enfermeiro"/>
+                    <Class IRI="#Medico"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
         <Class IRI="#Anestesista"/>
         <ObjectIntersectionOf>
             <Class IRI="#Medico"/>
@@ -212,7 +397,10 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
-                <Class IRI="#SalaCirurgica"/>
+                <ObjectUnionOf>
+                    <Class IRI="#SalaCirurgica"/>
+                    <Class IRI="#UTI"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
@@ -230,7 +418,10 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
-                <Class IRI="#SalaCirurgica"/>
+                <ObjectUnionOf>
+                    <Class IRI="#AlaRecuperacao"/>
+                    <Class IRI="#SalaCirurgica"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
@@ -248,7 +439,10 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
-                <Class IRI="#Consultorio"/>
+                <ObjectUnionOf>
+                    <Class IRI="#AlaRecuperacao"/>
+                    <Class IRI="#Consultorio"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
@@ -267,6 +461,20 @@
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
+        <Class IRI="#EPI"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Objetos"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#eUtilizado"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Enfermeiro"/>
+                    <Class IRI="#Medico"/>
+                    <Class IRI="#ProfissionalLimpeza"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
         <Class IRI="#Enfermeiro"/>
         <ObjectIntersectionOf>
             <Class IRI="#Funcionario"/>
@@ -280,11 +488,18 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
-                <Class IRI="#AlaMedica"/>
+                <ObjectUnionOf>
+                    <Class IRI="#AlaMedica"/>
+                    <Class IRI="#AlaRecuperacao"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
-                <Class IRI="#InstrumentosAvaliacao"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#EPI"/>
+                    <Class IRI="#Injecao"/>
+                    <Class IRI="#InstrumentosAvaliacao"/>
+                </ObjectIntersectionOf>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -323,15 +538,17 @@
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
-        <Class IRI="#Local"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
         <ObjectIntersectionOf>
+            <Class IRI="#EquipamentosMedicos"/>
             <ObjectSomeValuesFrom>
-                <ObjectProperty IRI="#eLimpo"/>
-                <Class IRI="#ProfissionalLimpeza"/>
-            </ObjectSomeValuesFrom>
-            <ObjectSomeValuesFrom>
-                <ObjectProperty IRI="#eOcupado"/>
-                <Class IRI="#Funcionario"/>
+                <ObjectProperty IRI="#eUtilizado"/>
+                <ObjectUnionOf>
+                    <Class IRI="#Anestesista"/>
+                    <Class IRI="#Cirurgiao"/>
+                    <Class IRI="#Enfermeiro"/>
+                    <Class IRI="#Ortopedista"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -355,11 +572,20 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
-                <Class IRI="#AlaMedica"/>
+                <ObjectUnionOf>
+                    <Class IRI="#AlaMedica"/>
+                    <Class IRI="#AlaRecuperacao"/>
+                </ObjectUnionOf>
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
-                <Class IRI="#EquipamentosMedicos"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#EPI"/>
+                    <ObjectUnionOf>
+                        <Class IRI="#InstrumentosAvaliacao"/>
+                        <Class IRI="#InstrumentosCirurgicos"/>
+                    </ObjectUnionOf>
+                </ObjectIntersectionOf>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -386,6 +612,7 @@
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#ocupa"/>
                 <ObjectUnionOf>
+                    <Class IRI="#AlaRecuperacao"/>
                     <Class IRI="#Consultorio"/>
                     <Class IRI="#SalaCirurgica"/>
                 </ObjectUnionOf>
@@ -432,6 +659,37 @@
                 <ObjectProperty IRI="#eAcompanhado"/>
                 <Class IRI="#Acompanhante"/>
             </ObjectMinCardinality>
+            <ObjectMinCardinality cardinality="0">
+                <ObjectProperty IRI="#eInternado"/>
+                <Class IRI="#AlaRecuperacao"/>
+            </ObjectMinCardinality>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Pediatra"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Medico"/>
+            <ObjectIntersectionOf>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#atende"/>
+                    <Class IRI="#Paciente"/>
+                </ObjectSomeValuesFrom>
+                <DataMaxCardinality cardinality="15">
+                    <DataProperty IRI="#idade"/>
+                    <Datatype abbreviatedIRI="xsd:integer"/>
+                </DataMaxCardinality>
+            </ObjectIntersectionOf>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#ocupa"/>
+                <ObjectUnionOf>
+                    <Class IRI="#AlaRecuperacao"/>
+                    <Class IRI="#Consultorio"/>
+                </ObjectUnionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#utiliza"/>
+                <Class IRI="#InstrumentosAvaliacao"/>
+            </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <EquivalentClasses>
@@ -444,7 +702,12 @@
             </ObjectSomeValuesFrom>
             <ObjectSomeValuesFrom>
                 <ObjectProperty IRI="#utiliza"/>
-                <Class IRI="#EquipamentosLimpeza"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#EquipamentosLimpeza"/>
+                    <Class IRI="#FaceShield"/>
+                    <Class IRI="#Luva"/>
+                    <Class IRI="#Mascara"/>
+                </ObjectIntersectionOf>
             </ObjectSomeValuesFrom>
         </ObjectIntersectionOf>
     </EquivalentClasses>
@@ -491,55 +754,355 @@
         </ObjectIntersectionOf>
     </EquivalentClasses>
     <SubClassOf>
-        <Class IRI="#AlaMedica"/>
+        <Class IRI="#Afastadores"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Alcool"/>
+        <Class IRI="#ProdutosLimpeza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Alicate"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AparelhoPressao"/>
+        <Class IRI="#InstrumentosAvaliacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Apartamento"/>
+        <Class IRI="#AlaRecuperacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Avental"/>
+        <Class IRI="#EPI"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Banheiro"/>
         <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Bisturi"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Consultorio"/>
         <Class IRI="#AlaMedica"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Desinfetante"/>
+        <Class IRI="#ProdutosLimpeza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Detergente"/>
+        <Class IRI="#ProdutosLimpeza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Elevador"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Enfermaria"/>
+        <Class IRI="#AlaRecuperacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Esfregao"/>
+        <Class IRI="#EquipamentosLimpeza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Estacionamento"/>
+        <Class IRI="#Local"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Estetoscopio"/>
+        <Class IRI="#InstrumentosAvaliacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#FaceShield"/>
+        <Class IRI="#EPI"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Injecao"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#InstrumentosAvaliacao"/>
         <Class IRI="#EquipamentosMedicos"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Luva"/>
+        <Class IRI="#EPI"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Mascara"/>
+        <Class IRI="#EPI"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Oximetro"/>
+        <Class IRI="#InstrumentosAvaliacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Pinca"/>
         <Class IRI="#InstrumentosCirurgicos"/>
-        <Class IRI="#EquipamentosMedicos"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Ortopedista"/>
-        <Class IRI="#Medico"/>
+        <Class IRI="#ProPe"/>
+        <Class IRI="#EPI"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Recepcao"/>
-        <Class IRI="#Local"/>
+        <Class IRI="#ProdutosLimpeza"/>
+        <Class IRI="#EquipamentosLimpeza"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rodo"/>
+        <Class IRI="#EquipamentosLimpeza"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SalaCirurgica"/>
         <Class IRI="#AlaMedica"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#UTI"/>
-        <Class IRI="#AlaMedica"/>
+        <Class IRI="#SalaEspera"/>
+        <Class IRI="#Local"/>
     </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Termometro"/>
+        <Class IRI="#InstrumentosAvaliacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tesoura"/>
+        <Class IRI="#InstrumentosCirurgicos"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Touca"/>
+        <Class IRI="#EPI"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#UTI"/>
+        <Class IRI="#AlaRecuperacao"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Vassoura"/>
+        <Class IRI="#EquipamentosLimpeza"/>
+    </SubClassOf>
+    <ClassAssertion>
+        <Class IRI="#Paciente"/>
+        <NamedIndividual IRI="#Ana"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Apartamento"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Enfermaria"/>
+        <NamedIndividual IRI="#Enfermaria-2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Acompanhante"/>
+        <NamedIndividual IRI="#Francisco"/>
+    </ClassAssertion>
     <ClassAssertion>
         <Class IRI="#ClinicoGeral"/>
         <NamedIndividual IRI="#Jorge"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#Consultorio"/>
-        <NamedIndividual IRI="#Sala27"/>
+        <Class IRI="#Recepcionista"/>
+        <NamedIndividual IRI="#Luan"/>
     </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#ProfissionalLimpeza"/>
+        <NamedIndividual IRI="#Matheus"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Seguranca"/>
+        <NamedIndividual IRI="#Paula"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Consultorio"/>
+        <NamedIndividual IRI="#Sala-27"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#SalaCirurgica"/>
+        <NamedIndividual IRI="#SalaCirurgica-7"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Cirurgiao"/>
+        <NamedIndividual IRI="#Samuel"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#UTI"/>
+        <NamedIndividual IRI="#UTI-3"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eAtendido"/>
+        <NamedIndividual IRI="#Ana"/>
+        <NamedIndividual IRI="#Jorge"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#aloja"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
+        <NamedIndividual IRI="#Rafael"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#atende"/>
+        <NamedIndividual IRI="#Caio"/>
+        <NamedIndividual IRI="#Heitor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#ocupa"/>
+        <NamedIndividual IRI="#Caio"/>
+        <NamedIndividual IRI="#Sala-42"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#acompanha"/>
+        <NamedIndividual IRI="#Francisco"/>
+        <NamedIndividual IRI="#Heitor"/>
+    </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#ocupa"/>
         <NamedIndividual IRI="#Jorge"/>
-        <NamedIndividual IRI="#Sala27"/>
+        <NamedIndividual IRI="#Sala-27"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <NamedIndividual IRI="#Luan"/>
+        <NamedIndividual IRI="#Francisco"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#ocupa"/>
+        <NamedIndividual IRI="#Luan"/>
+        <NamedIndividual IRI="#RecepcaoPrincipal"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#recebe"/>
+        <NamedIndividual IRI="#Maria"/>
+        <NamedIndividual IRI="#Heitor"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#limpa"/>
+        <NamedIndividual IRI="#Matheus"/>
+        <NamedIndividual IRI="#UTI-3"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#ocupa"/>
+        <NamedIndividual IRI="#Paula"/>
+        <NamedIndividual IRI="#RecepcaoPrincipal"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eInternado"/>
+        <NamedIndividual IRI="#Rafael"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="#eOcupado"/>
-        <NamedIndividual IRI="#Sala27"/>
+        <NamedIndividual IRI="#RecepcaoPrincipal"/>
+        <NamedIndividual IRI="#Maria"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eOcupado"/>
+        <NamedIndividual IRI="#Sala-27"/>
         <NamedIndividual IRI="#Jorge"/>
     </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eLimpo"/>
+        <NamedIndividual IRI="#Sala-42"/>
+        <NamedIndividual IRI="#Matheus"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eOcupado"/>
+        <NamedIndividual IRI="#SalaCirurgica-7"/>
+        <NamedIndividual IRI="#Samuel"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#eOcupado"/>
+        <NamedIndividual IRI="#UTI-3"/>
+        <NamedIndividual IRI="#Claudio"/>
+    </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Ana"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">23</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nome"/>
+        <NamedIndividual IRI="#Ana"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Ana</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Ana"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Feminino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#andar"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numero"/>
+        <NamedIndividual IRI="#Apartamento-302"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">302</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#crm"/>
+        <NamedIndividual IRI="#Caio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">0309</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Caio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">28</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nome"/>
+        <NamedIndividual IRI="#Caio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Caio</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Caio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#coren"/>
+        <NamedIndividual IRI="#Claudio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1234</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Claudio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">27</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nome"/>
+        <NamedIndividual IRI="#Claudio"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Claudio</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Claudio"/>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Francisco"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">31</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Francisco"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Heitor"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">5</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Heitor"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#crm"/>
         <NamedIndividual IRI="#Jorge"/>
@@ -561,14 +1124,69 @@
         <Literal xml:lang="pt" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Masculino</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Luan"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Maria"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Feminino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Matheus"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">34</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Matheus"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Paula"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">30</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#idade"/>
+        <NamedIndividual IRI="#Rafael"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">57</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#nome"/>
+        <NamedIndividual IRI="#Rafael"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Rafael</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#sexo"/>
+        <NamedIndividual IRI="#Rafael"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#string">Masculino</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="#andar"/>
-        <NamedIndividual IRI="#Sala27"/>
+        <NamedIndividual IRI="#Sala-27"/>
         <Literal xml:lang="pt" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">1</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="#numero"/>
-        <NamedIndividual IRI="#Sala27"/>
+        <NamedIndividual IRI="#Sala-27"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">27</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#crm"/>
+        <NamedIndividual IRI="#Samuel"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3210</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#andar"/>
+        <NamedIndividual IRI="#UTI-3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">1</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#numero"/>
+        <NamedIndividual IRI="#UTI-3"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">3</Literal>
     </DataPropertyAssertion>
     <InverseObjectProperties>
         <ObjectProperty IRI="http://www.semanticweb.org/mariaeduarda/ontologies/2021/4/untitled-ontology-6#opera"/>
@@ -581,6 +1199,10 @@
     <InverseObjectProperties>
         <ObjectProperty IRI="#acompanha"/>
         <ObjectProperty IRI="#eAcompanhado"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#aloja"/>
+        <ObjectProperty IRI="#eInternado"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
         <ObjectProperty IRI="#anestesia"/>
@@ -624,6 +1246,9 @@
         <ObjectProperty IRI="#acompanha"/>
     </AsymmetricObjectProperty>
     <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#aloja"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
         <ObjectProperty IRI="#anestesia"/>
     </AsymmetricObjectProperty>
     <AsymmetricObjectProperty>
@@ -637,6 +1262,9 @@
     </AsymmetricObjectProperty>
     <AsymmetricObjectProperty>
         <ObjectProperty IRI="#eAtendido"/>
+    </AsymmetricObjectProperty>
+    <AsymmetricObjectProperty>
+        <ObjectProperty IRI="#eInternado"/>
     </AsymmetricObjectProperty>
     <AsymmetricObjectProperty>
         <ObjectProperty IRI="#eLimpo"/>
@@ -687,6 +1315,10 @@
         <Class IRI="#Acompanhante"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#aloja"/>
+        <Class IRI="#AlaRecuperacao"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#anestesia"/>
         <Class IRI="#Anestesista"/>
     </ObjectPropertyDomain>
@@ -704,6 +1336,10 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#eAtendido"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#eInternado"/>
         <Class IRI="#Paciente"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -784,6 +1420,10 @@
         <Class IRI="#Paciente"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#aloja"/>
+        <Class IRI="#Paciente"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#anestesia"/>
         <Class IRI="#Paciente"/>
     </ObjectPropertyRange>
@@ -802,6 +1442,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#eAtendido"/>
         <Class IRI="#Medico"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#eInternado"/>
+        <Class IRI="#AlaRecuperacao"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#eLimpo"/>
@@ -892,6 +1536,10 @@
     <DataPropertyDomain>
         <DataProperty IRI="#andar"/>
         <Class IRI="#Local"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#cargo"/>
+        <Class IRI="#Medico"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#coren"/>
